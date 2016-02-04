@@ -9,8 +9,10 @@ var enemy = function() {
 
     //TODO - Added by Geo to establish starting location
     // Dependencies to consider.  Row starts on, grid start reference point.
-
-    this.x = 0;
+    // enemy-bug.png is 101 x 171
+    // x = 0, y = 63 perfectly centers enemy on first ronw first square tile
+    // x = -
+    this.x = -95;
     this.y = 63;
 };
 
