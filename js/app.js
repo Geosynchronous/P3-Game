@@ -29,14 +29,14 @@ enemy.prototype.update = function(dt) {
     // TODO - finish this
     // The enemy will need to be centered between the rows and is a constant dy over dt
     // The enemy will need to move dy as a function of dt accross the columns
-    // Starts Enemy sprite with some fraction of 1 as an o
-    // if (this.x < 1) {
+    if (this.x > 600) {
+        this.x = -95;
+    } else {
         this.x = this.x + (300 * dt);
-    // }
-    // else {
-    //     this.x = this.x * (1 + (3 * dt));
-    // }
+    }
 
+
+    console.log(dt);
     console.log(this.x);
     //this.y = this.y * (1 + dt);
 
@@ -57,6 +57,8 @@ enemy.prototype.render = function() {
 //TODO - Temporary, to avoid errors.  Need to finish...
 var enemyArray = [];
 enemyArray[0] = new enemy;
+// enemyArray[1] = new enemy;
+// enemyArray[2] = new enemy;
 var allEnemies = enemyArray;
 
 // Place the player object in a variable called player
