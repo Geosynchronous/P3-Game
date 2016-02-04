@@ -11,7 +11,7 @@ var enemy = function() {
     // Dependencies to consider.  Row starts on, grid start reference point.
 
     this.x = 0;
-    this.y = 0;
+    this.y = 63;
 };
 
 
@@ -22,9 +22,10 @@ enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
 
+    // TODO - finish this
     // The enemy will need to be centered between the rows and is a constant dy over dt
     // The enemy will need to move dy as a function of dt accross the columns
-    //this.x = this.x * (1 + );
+    //this.x = this.x * (1 + ???);
     //this.y = this.y * (1 + dt);
 
 };
@@ -42,7 +43,9 @@ enemy.prototype.render = function() {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 //TODO - Temporary, to avoid errors.  Need to finish...
-var allEnemies = [];
+var enemyArray = [];
+enemyArray[0] = new enemy;
+var allEnemies = enemyArray;
 
 // Place the player object in a variable called player
 
