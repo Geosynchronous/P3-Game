@@ -6,7 +6,14 @@ var enemy = function() {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
+
+    //TODO - Added by Geo to establish starting location
+    // Dependencies to consider.  Row starts on, grid start reference point.
+
+    this.x = 0;
+    this.y = 0;
 };
+
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -14,6 +21,12 @@ enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+
+    // The enemy will need to be centered between the rows and is a constant dy over dt
+    // The enemy will need to move dy as a function of dt accross the columns
+    //this.x = this.x * (1 + );
+    //this.y = this.y * (1 + dt);
+
 };
 
 // Draw the enemy on the screen, required method for game
