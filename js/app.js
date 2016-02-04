@@ -36,8 +36,13 @@ enemy.prototype.update = function(dt) {
     }
 
 
-    console.log(dt);
-    console.log(this.x);
+    // console.log(dt);
+    // console.log(this.x);
+    // console.log(this);
+    // console.log(enemy);
+    // console.log(allEnemies);
+    // console.log(allEnemies[0]);
+    console.log(allEnemies[1]);
     //this.y = this.y * (1 + dt);
 
 };
@@ -55,11 +60,14 @@ enemy.prototype.render = function() {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 //TODO - Temporary, to avoid errors.  Need to finish...
-var enemyArray = [];
-enemyArray[0] = new enemy;
-// enemyArray[1] = new enemy;
-// enemyArray[2] = new enemy;
-var allEnemies = enemyArray;
+var allEnemies = [];
+allEnemies[0] = new enemy;
+allEnemies[1] = new enemy;
+allEnemies[1].y = 147;
+// allEnemies[1].x = this.x;
+allEnemies[2] = new enemy;
+allEnemies[2].y = 233;
+
 
 // Place the player object in a variable called player
 
