@@ -94,7 +94,10 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
-        player.update();
+
+        // TODO - commented out till defined in app.js
+        // Allows Engine function, so that game grid will display.
+        //player.update();
     }
 
     /* This function initially draws the "game level", it will then call
@@ -151,7 +154,9 @@ var Engine = (function(global) {
             enemy.render();
         });
 
-        player.render();
+        // TODO - commented out till defined in app.js
+        // Allows Engine function, so that game grid will display.
+        //player.render();
     }
 
     /* This function does nothing but it could have been a good place to
