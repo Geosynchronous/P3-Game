@@ -9,9 +9,11 @@ var enemy = function() {
 
     //TODO - Added by Geo to establish starting location
     // Dependencies to consider.  Row starts on, grid start reference point.
-    // enemy-bug.png is 101 x 171
+    // enemy-bug.png is 101 x 171, note the enemy bug is actually smaller due to alpha background
     // x = 0, y = 63 perfectly centers enemy on first ronw first square tile
-    // x = -
+    // x = -95 offsets most bug off canvas with only a little nose showing
+    // this is a good place to start for the first enemy on first brick row
+    // TODO - refactor for multiple rows and multiple bugs
     this.x = -95;
     this.y = 63;
 };
@@ -27,7 +29,15 @@ enemy.prototype.update = function(dt) {
     // TODO - finish this
     // The enemy will need to be centered between the rows and is a constant dy over dt
     // The enemy will need to move dy as a function of dt accross the columns
-    //this.x = this.x * (1 + ???);
+    // Starts Enemy sprite with some fraction of 1 as an o
+    // if (this.x < 1) {
+        this.x = this.x + (300 * dt);
+    // }
+    // else {
+    //     this.x = this.x * (1 + (3 * dt));
+    // }
+
+    console.log(this.x);
     //this.y = this.y * (1 + dt);
 
 };
