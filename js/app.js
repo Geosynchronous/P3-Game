@@ -37,7 +37,7 @@ enemy.prototype.update = function(dt) {
     if (this.x > 600) {
         this.x = -95;
     } else {
-        this.x = this.x + (300 * this.velocity * dt);
+        this.x = this.x + (300 * this.velocity * dt) + 10 * Math.sin(this.x);
     }
 };
 
