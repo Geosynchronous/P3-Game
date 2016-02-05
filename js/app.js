@@ -68,7 +68,7 @@ Enemy.prototype.render = function() {
 // Individual velocity parameters passed to various enemies.
 // Row offset passed into y values for row centering
 // allEnemies is global array, and allEnemy[] elements have Enemy prototype
-var offsetRow = 85;
+var offsetRow = 83;
 
 var allEnemies = [];
 allEnemies[0] = new Enemy(0.5);
