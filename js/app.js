@@ -57,11 +57,12 @@ enemy.prototype.render = function() {
 // Row offset passed into y values for row centering
 // allEnemies is global array, and allEnemy[] elements have enemy prototype
 var allEnemies = [];
-allEnemies[0] = new enemy(1);
+allEnemies[0] = new enemy(0.5);
 allEnemies[1] = new enemy(1.3);
 allEnemies[1].y = 147;
-allEnemies[2] = new enemy(2.1);
+allEnemies[2] = new enemy(1.7);
 allEnemies[2].y = 233;
+allEnemies[3] = new enemy(Math.random() * 2);
 
 
 // Place the player object in a variable called player
