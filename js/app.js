@@ -3,9 +3,9 @@
 // PseudoClassical Class Definition Function used here
 // Enemy is a constructor function(Capitalize first letter)
 // velocity sets relative default speed of Enemy as global variable
-var velocity = 1;
-var enemyYstart = 63;
-var enemyXstart = -95;
+var velocity = 1,
+    enemyYstart = 63,
+    enemyXstart = -95;
 
 var Enemy = function(velocity) {
     this.velocity = velocity;
@@ -20,8 +20,6 @@ var Enemy = function(velocity) {
     // Enemy-bug.png is 101 x 171, Enemy visual is actually smaller due to alpha background
     // x = 0, y = 63 perfectly centers Enemy on first ronw first square tile
     // x = -95 offsets most bug off canvas with only a little nose showing
-    // this is a good place to start for the first Enemy on first brick row
-    // TODO - refactor for multiple rows and multiple bugs
     this.x = enemyXstart;
     this.y = enemyYstart;
 };
@@ -39,9 +37,9 @@ Enemy.prototype.update = function(dt) {
     // Increment relative velocity set for each Enemy element as passed parameter.
     // dt sets relatively constant time increment value on all computers.
     // "Jitterbug" (variable velocity) effect added with weighted sine fn
-    var xEnd = 600;
+    var enemyxEnd = 600;
 
-    if (this.x > xEnd) {
+    if (this.x > enemyxEnd) {
         this.x = enemyXstart;
     } else {
         var constantScale = 300;
@@ -61,6 +59,32 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
+
+// Our Player must avoid enemy
+// PseudoClassical Class Definition Function used here
+// Player is a constructor function(Capitalize first letter)
+
+var playerYstart = 20,
+    playerXstart = 20;
+
+var Player = function() {
+    // The image/sprite for our Player this uses
+    // a helper we've provided to easily load images
+    this.sprite = 'images/char-cat-girl.png';
+
+    // Establish position starting point
+    // char-cat-girl.png is 101 x 171, Player visual is actually smaller due to alpha background
+    this.x = playerXstart;
+    this.y = playerYstart;
+};
+
+Player.prototype.update = function(dt) {
+};
+
+// Draw the Player on the screen, required method for game
+Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
 
 
 // Now instantiate your objects.
@@ -85,7 +109,7 @@ allEnemies[5].y = 4 * offsetRow + enemyYstart;
 
 // Place the player object in a variable called player
 
-
+var player = new Player;
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
