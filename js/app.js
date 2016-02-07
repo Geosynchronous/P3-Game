@@ -140,11 +140,11 @@ var offsetRow = 83;
 
 var allEnemies = [];
 allEnemies[0] = new Enemy(0.6);
-allEnemies[1] = new Enemy(1);
+allEnemies[1] = new Enemy(1.0);
 allEnemies[1].y = 1 * offsetRow + enemyYstart;
 allEnemies[2] = new Enemy(1.4);
 allEnemies[2].y = 2 * offsetRow + enemyYstart;
-allEnemies[3] = new Enemy(1.5 * Math.random());
+allEnemies[3] = new Enemy(2.0 * Math.random());
 allEnemies[3].y = 2 * offsetRow + enemyYstart;
 allEnemies[3].rogue = true;
 // TODO - Use on progressive level
