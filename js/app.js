@@ -42,7 +42,7 @@ Enemy.prototype.update = function(dt) {
     if (this.x > enemyxEnd) {
         this.x = enemyXstart;
     } else {
-        var constantScale = 300;
+        var constantScale = 100;
         var constantIncrement = (constantScale * this.velocity * dt);
         var variableScale = 10;
         var variableIncrement = variableScale * Math.sin(this.x);
@@ -64,8 +64,8 @@ Enemy.prototype.render = function() {
 // PseudoClassical Class Definition Function used here
 // Player is a constructor function(Capitalize first letter)
 
-var playerYstart = 20,
-    playerXstart = 20;
+var playerYstart = 380,
+    playerXstart = 203;
 
 var Player = function() {
     // The image/sprite for our Player this uses
@@ -81,17 +81,19 @@ var Player = function() {
 // Update Player location
 Player.prototype.update = function(dt) {
 //player handle input keys here with logic to move player in proper direction.
+//Movement constrained within displayed game grid
     Player.prototype.handleInput = function(keyup) {
-        console.log(keyup);
-        if(keyup === 'up') {
-            this.y = this.y - 10;
-        } else if (keyup === 'down') {
-            this.y = this.y + 10;
-        } else if (keyup === 'right') {
-            this.x = this.x + 10;
-        } else if (keyup === 'left') {
-            this.x = this.x - 10;
+        var playerIncrement = 15;
+        if(keyup === 'up' && this.y > 1) {
+            this.y = this.y - playerIncrement;
+        } else if (keyup === 'down' && this.y < 400) {
+            this.y = this.y + playerIncrement;
+        } else if (keyup === 'right' && this.x < 400) {
+            this.x = this.x + playerIncrement;
+        } else if (keyup === 'left' && this.x > 1) {
+            this.x = this.x - playerIncrement;
         }
+        console.log(this.x, this.y);
     };
 };
 
@@ -108,16 +110,17 @@ Player.prototype.render = function() {
 var offsetRow = 83;
 
 var allEnemies = [];
-allEnemies[0] = new Enemy(0.5);
+allEnemies[0] = new Enemy(0.6);
 allEnemies[1] = new Enemy(1);
 allEnemies[1].y = 1 * offsetRow + enemyYstart;
 allEnemies[2] = new Enemy(1.4);
 allEnemies[2].y = 2 * offsetRow + enemyYstart;
-allEnemies[3] = new Enemy(Math.random() * 2);
-allEnemies[4] = new Enemy(0.33);
-allEnemies[4].y = 3 * offsetRow + enemyYstart;
-allEnemies[5] = new Enemy(0.11);
-allEnemies[5].y = 4 * offsetRow + enemyYstart;
+allEnemies[3] = new Enemy(Math.random() * 1.5);
+// TODO - Use on progressive level
+// allEnemies[4] = new Enemy(0.33);
+// allEnemies[4].y = 3 * offsetRow + enemyYstart;
+// allEnemies[5] = new Enemy(0.11);
+// allEnemies[5].y = 4 * offsetRow + enemyYstart;
 
 
 // Place the player object in a variable called player
