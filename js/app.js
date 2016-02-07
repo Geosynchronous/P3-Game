@@ -22,6 +22,11 @@ var Enemy = function(velocity) {
     // x = -95 offsets most bug off canvas with only a little nose showing
     this.x = enemyXstart;
     this.y = enemyYstart;
+
+    // Rogue enemy, can move accross lanes when true
+    this.rogue = false;
+    // ySign can be positive or negative to set enemy lane change direction
+    this.ySign = 1;
 };
 
 // Update the Enemy's position, required method for game
@@ -36,8 +41,10 @@ Enemy.prototype.update = function(dt) {
     // Incremenmts movement of Enemy within boundaries.
     // Increment relative velocity set for each Enemy element as passed parameter.
     // dt sets relatively constant time increment value on all computers.
-    // "Jitterbug" (variable velocity) effect added with weighted sine fn
+    // "Jitterbug" (variable velocity) effect added with weighted sine & cosine fn
     var enemyxEnd = 600;
+        // rogueUpdown = -1;
+
 
     if (this.x > enemyxEnd) {
         this.x = enemyXstart;
@@ -48,6 +55,23 @@ Enemy.prototype.update = function(dt) {
         var variableIncrement = variableScale * Math.sin(this.x);
 
         this.x = this.x + constantIncrement + variableIncrement;
+
+
+        // Checks if enemy is a rogue, if so it can move accross lanes
+        if ((this.rogue === true && this.y < 250) && (this.rogue === true && this.y > 50)){
+            this.y = this.y - 0.2 * this.ySign;
+            // console.log(this.y);
+        } else if (this.rogue === true && this.y <= 50) {
+            this.ySign = this.ySign * (-1);
+            this.y = 55;
+        } else if (this.rogue === true && this.y >= 250) {
+            this.ySign = this.ySign * (-1);
+            this.y = 245;
+        }
+
+
+        // Check Boundary Edge, if so switch up/down direction of Enemy
+
     }
 };
 
@@ -120,7 +144,9 @@ allEnemies[1] = new Enemy(1);
 allEnemies[1].y = 1 * offsetRow + enemyYstart;
 allEnemies[2] = new Enemy(1.4);
 allEnemies[2].y = 2 * offsetRow + enemyYstart;
-allEnemies[3] = new Enemy(Math.random() * 1.5);
+allEnemies[3] = new Enemy(1.5 * Math.random());
+allEnemies[3].y = 2 * offsetRow + enemyYstart;
+allEnemies[3].rogue = true;
 // TODO - Use on progressive level
 // allEnemies[4] = new Enemy(0.33);
 // allEnemies[4].y = 3 * offsetRow + enemyYstart;
@@ -143,6 +169,4 @@ document.addEventListener('keyup', function(e) {
     };
 
     player.handleInput(allowedKeys[e.keyCode]);
-        console.log(allowedKeys[e.keyCode]);
-
 });
