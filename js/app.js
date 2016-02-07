@@ -78,14 +78,27 @@ var Player = function() {
     this.y = playerYstart;
 };
 
+// Update Player location
 Player.prototype.update = function(dt) {
+//player handle input keys here with logic to move player in proper direction.
+    Player.prototype.handleInput = function(keyup) {
+        console.log(keyup);
+        if(keyup === 'up') {
+            this.y = this.y - 10;
+        } else if (keyup === 'down') {
+            this.y = this.y + 10;
+        } else if (keyup === 'right') {
+            this.x = this.x + 10;
+        } else if (keyup === 'left') {
+            this.x = this.x - 10;
+        }
+    };
 };
 
 // Draw the Player on the screen, required method for game
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
-
 
 // Now instantiate your objects.
 // Place all Enemy objects in an array called allEnemies
@@ -122,4 +135,6 @@ document.addEventListener('keyup', function(e) {
     };
 
     player.handleInput(allowedKeys[e.keyCode]);
+        console.log(allowedKeys[e.keyCode]);
+
 });
