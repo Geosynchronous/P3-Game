@@ -81,16 +81,21 @@ var Player = function() {
 // Update Player location
 Player.prototype.update = function(dt) {
 //player handle input keys here with logic to move player in proper direction.
-//Movement constrained within displayed game grid
+//Movement constrained within displayed game grid (1 - 400)
     Player.prototype.handleInput = function(keyup) {
-        var playerIncrement = 15;
-        if(keyup === 'up' && this.y > 1) {
+        var playerIncrement = 15,
+            topLimit = 1,
+            leftLimit = 1,
+            bottomLimit = 400,
+            rightLimit = 400;
+
+        if(keyup === 'up' && this.y > topLimit) {
             this.y = this.y - playerIncrement;
-        } else if (keyup === 'down' && this.y < 400) {
+        } else if (keyup === 'down' && this.y < bottomLimit) {
             this.y = this.y + playerIncrement;
-        } else if (keyup === 'right' && this.x < 400) {
+        } else if (keyup === 'right' && this.x < rightLimit) {
             this.x = this.x + playerIncrement;
-        } else if (keyup === 'left' && this.x > 1) {
+        } else if (keyup === 'left' && this.x > leftLimit) {
             this.x = this.x - playerIncrement;
         }
         console.log(this.x, this.y);
