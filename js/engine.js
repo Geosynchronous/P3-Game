@@ -151,7 +151,12 @@ var Engine = (function(global) {
     function renderInfo() {
 
         // Displays current Game Level
-        ctx.fillStyle = '#000';
+
+     var my_gradientBoard = ctx.createLinearGradient(0, 0, 0, 50);
+
+        my_gradientBoard.addColorStop(0, "#666666");
+        my_gradientBoard.addColorStop(1, "#000");
+        ctx.fillStyle = my_gradientBoard;
         ctx.fillRect(0, 0, 505, 47);
         ctx.fillStyle = '#fbcc09';
         ctx.textBaseline = 'top';
@@ -160,12 +165,12 @@ var Engine = (function(global) {
 
         // Play Button allows user to start playing game when selected
 
-        var my_gradient = ctx.createLinearGradient(0, 0, 0, 90);
+        var my_gradient = ctx.createLinearGradient(0, 0, 0, 70);
 
         my_gradient.addColorStop(0, "#cc0000");
-        my_gradient.addColorStop(1, "black");
+        my_gradient.addColorStop(1, "#000");
         ctx.fillStyle = my_gradient;
-        ctx.fillRect(5, 5, 90, 37);
+        ctx.fillRect(7, 7, 88, 35);
         ctx.fillStyle = '#fff';
         ctx.textBaseline = 'top';
         ctx.font = 'bold 24px sans-serif';
@@ -173,13 +178,13 @@ var Engine = (function(global) {
 
         // Info Button when selected opens window of instructions and other info
         my_gradient.addColorStop(0, "#cc0000");
-        my_gradient.addColorStop(1, "black");
+        my_gradient.addColorStop(1, "#000");
         ctx.fillStyle = my_gradient;
-        ctx.fillRect(410, 5, 90, 37);
+        ctx.fillRect(412, 7, 88, 35);
         ctx.fillStyle  = '#fff';
         ctx.textBaseline = 'top';
         ctx.font = 'bold 24px sans-serif';
-        ctx.fillText('Info', 432, 8);
+        ctx.fillText('Info', 435, 8);
     }
 
     /* This function is called by the render function and is called on each game
