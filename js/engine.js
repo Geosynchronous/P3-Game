@@ -108,6 +108,7 @@ var Engine = (function(global) {
      * they are just drawing the entire screen over and over.
      */
     function render() {
+
         /* This array holds the relative URL to the image used
          * for that particular row of the game level.
          */
@@ -140,7 +141,45 @@ var Engine = (function(global) {
             }
         }
 
+        // Places info and score board at top of game grid
+        renderInfo();
+
         renderEntities();
+    }
+
+    // This function renders the Info and Score board at top of game grid
+    function renderInfo() {
+
+        // Displays current Game Level
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, 505, 47);
+        ctx.fillStyle = '#fbcc09';
+        ctx.textBaseline = 'top';
+        ctx.font = 'bold 30px sans-serif';
+        ctx.fillText('Level 1', 202, 5);
+
+        // Play Button allows user to start playing game when selected
+
+        var my_gradient = ctx.createLinearGradient(0, 0, 0, 90);
+
+        my_gradient.addColorStop(0, "#cc0000");
+        my_gradient.addColorStop(1, "black");
+        ctx.fillStyle = my_gradient;
+        ctx.fillRect(5, 5, 90, 37);
+        ctx.fillStyle = '#fff';
+        ctx.textBaseline = 'top';
+        ctx.font = 'bold 24px sans-serif';
+        ctx.fillText('Play', 24, 8);
+
+        // Info Button when selected opens window of instructions and other info
+        my_gradient.addColorStop(0, "#cc0000");
+        my_gradient.addColorStop(1, "black");
+        ctx.fillStyle = my_gradient;
+        ctx.fillRect(410, 5, 90, 37);
+        ctx.fillStyle  = '#fff';
+        ctx.textBaseline = 'top';
+        ctx.font = 'bold 24px sans-serif';
+        ctx.fillText('Info', 432, 8);
     }
 
     /* This function is called by the render function and is called on each game

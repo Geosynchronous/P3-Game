@@ -2,6 +2,6 @@ body {
     text-align: center;
     background: #fbcc09;
 }
-.title {
-
+h1 {
+	margin: 0px;
 }

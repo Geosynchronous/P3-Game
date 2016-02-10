@@ -68,10 +68,6 @@ Enemy.prototype.update = function(dt) {
             this.ySign = this.ySign * (-1);
             this.y = 245;
         }
-
-
-        // Check Boundary Edge, if so switch up/down direction of Enemy
-
     }
 };
 
@@ -129,6 +125,7 @@ Player.prototype.update = function(dt) {
 // Draw the Player on the screen, required method for game
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    //console.log(this.x,this.y);
 };
 
 // Now instantiate your objects.
