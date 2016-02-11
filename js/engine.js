@@ -30,6 +30,36 @@ var Engine = (function(global) {
     canvas.height = 606;
     doc.body.appendChild(canvas);
 
+
+    // Gives x,y location on canvas game grid from mouse click
+    // Needed for Play, Info and other buttons
+    var c = document.querySelector("canvas");
+
+    var playButton = false;
+
+    function handleMouseClick(evt) {
+            x = evt.clientX - c.offsetLeft;
+            y = evt.clientY - c.offsetTop;
+
+            var playButton = false;
+
+            if ((x >= 7  && x <= 88) && (y >= 7 && y <= 35)) {
+                 playButton = true;
+            }
+            console.log(playButton);
+
+
+            //infoButton
+            //backButton
+
+            console.log("x,y:"+x+","+y);
+    }
+
+    c.addEventListener("click", handleMouseClick, false);
+
+
+
+
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
      */
@@ -96,8 +126,6 @@ var Engine = (function(global) {
             Enemy.update(dt);
         });
 
-        // TODO - commented out till defined in app.js
-        // Allows Engine function, so that game grid will display.
         player.update();
     }
 
