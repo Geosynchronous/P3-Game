@@ -84,18 +84,20 @@ Enemy.prototype.render = function() {
 // PseudoClassical Class Definition Function used here
 // Player is a constructor function(Capitalize first letter)
 
-var playerYstart = 380,
-    playerXstart = 203;
-
 var Player = function() {
+    // Establish position starting point
+    // char-cat-girl.png is 101 x 171, Player visual is actually smaller due to alpha background
+    var playerYstart = 380,
+        playerXstart = 203;
+
+    this.x = playerXstart;
+    this.y = playerYstart;
+
     // The image/sprite for our Player this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/char-cat-girl.png';
 
-    // Establish position starting point
-    // char-cat-girl.png is 101 x 171, Player visual is actually smaller due to alpha background
-    this.x = playerXstart;
-    this.y = playerYstart;
+
 };
 
 // Update Player location
@@ -167,5 +169,8 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+
+
 
 

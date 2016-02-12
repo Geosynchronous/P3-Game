@@ -31,33 +31,40 @@ var Engine = (function(global) {
     doc.body.appendChild(canvas);
 
 
-    // Gives x,y location on canvas game grid from mouse click
-    // Needed for Play, Info and other buttons
-    var c = document.querySelector("canvas");
+    var MouseClicked = function handleMouseClick(evt) {
 
-    var playButton = false;
+            var buttonPlay = false,
+                buttonInfo = false;
+                this.buttonPlay = buttonPlay;
+                this.buttonInfo = buttonInfo;
+                this.x = 0;
+                this.y = 0;
 
-    function handleMouseClick(evt) {
-            x = evt.clientX - c.offsetLeft;
-            y = evt.clientY - c.offsetTop;
+            console.log(evt);
+            if (MouseEvent) {
+                console.log('YES');
 
-            var playButton = false;
+                this.x = evt.clientX - canvas.offsetLeft;
+                this.y = evt.clientY - canvas.offsetTop;
 
-            if ((x >= 7  && x <= 88) && (y >= 7 && y <= 35)) {
-                 playButton = true;
+                this.sprite = 'images/enemy-bug.png';
+
+                if ((this.x >= 7  && this.x<= 88) && (this.y >= 7 && this.y <= 35)) {
+                     this.buttonPlay = true;
+                } else if ((this.x >= 412  && this.x<= 500) && (this.y >= 7 && this.y <= 35)) {
+                    this.buttonInfo = true;
+                    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+                }
             }
-            console.log(playButton);
-
-
-            //infoButton
-            //backButton
-
-            console.log("x,y:"+x+","+y);
+            console.log(this.buttonPlay);
+            console.log(this.buttonInfo);
+            console.log("x,y:"+this.x+","+this.y);
     }
 
-    c.addEventListener("click", handleMouseClick, false);
+// mouseClicked = new MouseClicked;
+console.log(MouseClicked);
 
-
+    canvas.addEventListener("click", MouseClicked, false);
 
 
     /* This function serves as the kickoff point for the game loop itself
@@ -78,6 +85,7 @@ var Engine = (function(global) {
          */
         update(dt);
         render();
+
 
         /* Set our lastTime variable which is used to determine the time delta
          * for the next time this function is called.
@@ -256,4 +264,5 @@ var Engine = (function(global) {
      * from within their app.js files.
      */
     global.ctx = ctx;
+
 })(this);
