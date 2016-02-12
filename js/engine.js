@@ -23,40 +23,35 @@ var Engine = (function(global) {
         win = global.window,
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
+        buttonPlay = false,
+        buttonInfo = false,
         lastTime;
 
     canvas.width = 505;
     canvas.height = 606;
     doc.body.appendChild(canvas);
 
-var buttonPlay = false;
-    buttonInfo = false;
-
-
+// Mouse Click reveals if button is selected
+// Basic Function with Returnsd Variables Definition used
     function handleMouseClick(evt) {
 
-            buttonPlay = false,
-            buttonInfo = false;
-            x = 0;
-            y = 0;
+        buttonPlay = false,
+        buttonInfo = false;
+        x = evt.clientX - canvas.offsetLeft;
+        y = evt.clientY - canvas.offsetTop;
 
-            x = evt.clientX - canvas.offsetLeft;
-            y = evt.clientY - canvas.offsetTop;
+        // Determines if mouse clicked on a button
+        if ((x >= 7  && x<= 88) && (y >= 7 && y <= 35)) {
+            buttonPlay = true;
+        } else if (( x >= 412  && x<= 500) && (y >= 7 && y <= 35)) {
+            buttonInfo = true;
+        }
 
-            if ((x >= 7  && x<= 88) && (y >= 7 && y <= 35)) {
-                buttonPlay = true;
-            } else if (( x >= 412  && x<= 500) && (y >= 7 && y <= 35)) {
-                buttonInfo = true;
-            }
-
-            // console.log(buttonPlay);
-            // console.log(buttonInfo);
-            // console.log("x,y:"+this.x+","+this.y);
-
-     return buttonPlay, buttonInfo;
+        return buttonPlay, buttonInfo;
     }
 
-    canvas.addEventListener("click", handleMouseClick, false);
+    // Mouse click enevnt invokes handleMouseClick function
+    canvas.addEventListener('click', handleMouseClick, false);
 
 
     /* This function serves as the kickoff point for the game loop itself
@@ -180,42 +175,9 @@ var buttonPlay = false;
 
     // This function renders the Info and Score board at top of game grid
     function renderInfo() {
-
-        // Displays current Game Level
-
-     var my_gradientBoard = ctx.createLinearGradient(0, 0, 0, 50);
-
-        my_gradientBoard.addColorStop(0, "#666666");
-        my_gradientBoard.addColorStop(1, "#000");
-        ctx.fillStyle = my_gradientBoard;
-        ctx.fillRect(0, 0, 505, 47);
-        ctx.fillStyle = '#fbcc09';
-        ctx.textBaseline = 'top';
-        ctx.font = 'bold 30px sans-serif';
-        ctx.fillText('Level 1', 202, 5);
-
-        // Play Button allows user to start playing game when selected
-
-        var my_gradient = ctx.createLinearGradient(0, 0, 0, 70);
-
-        my_gradient.addColorStop(0, "#cc0000");
-        my_gradient.addColorStop(1, "#000");
-        ctx.fillStyle = my_gradient;
-        ctx.fillRect(7, 7, 88, 35);
-        ctx.fillStyle = '#fff';
-        ctx.textBaseline = 'top';
-        ctx.font = 'bold 24px sans-serif';
-        ctx.fillText('Play', 24, 8);
-
-        // Info Button when selected opens window of instructions and other info
-        my_gradient.addColorStop(0, "#cc0000");
-        my_gradient.addColorStop(1, "#000");
-        ctx.fillStyle = my_gradient;
-        ctx.fillRect(412, 7, 88, 35);
-        ctx.fillStyle  = '#fff';
-        ctx.textBaseline = 'top';
-        ctx.font = 'bold 24px sans-serif';
-        ctx.fillText('Info', 435, 8);
+        ScoreBoard();
+        PlayButton1();
+        InfoButton1();
     }
 
     /* This function is called by the render function and is called on each game
@@ -231,6 +193,51 @@ var buttonPlay = false;
         });
 
         player.render();
+    }
+
+    // Buttons and Scoreboard Image Functions
+    // Good Exercise in using canvas to create images like buttons
+    // Too much work, using HTML and CSS quicker, or a js library better
+    // TODO - Need to highlight mouseover buttons... refactor everything probably
+
+    // Displays current Game Level
+    var ScoreBoard = function() {
+        var my_gradientBoard = ctx.createLinearGradient(0, 0, 0, 50);
+        my_gradientBoard.addColorStop(0, "#666666");
+        my_gradientBoard.addColorStop(1, "#000");
+        ctx.fillStyle = my_gradientBoard;
+        ctx.fillRect(0, 0, 505, 47);
+        ctx.fillStyle = '#fbcc09';
+        ctx.textBaseline = 'top';
+        ctx.font = 'bold 30px sans-serif';
+        ctx.fillText('Level 1', 202, 5);
+    }
+
+
+    // Play Button allows user to start playing game when selected
+    var PlayButton1 = function() {
+        var my_gradient = ctx.createLinearGradient(0, 0, 0, 70);
+        my_gradient.addColorStop(0, "#cc0000");
+        my_gradient.addColorStop(1, "#000");
+        ctx.fillStyle = my_gradient;
+        ctx.fillRect(7, 7, 88, 35);
+        ctx.fillStyle = '#fff';
+        ctx.textBaseline = 'top';
+        ctx.font = 'bold 24px sans-serif';
+        ctx.fillText('Play', 24, 8);
+    }
+
+    // Info Button when selected opens window of instructions and other info
+    var InfoButton1 = function() {
+        var my_gradient = ctx.createLinearGradient(0, 0, 0, 70);
+        my_gradient.addColorStop(0, "#cc0000");
+        my_gradient.addColorStop(1, "#000");
+        ctx.fillStyle = my_gradient;
+        ctx.fillRect(412, 7, 88, 35);
+        ctx.fillStyle  = '#fff';
+        ctx.textBaseline = 'top';
+        ctx.font = 'bold 24px sans-serif';
+        ctx.fillText('Info', 435, 8);
     }
 
     /* This function does nothing but it could have been a good place to
