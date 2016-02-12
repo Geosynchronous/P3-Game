@@ -25,46 +25,38 @@ var Engine = (function(global) {
         ctx = canvas.getContext('2d'),
         lastTime;
 
-
     canvas.width = 505;
     canvas.height = 606;
     doc.body.appendChild(canvas);
 
+var buttonPlay = false;
+    buttonInfo = false;
 
-    var MouseClicked = function handleMouseClick(evt) {
 
-            var buttonPlay = false,
-                buttonInfo = false;
-                this.buttonPlay = buttonPlay;
-                this.buttonInfo = buttonInfo;
-                this.x = 0;
-                this.y = 0;
+    function handleMouseClick(evt) {
 
-            console.log(evt);
-            if (MouseEvent) {
-                console.log('YES');
+            buttonPlay = false,
+            buttonInfo = false;
+            x = 0;
+            y = 0;
 
-                this.x = evt.clientX - canvas.offsetLeft;
-                this.y = evt.clientY - canvas.offsetTop;
+            x = evt.clientX - canvas.offsetLeft;
+            y = evt.clientY - canvas.offsetTop;
 
-                this.sprite = 'images/enemy-bug.png';
-
-                if ((this.x >= 7  && this.x<= 88) && (this.y >= 7 && this.y <= 35)) {
-                     this.buttonPlay = true;
-                } else if ((this.x >= 412  && this.x<= 500) && (this.y >= 7 && this.y <= 35)) {
-                    this.buttonInfo = true;
-                    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-                }
+            if ((x >= 7  && x<= 88) && (y >= 7 && y <= 35)) {
+                buttonPlay = true;
+            } else if (( x >= 412  && x<= 500) && (y >= 7 && y <= 35)) {
+                buttonInfo = true;
             }
-            console.log(this.buttonPlay);
-            console.log(this.buttonInfo);
-            console.log("x,y:"+this.x+","+this.y);
+
+            // console.log(buttonPlay);
+            // console.log(buttonInfo);
+            // console.log("x,y:"+this.x+","+this.y);
+
+     return buttonPlay, buttonInfo;
     }
 
-// mouseClicked = new MouseClicked;
-console.log(MouseClicked);
-
-    canvas.addEventListener("click", MouseClicked, false);
+    canvas.addEventListener("click", handleMouseClick, false);
 
 
     /* This function serves as the kickoff point for the game loop itself
@@ -135,6 +127,9 @@ console.log(MouseClicked);
         });
 
         player.update();
+
+        // console.log(buttonPlay);
+        // console.log(buttonInfo);
     }
 
     /* This function initially draws the "game level", it will then call
