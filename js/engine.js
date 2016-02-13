@@ -204,10 +204,13 @@ var Engine = (function(global) {
      * handle game reset states - maybe a new game menu or a game over screen
      * those sorts of things. It's only called once by the init() method.
      */
+
+     // Reset fn now will set game engine to start in initial state
     function reset() {
         // noop
+        gamePlay = false;
+        infoRender = false;
     }
-
 
 
     // Mouse Click reveals if button is selected
@@ -218,13 +221,23 @@ var Engine = (function(global) {
         y = evt.clientY - canvas.offsetTop;
 
         // Determines if mouse clicked on a button
+
+        // Play Button resets player to start position
+        // gamePlay = true enables player to start playing
         if ((x >= 7  && x<= 88) && (y >= 7 && y <= 35)) {
             gamePlay = true;
             player.reset();
-        } else if (( x >= 412  && x<= 500) && (y >= 7 && y <= 35)) {
-            infoRender = true;
-        }
 
+        // Info Button Clicked
+        // Enables render of Info window about how to play game level
+        } else if (( x >= 412  && x<= 500) && (y >= 7 && y <= 35) && (!gamePlay)) {
+            infoRender = true;
+
+        // Reset Button Clicked
+        // Starts game engine from the initial start state
+        } else if (( x >= 412  && x<= 500) && (y >= 7 && y <= 35) && (gamePlay)) {
+            reset();
+        }
         return gamePlay, infoRender;
     }
 
