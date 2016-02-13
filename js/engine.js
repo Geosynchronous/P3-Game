@@ -151,9 +151,10 @@ var Engine = (function(global) {
         }
 
         // Places info and score board at top of game grid
-        renderScoreboard();
-
         renderEntities();
+        renderScoreboard();
+        renderInfo();
+
     }
 
     // This function renders the Info and Score board at top of game grid
@@ -169,15 +170,20 @@ var Engine = (function(global) {
             DisplayScore();
             ResetButton();
 
-        } else {
+        } else if (!infoRender) {
             PlayButton1();
             InfoButton1();
         }
     }
 
     //This function renders info about the game if the info button was clicked on
+    //TODO as if statement for specific level windows
     function renderInfo() {
 
+        if (infoRender) {
+            InfoWindow();
+            DoneButton();
+        }
     }
 
 
@@ -215,6 +221,7 @@ var Engine = (function(global) {
 
     // Mouse Click reveals if button is selected
     // Basic Function with Returnsd Variables Definition used
+    // TODO --- Refactor this logic to simplify
     function handleMouseClick(evt) {
 
         x = evt.clientX - canvas.offsetLeft;
@@ -224,20 +231,27 @@ var Engine = (function(global) {
 
         // Play Button resets player to start position
         // gamePlay = true enables player to start playing
-        if ((x >= 7  && x<= 88) && (y >= 7 && y <= 35)) {
+        if ((x >= 7  && x<= 88) && (y >= 7 && y <= 35) && (!infoRender)) {
             gamePlay = true;
             player.reset();
 
         // Info Button Clicked
         // Enables render of Info window about how to play game level
-        } else if (( x >= 412  && x<= 500) && (y >= 7 && y <= 35) && (!gamePlay)) {
+        } else if (( x >= 412  && x<= 500) && (y >= 7 && y <= 35) && (!gamePlay) && (!infoRender)) {
             infoRender = true;
 
         // Reset Button Clicked
         // Starts game engine from the initial start state
         } else if (( x >= 412  && x<= 500) && (y >= 7 && y <= 35) && (gamePlay)) {
             reset();
+
+        // Info Button Clicked
+        // Enables render of Info window about how to play game level
+        } else if (( x >= 412  && x<= 500) && (y >= 7 && y <= 35) && (infoRender)) {
+            infoRender = false;
+            console.log('hi');
         }
+
         return gamePlay, infoRender;
     }
 
