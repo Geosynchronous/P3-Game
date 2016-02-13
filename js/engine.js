@@ -225,8 +225,10 @@ var Engine = (function(global) {
         var my_gradient = ctx.createLinearGradient(0, 0, 0, 70);
         my_gradient.addColorStop(0, "#cc0000");
         my_gradient.addColorStop(1, "#000");
+        ctx.fillStyle  = '#e60000';
+        ctx.fillRect(9, 8, 88, 33);
         ctx.fillStyle = my_gradient;
-        ctx.fillRect(7, 7, 88, 35);
+        ctx.fillRect(7, 7, 88, 33);
         ctx.fillStyle = '#fff';
         ctx.textBaseline = 'top';
         ctx.font = 'bold 20px sans-serif';
@@ -238,8 +240,10 @@ var Engine = (function(global) {
         var my_gradient = ctx.createLinearGradient(0, 0, 0, 70);
         my_gradient.addColorStop(0, "#cc0000");
         my_gradient.addColorStop(1, "#000");
+        ctx.fillStyle  = '#e60000';
+        ctx.fillRect(412, 8, 88, 33);
         ctx.fillStyle = my_gradient;
-        ctx.fillRect(412, 7, 88, 35);
+        ctx.fillRect(410, 7, 88, 33);
         ctx.fillStyle  = '#fff';
         ctx.textBaseline = 'top';
         ctx.font = 'bold 20px sans-serif';
