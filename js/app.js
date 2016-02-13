@@ -87,11 +87,14 @@ Enemy.prototype.render = function() {
 var Player = function() {
     // Establish position starting point
     // char-cat-girl.png is 101 x 171, Player visual is actually smaller due to alpha background
-    var playerYstart = 380,
-        playerXstart = 203;
+    var Ystart = 380,
+        Xstart = 203;
 
-    this.x = playerXstart;
-    this.y = playerYstart;
+    this.Ystart = Ystart;
+    this.Xstart = Xstart;
+
+    this.x = Xstart;
+    this.y = Ystart;
 
     // The image/sprite for our Player this uses
     // a helper we've provided to easily load images
@@ -99,6 +102,11 @@ var Player = function() {
 
 
 };
+
+Player.prototype.reset = function() {
+    this.x = this.Xstart;
+    this.y = this.Ystart;
+}
 
 // Update Player location
 Player.prototype.update = function(dt) {

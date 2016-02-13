@@ -23,8 +23,8 @@ var Engine = (function(global) {
         win = global.window,
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
-        buttonPlay = false,
-        buttonInfo = false,
+        gamePlay = false,
+        infoRender = false,
         lastTime;
 
     canvas.width = 505;
@@ -73,7 +73,7 @@ var Engine = (function(global) {
      * game loop.
      */
     function init() {
-        reset();
+        reset
         lastTime = Date.now();
         main();
     }
@@ -151,7 +151,7 @@ var Engine = (function(global) {
         }
 
         // Places info and score board at top of game grid
-        renderInfo();
+        renderScoreboard();
 
         renderEntities();
     }
@@ -159,14 +159,27 @@ var Engine = (function(global) {
     // This function renders the Info and Score board at top of game grid
     // Optimally for game efficiency and frame rate, this does not need to be here
     // Just a good exercise in using Canvas, that is an intent of this project
-    function renderInfo() {
+    function renderScoreboard() {
         ScoreBoard();
-        PlayButton1();
-        InfoButton1();
         DisplayTitleShadow1();
         DisplayTitleShadow2();
         DisplayTitle();
+
+        if (gamePlay) {
+            DisplayScore();
+            ResetButton();
+
+        } else {
+            PlayButton1();
+            InfoButton1();
+        }
     }
+
+    //This function renders info about the game if the info button was clicked on
+    function renderInfo() {
+
+    }
+
 
     /* This function is called by the render function and is called on each game
      * tick. Its purpose is to then call the render functions you have defined
@@ -180,7 +193,10 @@ var Engine = (function(global) {
             Enemy.render();
         });
 
-        player.render();
+        if (gamePlay) {
+            player.render();
+        }
+
     }
 
 
@@ -190,6 +206,26 @@ var Engine = (function(global) {
      */
     function reset() {
         // noop
+    }
+
+
+
+    // Mouse Click reveals if button is selected
+    // Basic Function with Returnsd Variables Definition used
+    function handleMouseClick(evt) {
+
+        x = evt.clientX - canvas.offsetLeft;
+        y = evt.clientY - canvas.offsetTop;
+
+        // Determines if mouse clicked on a button
+        if ((x >= 7  && x<= 88) && (y >= 7 && y <= 35)) {
+            gamePlay = true;
+            player.reset();
+        } else if (( x >= 412  && x<= 500) && (y >= 7 && y <= 35)) {
+            infoRender = true;
+        }
+
+        return gamePlay, infoRender;
     }
 
     /* Go ahead and load all of the images we know we're going to need to
@@ -210,6 +246,7 @@ var Engine = (function(global) {
      * from within their app.js files.
      */
     global.ctx = ctx;
+    global.canvas = canvas;
 
 })(this);
 
