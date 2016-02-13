@@ -108,7 +108,7 @@ Player.prototype.update = function(dt) {
         var playerIncrement = 15,
             topLimit = 1,
             leftLimit = 1,
-            bottomLimit = 400,
+            bottomLimit = 380,
             rightLimit = 400;
 
         if(keyup === 'up' && this.y > topLimit) {

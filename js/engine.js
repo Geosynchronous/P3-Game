@@ -174,10 +174,15 @@ var Engine = (function(global) {
     }
 
     // This function renders the Info and Score board at top of game grid
+    // Optimally for game efficiency and frame rate, this does not need to be here
+    // Just a good exercise in using Canvas, that is an intent of this project
     function renderInfo() {
         ScoreBoard();
         PlayButton1();
         InfoButton1();
+        DisplayTitleShadow1();
+        DisplayTitleShadow2();
+        DisplayTitle();
     }
 
     /* This function is called by the render function and is called on each game
@@ -197,6 +202,7 @@ var Engine = (function(global) {
 
     // Buttons and Scoreboard Image Functions
     // Good Exercise in using canvas to create images like buttons
+    // All kinds of effects can created using JS for text, Jitter effect used here
     // Too much work, using HTML and CSS quicker, or a js library better
     // TODO - Need to highlight mouseover buttons... refactor everything probably
 
@@ -209,8 +215,8 @@ var Engine = (function(global) {
         ctx.fillRect(0, 0, 505, 47);
         ctx.fillStyle = '#fbcc09';
         ctx.textBaseline = 'top';
-        ctx.font = 'bold 30px sans-serif';
-        ctx.fillText('Level 1', 202, 5);
+        ctx.font = 'bold 24px sans-serif';
+        ctx.fillText('Level 1', 210, 10);
     }
 
 
@@ -223,8 +229,8 @@ var Engine = (function(global) {
         ctx.fillRect(7, 7, 88, 35);
         ctx.fillStyle = '#fff';
         ctx.textBaseline = 'top';
-        ctx.font = 'bold 24px sans-serif';
-        ctx.fillText('Play', 24, 8);
+        ctx.font = 'bold 20px sans-serif';
+        ctx.fillText('Play', 28, 12);
     }
 
     // Info Button when selected opens window of instructions and other info
@@ -236,8 +242,32 @@ var Engine = (function(global) {
         ctx.fillRect(412, 7, 88, 35);
         ctx.fillStyle  = '#fff';
         ctx.textBaseline = 'top';
-        ctx.font = 'bold 24px sans-serif';
-        ctx.fillText('Info', 435, 8);
+        ctx.font = 'bold 20px sans-serif';
+        ctx.fillText('Info', 440, 12);
+    }
+
+    // Bottom Shadow Jitters with Trig fn
+    var DisplayTitleShadow1 = function() {
+        ctx.fillStyle  = '#000';
+        ctx.textBaseline = 'top';
+        ctx.font = 'bold 32px sans-serif';
+        ctx.fillText('J I T T E R B U G G I N G', 72 + 2 * Math.cos(Date.now()), 534 + 2 * Math.cos(Date.now()));
+    }
+
+    //  Middle Shadow Jitters with Trig fn
+    var DisplayTitleShadow2 = function() {
+        ctx.fillStyle  = '#cc0000';
+        ctx.textBaseline = 'top';
+        ctx.font = 'bold 32px sans-serif';
+        ctx.fillText('J I T T E R B U G G I N G', 70 + Math.sin(Date.now()), 529 + Math.cos(Date.now()));
+    }
+
+    // Title Jitters with Trig fn
+        var DisplayTitle = function() {
+        ctx.fillStyle  = '#fbcc09';
+        ctx.textBaseline = 'top';
+        ctx.font = 'bold 32px sans-serif';
+        ctx.fillText('J I T T E R B U G G I N G', 70 + Math.cos(Date.now()), 530);
     }
 
     /* This function does nothing but it could have been a good place to
