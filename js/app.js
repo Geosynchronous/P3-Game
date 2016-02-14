@@ -5,7 +5,8 @@
 // velocity sets relative default speed of Enemy as global variable
 var velocity = 1,
     enemyYstart = 63,
-    enemyXstart = -95;
+    enemyXstart = -95,
+    updateScore = false;
 
 var Enemy = function(velocity) {
     this.velocity = velocity;
@@ -106,20 +107,30 @@ var Player = function() {
 Player.prototype.reset = function() {
     this.x = this.Xstart;
     this.y = this.Ystart;
-}
+};
+
+
+// // If PLAYER WINS GAME, set to start another game
+// Player.prototype.nextGame = function() {
+//     if (playerScore = 10) {
+//         this.x = this.XStart;
+//         this.y = this.YStart;
+//     }
+// };
 
 // Update Player location
 Player.prototype.update = function(dt) {
-//player handle input keys here with logic to move player in proper direction.
-//Movement constrained within displayed game grid (1 - 400)
+
+    //player handle input keys here with logic to move player in proper direction.
+    //Movement constrained within displayed game grid (1 - 400)
     Player.prototype.handleInput = function(keyup) {
         var playerIncrement = 15,
-            topLimit = 1,
+            topLimit = 0,
             leftLimit = 1,
             bottomLimit = 380,
             rightLimit = 400;
 
-        if(keyup === 'up' && this.y > topLimit) {
+        if (keyup === 'up' && this.y > topLimit) {
             this.y = this.y - playerIncrement;
         } else if (keyup === 'down' && this.y < bottomLimit) {
             this.y = this.y + playerIncrement;
@@ -128,7 +139,12 @@ Player.prototype.update = function(dt) {
         } else if (keyup === 'left' && this.x > leftLimit) {
             this.x = this.x - playerIncrement;
         }
-        console.log(this.x, this.y);
+
+        // Check to see if PLAYER is in the WATER
+        if (this.y <= 5 ) {
+            updateScore = true;
+        }
+        console.log(this.x, this.y, updateScore);
     };
 };
 

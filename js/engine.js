@@ -66,7 +66,7 @@ var Engine = (function(global) {
          * function again as soon as the browser is able to draw another frame.
          */
         win.requestAnimationFrame(main);
-    }
+    };
 
     /* This function does some initial setup that should only occur once,
      * particularly setting the lastTime variable that is required for the
@@ -76,7 +76,7 @@ var Engine = (function(global) {
         reset
         lastTime = Date.now();
         main();
-    }
+    };
 
     /* This function is called by main (our game loop) and itself calls all
      * of the functions which may need to update entity's data. Based on how
@@ -89,8 +89,9 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
+        updateGameStats();
         // checkCollisions();
-    }
+    };
 
     /* This is called by the update function and loops through all of the
      * objects within your allEnemies array as defined in app.js and calls
@@ -106,9 +107,7 @@ var Engine = (function(global) {
 
         player.update();
 
-        // console.log(buttonPlay);
-        // console.log(buttonInfo);
-    }
+    };
 
     /* This function initially draws the "game level", it will then call
      * the renderEntities function. Remember, this function is called every
@@ -155,7 +154,7 @@ var Engine = (function(global) {
         renderScoreboard();
         renderInfo();
 
-    }
+    };
 
     // This function renders the Info and Score board at top of game grid
     // Optimally for game efficiency and frame rate, this does not need to be here
@@ -174,7 +173,7 @@ var Engine = (function(global) {
             PlayButton1();
             InfoButton1();
         }
-    }
+    };
 
     //This function renders info about the game if the info button was clicked on
     //TODO as if statement for specific level windows
@@ -184,7 +183,7 @@ var Engine = (function(global) {
             InfoWindow();
             DoneButton();
         }
-    }
+    };
 
 
     /* This function is called by the render function and is called on each game
@@ -203,7 +202,7 @@ var Engine = (function(global) {
             player.render();
         }
 
-    }
+    };
 
 
     /* This function does nothing but it could have been a good place to
@@ -216,7 +215,25 @@ var Engine = (function(global) {
         // noop
         gamePlay = false;
         infoRender = false;
-    }
+        playerScore = 0;
+    };
+
+    // Updates Game Stats and States
+    function updateGameStats() {
+
+        // Update score when player reaches water
+        if (updateScore) {
+            playerScore = playerScore + 1;
+            player.reset();
+            updateScore = false;
+        }
+
+        // Check for Game Won and set to start a new game
+        if (playerScore === 10) {
+            reset();
+            lifeCycle = lifeCycle + 1;
+        }
+    };
 
 
     // Mouse Click reveals if button is selected
@@ -253,7 +270,7 @@ var Engine = (function(global) {
         }
 
         return gamePlay, infoRender;
-    }
+    };
 
     /* Go ahead and load all of the images we know we're going to need to
      * draw our game level. Then set init as the callback method, so that when
