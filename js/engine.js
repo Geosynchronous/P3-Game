@@ -25,7 +25,9 @@ var Engine = (function(global) {
         ctx = canvas.getContext('2d'),
         gamePlay = false,
         infoRender = false,
-        lastTime;
+        lastTime,
+        playerX,
+        playerY;
 
     canvas.width = 505;
     canvas.height = 606;
@@ -55,7 +57,6 @@ var Engine = (function(global) {
          */
         update(dt);
         render();
-
 
         /* Set our lastTime variable which is used to determine the time delta
          * for the next time this function is called.
@@ -90,7 +91,7 @@ var Engine = (function(global) {
     function update(dt) {
         updateEntities(dt);
         updateGameStats();
-        // checkCollisions();
+        checkCollisions(playerX, playerY);
     };
 
     /* This is called by the update function and loops through all of the
@@ -106,7 +107,6 @@ var Engine = (function(global) {
         });
 
         player.update();
-
     };
 
     /* This function initially draws the "game level", it will then call
@@ -153,7 +153,6 @@ var Engine = (function(global) {
         renderEntities();
         renderScoreboard();
         renderInfo();
-
     };
 
     // This function renders the Info and Score board at top of game grid
@@ -201,7 +200,6 @@ var Engine = (function(global) {
         if (gamePlay) {
             player.render();
         }
-
     };
 
 
@@ -212,7 +210,6 @@ var Engine = (function(global) {
 
      // Reset fn now will set game engine to start in initial state
     function reset() {
-        // noop
         gamePlay = false;
         infoRender = false;
         playerScore = 0;
@@ -228,11 +225,19 @@ var Engine = (function(global) {
             updateScore = false;
         }
 
-        // Check for Game Won and set to start a new game
+        // Check for Game Won and set to start a new game LIFECYCLE
         if (playerScore === 10) {
             reset();
             lifeCycle = lifeCycle + 1;
         }
+    };
+
+    // Check for Enemy and Player collision
+    // Check coordinate ranges for overlap
+    function checkCollisions() {
+        allEnemies.forEach(function(Enemy) {
+            Enemy.collide();
+        });
     };
 
 
@@ -266,7 +271,6 @@ var Engine = (function(global) {
         // Enables render of Info window about how to play game level
         } else if (( x >= 412  && x<= 500) && (y >= 7 && y <= 35) && (infoRender)) {
             infoRender = false;
-            console.log('hi');
         }
 
         return gamePlay, infoRender;

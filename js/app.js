@@ -1,12 +1,15 @@
 // Most of the Code editing and creation for P3:Game happens here.
-// Enemies our player must avoid
-// PseudoClassical Class Definition Function used here
-// Enemy is a constructor function(Capitalize first letter)
-// velocity sets relative default speed of Enemy as global variable
+// TODO -- refactor functions to use less global variables
+
 var velocity = 1,
     enemyYstart = 63,
     enemyXstart = -95,
     updateScore = false;
+
+// Enemies our player must avoid
+// PseudoClassical Class Definition Function used here
+// Enemy is a constructor function(Capitalize first letter)
+// velocity sets relative default speed of Enemy as global variable
 
 var Enemy = function(velocity) {
     this.velocity = velocity;
@@ -44,8 +47,6 @@ Enemy.prototype.update = function(dt) {
     // dt sets relatively constant time increment value on all computers.
     // "Jitterbug" (variable velocity) effect added with weighted sine & cosine fn
     var enemyxEnd = 600;
-        // rogueUpdown = -1;
-
 
     if (this.x > enemyxEnd) {
         this.x = enemyXstart;
@@ -53,7 +54,7 @@ Enemy.prototype.update = function(dt) {
         var constantScale = 100;
         var constantIncrement = (constantScale * this.velocity * dt);
         var variableScale = 10;
-        var variableIncrement = variableScale * Math.sin(this.x);
+        var variableIncrement = (variableScale * Math.sin(this.x));
 
         this.x = this.x + constantIncrement + variableIncrement;
 
@@ -75,6 +76,21 @@ Enemy.prototype.update = function(dt) {
 // Draw the Enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+// Needed fof checkCollision fn
+Enemy.prototype.collide = function() {
+    player.loc();
+
+    // set up comparative parameters, offset from origin adjusted
+    // adjustments for smaller (visible) size than overall image size
+    // Use smaller rectangle for approximating base of player and enemy
+    // Compare X ranges and Y ranges for overlap
+
+
+    // if collide then reset();
+
+    // console.log(playerX, playerY, this.x,this.y);
 };
 
 // Now write your own player class
@@ -100,8 +116,6 @@ var Player = function() {
     // The image/sprite for our Player this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/char-cat-girl.png';
-
-
 };
 
 Player.prototype.reset = function() {
@@ -109,17 +123,8 @@ Player.prototype.reset = function() {
     this.y = this.Ystart;
 };
 
-
-// // If PLAYER WINS GAME, set to start another game
-// Player.prototype.nextGame = function() {
-//     if (playerScore = 10) {
-//         this.x = this.XStart;
-//         this.y = this.YStart;
-//     }
-// };
-
 // Update Player location
-Player.prototype.update = function(dt) {
+Player.prototype.update = function() {
 
     //player handle input keys here with logic to move player in proper direction.
     //Movement constrained within displayed game grid (1 - 400)
@@ -153,6 +158,15 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     //console.log(this.x,this.y);
 };
+
+Player.prototype.loc = function() {
+
+    playerX = this.x;
+    playerY = this.y;
+
+    return playerX, playerY;
+};
+
 
 // Now instantiate your objects.
 // Place all Enemy objects in an array called allEnemies
