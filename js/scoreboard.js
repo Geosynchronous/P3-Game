@@ -126,7 +126,7 @@
         ctx.fillStyle  = '#000';
         ctx.textBaseline = 'top';
         ctx.font = 'bold 32px sans-serif';
-        ctx.fillText('J I T T E R B U G G I N G', 72 + 2 * Math.cos(Date.now()), 534 + 2 * Math.cos(Date.now()));
+        ctx.fillText('J I T T E R   B U G S', 103 + 2 * Math.cos(Date.now()), 534 + 2 * Math.cos(Date.now()));
     };
 
     //  Middle Shadow Jitters with Trig fn
@@ -134,7 +134,7 @@
         ctx.fillStyle  = '#fff';
         ctx.textBaseline = 'top';
         ctx.font = 'bold 32px sans-serif';
-        ctx.fillText('J I T T E R B U G G I N G', 70 + Math.sin(Date.now()), 529 + Math.cos(Date.now()));
+        ctx.fillText('J I T T E R   B U G S', 101 + Math.sin(Date.now()), 529 + Math.cos(Date.now()));
     };
 
     // Title Jitters with Trig fn
@@ -142,7 +142,7 @@
         ctx.fillStyle  = '#fbcc09';
         ctx.textBaseline = 'top';
         ctx.font = 'bold 32px sans-serif';
-        ctx.fillText('J I T T E R B U G G I N G', 70 + Math.cos(Date.now()), 530);
+        ctx.fillText('J I T T E R   B U G S', 101 + Math.cos(Date.now()), 530);
     };
 
     // Displays Score and updates
