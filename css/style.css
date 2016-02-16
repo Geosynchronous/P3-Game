@@ -1,5 +1,7 @@
 body {
     text-align: center;
-    background: #547c65;
+/*    background: #547c65;*/
+    background-image: url("../images/clothtexture.jpg");
+    background-repeat: repeat;
 }
 

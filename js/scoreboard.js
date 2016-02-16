@@ -106,7 +106,7 @@
         ctx.fillText('Reset', 430, 12);
     };
 
-        // Info Button when selected opens window of instructions and other info
+    // Info Button when selected opens window of instructions and other info
     var DoneButton = function() {
         var my_gradient = ctx.createLinearGradient(0, 0, 0, 70);
         my_gradient.addColorStop(0, "#cc0000");
@@ -119,6 +119,21 @@
         ctx.textBaseline = 'top';
         ctx.font = 'bold 20px sans-serif';
         ctx.fillText('Done', 430, 12);
+    };
+
+    // Info Button when selected opens window of instructions and other info
+    var NextButton = function() {
+        var my_gradient = ctx.createLinearGradient(0, 0, 0, 70);
+        my_gradient.addColorStop(0, "#cc0000");
+        my_gradient.addColorStop(1, "#000");
+        ctx.fillStyle  = '#936c6c';
+        ctx.fillRect(412, 8, 87, 33);
+        ctx.fillStyle = my_gradient;
+        ctx.fillRect(410, 7, 88, 33);
+        ctx.fillStyle  = '#fff';
+        ctx.textBaseline = 'top';
+        ctx.font = 'bold 20px sans-serif';
+        ctx.fillText('Next', 430, 12);
     };
 
     // Bottom Shadow Jitters with Trig fn
@@ -138,7 +153,7 @@
     };
 
     // Title Jitters with Trig fn
-        var DisplayTitle = function() {
+    var DisplayTitle = function() {
         ctx.fillStyle  = '#fbcc09';
         ctx.textBaseline = 'top';
         ctx.font = 'bold 32px sans-serif';
@@ -146,12 +161,29 @@
     };
 
     // Displays Score and updates
-        var DisplayScore = function() {
+    var DisplayScore = function() {
         ctx.fillStyle = '#fbcc09';
         ctx.textBaseline = 'top';
         ctx.font = 'bold 24px sans-serif';
         ctx.fillText('Score: ', 10, 10);
         ctx.fillText(playerScore, 100, 10);
     };
+
+    // Used in Collosion Event
+    var GameOverMessage = function() {
+        var my_gradientBoard = ctx.createLinearGradient(0, 0, 0, 300);
+        my_gradientBoard.addColorStop(0, "transparent");
+        my_gradientBoard.addColorStop(1, "rgba(0, 0, 0, 0.9");
+        ctx.fillStyle = my_gradientBoard;
+        ctx.fillRect(0, 50, 505, 460);
+        ctx.fillStyle = '#fbcc09';
+        ctx.textBaseline = 'top';
+        ctx.font = 'bold 72px sans-serif';
+
+        ctx.fillText('GAME', 140, 200 - 3 * Math.cos(Date.now()));
+        ctx.fillText('OVER', 140, 280 + 3 * Math.cos(Date.now()));
+
+    };
+
 
 

@@ -4,7 +4,8 @@
 var velocity = 1,
     enemyYstart = 63,
     enemyXstart = -95,
-    updateScore = false;
+    updateScore = false,
+    collision = false;
 
 // Enemies our player must avoid
 // PseudoClassical Class Definition Function used here
@@ -82,15 +83,30 @@ Enemy.prototype.render = function() {
 Enemy.prototype.collide = function() {
     player.loc();
 
-    // set up comparative parameters, offset from origin adjusted
-    // adjustments for smaller (visible) size than overall image size
-    // Use smaller rectangle for approximating base of player and enemy
-    // Compare X ranges and Y ranges for overlap
+// Comparative PLAYER and Enemy dimensional range parameters declared
+// Approx visible rectangle of object image for crossection overlap used
+// Variables offset with numerical adjustment
+// 3D effect makes PLAYER visual base the crosssection, and it is about 35 x 35
+// ENEMY crossection is about 100 x 67
+// Total image size including transparent space is 101 x 171
+    var pLeftX = playerX + 33,
+        pRightX = pLeftX + 35,
+        eLeftX = this.x,
+        eRightX = eLeftX + 100,
+        pTopY = playerY + 115,
+        pBottomY = pTopY + 35,
+        eTopY = this.y + 77,
+        eBottomY = eTopY + 67;
 
+    //Compare X and Y ranges for overlap using continuity principle
+    if ((pLeftX  >= eLeftX && pLeftX <= eRightX)  &&  (pTopY  >= eTopY && pTopY <= eBottomY)) {
+        collision = true;
+        player.reset();
+    }
 
     // if collide then reset();
 
-    // console.log(playerX, playerY, this.x,this.y);
+// console.log(playerX, playerY);
 };
 
 // Now write your own player class

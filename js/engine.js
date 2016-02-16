@@ -25,6 +25,7 @@ var Engine = (function(global) {
         ctx = canvas.getContext('2d'),
         gamePlay = false,
         infoRender = false,
+        gameOver = false,
         lastTime,
         playerX,
         playerY;
@@ -90,8 +91,8 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
+        checkCollisions();
         updateGameStats();
-        checkCollisions(playerX, playerY);
     };
 
     /* This is called by the update function and loops through all of the
@@ -153,6 +154,7 @@ var Engine = (function(global) {
         renderEntities();
         renderScoreboard();
         renderInfo();
+        renderGameOver();
     };
 
     // This function renders the Info and Score board at top of game grid
@@ -213,6 +215,8 @@ var Engine = (function(global) {
         gamePlay = false;
         infoRender = false;
         playerScore = 0;
+        collision = false;
+        gameOver = false;
     };
 
     // Updates Game Stats and States
@@ -235,11 +239,32 @@ var Engine = (function(global) {
     // Check for Enemy and Player collision
     // Check coordinate ranges for overlap
     function checkCollisions() {
-        allEnemies.forEach(function(Enemy) {
-            Enemy.collide();
-        });
+        if (gamePlay) {
+            allEnemies.forEach(function(Enemy) {
+                Enemy.collide();
+            });
+        }
+        if (collision) {
+            gameOver = true;
+        }
     };
 
+    //This function renders info about the game if the info button was clicked on
+    //TODO as if statement for specific level windows
+    function renderGameOver() {
+
+        if (gameOver) {
+            GameOverMessage();
+            NextButton();
+        }
+    };
+        // if (gamePlay) {
+        //     checkCollisions();
+        //         if (collision) {
+        //             GameOverMessage();
+        //             reset();
+        //         }
+        // }
 
     // Mouse Click reveals if button is selected
     // Basic Function with Returnsd Variables Definition used
