@@ -152,7 +152,7 @@ var Engine = (function(global) {
 
         // Places info and score board at top of game grid
         renderEntities();
-        renderScoreboard(lifeCycle);
+        renderScoreboard();
         renderInfo();
         renderGameOver();
     };
