@@ -25,8 +25,9 @@ var Engine = (function(global) {
         ctx = canvas.getContext('2d'),
         gamePlay = false,
         infoRender = false,
-        gameOver = false,
         lastTime,
+        lifeCycle = 1,
+        playerScore = 0,
         playerX,
         playerY;
 
@@ -106,7 +107,6 @@ var Engine = (function(global) {
         allEnemies.forEach(function(Enemy) {
             Enemy.update(dt);
         });
-
         player.update();
     };
 
@@ -152,7 +152,7 @@ var Engine = (function(global) {
 
         // Places info and score board at top of game grid
         renderEntities();
-        renderScoreboard();
+        renderScoreboard(lifeCycle);
         renderInfo();
         renderGameOver();
     };
@@ -161,19 +161,11 @@ var Engine = (function(global) {
     // Optimally for game efficiency and frame rate, this does not need to be here
     // Just a good exercise in using Canvas, that is an intent of this project
     function renderScoreboard() {
-        ScoreBoard();
+        DisplayScoreBoard(lifeCycle);
         DisplayTitleShadow1();
         DisplayTitleShadow2();
         DisplayTitle();
-
-        if (gamePlay) {
-            DisplayScore();
-            ResetButton();
-
-        } else if (!infoRender) {
-            PlayButton1();
-            InfoButton1();
-        }
+        DisplayScoreCheck();
     };
 
     //This function renders info about the game if the info button was clicked on
@@ -185,7 +177,6 @@ var Engine = (function(global) {
             DoneButton();
         }
     };
-
 
     /* This function is called by the render function and is called on each game
      * tick. Its purpose is to then call the render functions you have defined
@@ -204,6 +195,24 @@ var Engine = (function(global) {
         }
     };
 
+    // Check to see if Score needs to be rendeered on Socreboard
+    var DisplayScoreCheck = function() {
+        if (gamePlay) {
+            DisplayScore(playerScore);
+            ResetButton();
+        } else if (!infoRender) {
+            DisplayInfoCheck();
+        }
+    };
+
+// Check to see if Info needs to be rendeered on Socreboard
+    var DisplayInfoCheck = function() {
+    if (!infoRender) {
+            PlayButton1();
+            InfoButton1();
+        }
+    };
+
 
     /* This function does nothing but it could have been a good place to
      * handle game reset states - maybe a new game menu or a game over screen
@@ -216,7 +225,6 @@ var Engine = (function(global) {
         infoRender = false;
         playerScore = 0;
         collision = false;
-        gameOver = false;
     };
 
     // Updates Game Stats and States
@@ -228,7 +236,6 @@ var Engine = (function(global) {
             player.reset();
             updateScore = false;
         }
-
         // Check for Game Won and set to start a new game LIFECYCLE
         if (playerScore === 10) {
             reset();
@@ -244,27 +251,17 @@ var Engine = (function(global) {
                 Enemy.collide();
             });
         }
-        if (collision) {
-            gameOver = true;
-        }
     };
 
     //This function renders info about the game if the info button was clicked on
     //TODO as if statement for specific level windows
     function renderGameOver() {
 
-        if (gameOver) {
+        if (collision) {
             GameOverMessage();
             NextButton();
         }
     };
-        // if (gamePlay) {
-        //     checkCollisions();
-        //         if (collision) {
-        //             GameOverMessage();
-        //             reset();
-        //         }
-        // }
 
     // Mouse Click reveals if button is selected
     // Basic Function with Returnsd Variables Definition used
@@ -275,7 +272,7 @@ var Engine = (function(global) {
         y = evt.clientY - canvas.offsetTop;
 
         // Determines if mouse clicked on a button
-
+        //
         // Play Button resets player to start position
         // gamePlay = true enables player to start playing
         if ((x >= 7  && x<= 88) && (y >= 7 && y <= 35) && (!infoRender)) {
@@ -319,7 +316,6 @@ var Engine = (function(global) {
      * from within their app.js files.
      */
     global.ctx = ctx;
-    global.canvas = canvas;
 
 })(this);
 

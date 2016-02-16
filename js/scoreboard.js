@@ -3,13 +3,13 @@
     // Good Exercise in using canvas to create images like buttons
     // All kinds of effects can created using JS for text, Jitter effect used here
     // Too much work, using HTML and CSS quicker, or a js library better
+
     // TODO - Need to highlight mouseover buttons... refactor everything probably
 
-    var playerScore = 0,
-        lifeCycle = 1;
+    // TODO - Refactor BIGTIME!!! Crreate function constructor DISPLAY???
 
     // Displays current Game Level
-    var ScoreBoard = function() {
+    var DisplayScoreBoard = function(lifeCycle) {
         var my_gradientBoard = ctx.createLinearGradient(0, 0, 0, 50);
         my_gradientBoard.addColorStop(0, "#666666");
         my_gradientBoard.addColorStop(1, "#000");
@@ -32,7 +32,6 @@
         my_gradientBoard.addColorStop(1, "rgba(0, 0, 0, 0.9");
         ctx.fillStyle = my_gradientBoard;
         ctx.fillRect(0, 50, 505, 460);
-
 
         ctx.fillStyle = '#fbcc09';
         ctx.textBaseline = 'top';
@@ -161,7 +160,7 @@
     };
 
     // Displays Score and updates
-    var DisplayScore = function() {
+    var DisplayScore = function(playerScore) {
         ctx.fillStyle = '#fbcc09';
         ctx.textBaseline = 'top';
         ctx.font = 'bold 24px sans-serif';
@@ -169,7 +168,7 @@
         ctx.fillText(playerScore, 100, 10);
     };
 
-    // Used in Collosion Event
+    // Used after Collosion Event
     var GameOverMessage = function() {
         var my_gradientBoard = ctx.createLinearGradient(0, 0, 0, 300);
         my_gradientBoard.addColorStop(0, "transparent");

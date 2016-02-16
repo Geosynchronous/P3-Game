@@ -63,7 +63,6 @@ Enemy.prototype.update = function(dt) {
         // Checks if enemy is a rogue, if so it can move accross lanes
         if ((this.rogue === true && this.y < 250) && (this.rogue === true && this.y > 50)){
             this.y = this.y - 0.2 * this.ySign;
-            // console.log(this.y);
         } else if (this.rogue === true && this.y <= 50) {
             this.ySign = this.ySign * (-1);
             this.y = 55;
@@ -82,7 +81,6 @@ Enemy.prototype.render = function() {
 // Needed fof checkCollision fn
 Enemy.prototype.collide = function() {
     player.loc();
-
 // Comparative PLAYER and Enemy dimensional range parameters declared
 // Approx visible rectangle of object image for crossection overlap used
 // Variables offset with numerical adjustment
@@ -103,29 +101,22 @@ Enemy.prototype.collide = function() {
         collision = true;
         player.reset();
     }
-
-    // if collide then reset();
-
-// console.log(playerX, playerY);
 };
 
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-
+//
 // Our Player must avoid enemy
 // PseudoClassical Class Definition Function used here
 // Player is a constructor function(Capitalize first letter)
-
 var Player = function() {
     // Establish position starting point
     // char-cat-girl.png is 101 x 171, Player visual is actually smaller due to alpha background
     var Ystart = 380,
         Xstart = 203;
-
     this.Ystart = Ystart;
     this.Xstart = Xstart;
-
     this.x = Xstart;
     this.y = Ystart;
 
@@ -172,11 +163,9 @@ Player.prototype.update = function() {
 // Draw the Player on the screen, required method for game
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    //console.log(this.x,this.y);
 };
 
 Player.prototype.loc = function() {
-
     playerX = this.x;
     playerY = this.y;
 
@@ -189,6 +178,8 @@ Player.prototype.loc = function() {
 // Individual velocity parameters passed to various enemies.
 // Row offset passed into y values for row centering
 // allEnemies is global array, and allEnemy[] elements have Enemy prototype
+
+//TODO - Refactor in object literal form!!!  Also consider LEVELS HERE.
 var offsetRow = 83;
 
 var allEnemies = [];
@@ -206,9 +197,7 @@ allEnemies[3].rogue = true;
 // allEnemies[5] = new Enemy(0.11);
 // allEnemies[5].y = 4 * offsetRow + enemyYstart;
 
-
 // Place the player object in a variable called player
-
 var player = new Player;
 
 // This listens for key presses and sends the keys to your
@@ -220,11 +209,5 @@ document.addEventListener('keyup', function(e) {
         39: 'right',
         40: 'down'
     };
-
     player.handleInput(allowedKeys[e.keyCode]);
 });
-
-
-
-
-
