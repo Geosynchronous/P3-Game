@@ -6,10 +6,9 @@
 
     // TODO - Need to highlight mouseover buttons... refactor everything probably
 
-    // TODO - Refactor BIGTIME!!! Crreate function constructor DISPLAY???
 
     // Displays current Game Level
-    var DisplayScoreBoard = function(lifeCycle) {
+    var ScoreBoardRender = function(lifeCycle) {
         var my_gradientBoard = ctx.createLinearGradient(0, 0, 0, 50);
         my_gradientBoard.addColorStop(0, "#666666");
         my_gradientBoard.addColorStop(1, "#000");
@@ -21,6 +20,58 @@
         ctx.fillText('LIFECYCLE', 170, 10);
         ctx.fillText(lifeCycle, 320, 10);
     };
+
+
+
+
+    // Needed Button Code
+    // PseudoClassical Class Definition Function used here
+    //
+    // Generic cunstructor function to make buttons
+    // Begin and End coordinates define needed rectangles
+    // "text" is button lable
+    // xt & yt define where text lable starts
+    var MakeButton = function(xBegin,text, xt) {
+
+        this.xBegin = xBegin;
+        this.yBegin = 7;
+        this.xEnd = 88;
+        this.yEnd = 33;
+        this.text = text;
+        this.xt = xt;
+        this.yt = 12;
+    };
+
+    // Generic prototype function to render button
+    MakeButton.prototype.render = function() {
+
+        var my_gradient = ctx.createLinearGradient(0, 0, 0, 70);
+
+        my_gradient.addColorStop(0, "#cc0000");
+        my_gradient.addColorStop(1, "#000");
+        ctx.fillStyle  = '#936c6c';
+        ctx.fillRect(this.xBegin + 2, this.yBegin + 1, this.xEnd - 1, this.yEnd);
+        ctx.fillStyle = my_gradient;
+        ctx.fillRect(this.xBegin, this.yBegin, this.xEnd, this.yEnd);
+        ctx.fillStyle = '#fff';
+        ctx.textBaseline = 'top';
+        ctx.font = 'bold 20px sans-serif';
+        ctx.fillText(this.text, this.xt, this.yt);
+    };
+
+    // Specific Buttons created
+    var playButton = new MakeButton(7, 'Play', 28);
+    var infoButton = new MakeButton(410, 'Info', 437);
+    var doneButton = new MakeButton(410, 'Done', 430);
+    var resetButton = new MakeButton(410, 'Reset', 427);
+    var nextButton = new MakeButton(410, 'Next', 430);
+
+
+
+
+
+
+
 
     // Displays Info Window
     // Canvas is not well equipe for paragraphs and line breaks!!!
@@ -60,80 +111,9 @@
         ctx.fillText('rapidly evolving strange behavioural phenotypes.', 20, 450);
     };
 
-    // Play Button allows user to start playing game when selected
-    var DisplayButtonPlay = function() {
-        var my_gradient = ctx.createLinearGradient(0, 0, 0, 70);
-        my_gradient.addColorStop(0, "#cc0000");
-        my_gradient.addColorStop(1, "#000");
-        ctx.fillStyle  = '#936c6c';
-        ctx.fillRect(9, 8, 87, 33);
-        ctx.fillStyle = my_gradient;
-        ctx.fillRect(7, 7, 88, 33);
-        ctx.fillStyle = '#fff';
-        ctx.textBaseline = 'top';
-        ctx.font = 'bold 20px sans-serif';
-        ctx.fillText('Play', 28, 12);
-    };
 
-    // Info Button when selected opens window of instructions and other info
-    var DisplayButtonInfo = function() {
-        var my_gradient = ctx.createLinearGradient(0, 0, 0, 70);
-        my_gradient.addColorStop(0, "#cc0000");
-        my_gradient.addColorStop(1, "#000");
-        ctx.fillStyle  = '#936c6c';
-        ctx.fillRect(412, 8, 87, 33);
-        ctx.fillStyle = my_gradient;
-        ctx.fillRect(410, 7, 88, 33);
-        ctx.fillStyle  = '#fff';
-        ctx.textBaseline = 'top';
-        ctx.font = 'bold 20px sans-serif';
-        ctx.fillText('Info', 440, 12);
-    };
 
-    // Reset Button when selected restarts game engine at Level 1
-    var DisplayButtonReset = function() {
-        var my_gradient = ctx.createLinearGradient(0, 0, 0, 70);
-        my_gradient.addColorStop(0, "#cc0000");
-        my_gradient.addColorStop(1, "#000");
-        ctx.fillStyle  = '#936c6c';
-        ctx.fillRect(412, 8, 87, 33);
-        ctx.fillStyle = my_gradient;
-        ctx.fillRect(410, 7, 88, 33);
-        ctx.fillStyle  = '#fff';
-        ctx.textBaseline = 'top';
-        ctx.font = 'bold 20px sans-serif';
-        ctx.fillText('Reset', 430, 12);
-    };
 
-    // Info Button when selected opens window of instructions and other info
-    var DisplayButtonDone = function() {
-        var my_gradient = ctx.createLinearGradient(0, 0, 0, 70);
-        my_gradient.addColorStop(0, "#cc0000");
-        my_gradient.addColorStop(1, "#000");
-        ctx.fillStyle  = '#936c6c';
-        ctx.fillRect(412, 8, 87, 33);
-        ctx.fillStyle = my_gradient;
-        ctx.fillRect(410, 7, 88, 33);
-        ctx.fillStyle  = '#fff';
-        ctx.textBaseline = 'top';
-        ctx.font = 'bold 20px sans-serif';
-        ctx.fillText('Done', 430, 12);
-    };
-
-    // Info Button when selected opens window of instructions and other info
-    var DisplayButtonNext = function() {
-        var my_gradient = ctx.createLinearGradient(0, 0, 0, 70);
-        my_gradient.addColorStop(0, "#cc0000");
-        my_gradient.addColorStop(1, "#000");
-        ctx.fillStyle  = '#936c6c';
-        ctx.fillRect(412, 8, 87, 33);
-        ctx.fillStyle = my_gradient;
-        ctx.fillRect(410, 7, 88, 33);
-        ctx.fillStyle  = '#fff';
-        ctx.textBaseline = 'top';
-        ctx.font = 'bold 20px sans-serif';
-        ctx.fillText('Next', 430, 12);
-    };
 
     // Bottom Shadow Jitters with Trig fn
     var DisplayTitleShadow1 = function() {

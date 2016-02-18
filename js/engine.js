@@ -161,7 +161,7 @@ var Engine = (function(global) {
     // Optimally for game efficiency and frame rate, this does not need to be here
     // Just a good exercise in using Canvas, that is an intent of this project
     function renderScoreboard() {
-        DisplayScoreBoard(lifeCycle);
+        ScoreBoardRender(lifeCycle);
         DisplayTitleShadow1();
         DisplayTitleShadow2();
         DisplayTitle();
@@ -174,7 +174,7 @@ var Engine = (function(global) {
 
         if (infoRender) {
             InfoWindow();
-            DisplayButtonDone();
+            doneButton.render();
         }
     };
 
@@ -199,7 +199,7 @@ var Engine = (function(global) {
     var DisplayScoreCheck = function() {
         if (gamePlay) {
             DisplayScore(playerScore);
-            DisplayButtonReset();
+            resetButton.render();
         } else if (!infoRender) {
             DisplayInfoCheck();
         }
@@ -208,8 +208,9 @@ var Engine = (function(global) {
 // Check to see if Info needs to be rendeered on Socreboard
     var DisplayInfoCheck = function() {
     if (!infoRender) {
-            DisplayButtonPlay();
-            DisplayButtonInfo();
+            playButton.render();
+            infoButton.render();
+
         }
     };
 
@@ -259,7 +260,7 @@ var Engine = (function(global) {
 
         if (collision) {
             GameOverMessage();
-            DisplayButtonNext();
+            nextButton.render();
         }
     };
 
