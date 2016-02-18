@@ -14,6 +14,12 @@
  * a little simpler to work with.
  */
 
+ // This is way cool, an Immediately Invoked Function Expression (IIFE)
+ // With it I am able to provide all gamefunctionality on the Canvas
+ // All the methods in the other JS files feed into this
+ // It is like an attactor site to coordinate all coding with
+ // Once I got the hang of this, I started to luv the fluidity of designing in JS!!!
+
 var Engine = (function(global) {
     /* Predefine the variables we'll be using within this scope,
      * create the canvas element, grab the 2D context for that canvas
@@ -35,10 +41,6 @@ var Engine = (function(global) {
     canvas.height = 606;
     doc.body.appendChild(canvas);
 
-
-    // Mouse click enevnt invokes handleMouseClick function
-    // Used to determine if Buttons (Play etc) are clicked on
-    canvas.addEventListener('click', handleMouseClick, false);
 
 
     /* This function serves as the kickoff point for the game loop itself
@@ -71,6 +73,11 @@ var Engine = (function(global) {
         win.requestAnimationFrame(main);
     };
 
+
+
+
+
+
     /* This function does some initial setup that should only occur once,
      * particularly setting the lastTime variable that is required for the
      * game loop.
@@ -80,6 +87,11 @@ var Engine = (function(global) {
         lastTime = Date.now();
         main();
     };
+
+
+
+
+
 
     /* This function is called by main (our game loop) and itself calls all
      * of the functions which may need to update entity's data. Based on how
@@ -109,6 +121,27 @@ var Engine = (function(global) {
         });
         player.update();
     };
+
+    // Updates Game Stats and States
+    function updateGameStats() {
+
+        // Update score when player reaches water
+        if (updateScore) {
+            playerScore = playerScore + 1;
+            player.reset();
+            updateScore = false;
+        }
+        // Check for Game Won and set to start a new game LIFECYCLE
+        if (playerScore === 10) {
+            reset();
+            lifeCycle = lifeCycle + 1;
+        }
+    };
+
+
+
+
+
 
     /* This function initially draws the "game level", it will then call
      * the renderEntities function. Remember, this function is called every
@@ -150,32 +183,26 @@ var Engine = (function(global) {
             }
         }
 
-        // Places info and score board at top of game grid
-        renderEntities();
+        // Renders Everything else needed for game
         renderScoreboard();
+        renderEntities();
         renderInfo();
         renderGameOver();
+        TitleRender();
     };
 
-    // This function renders the Info and Score board at top of game grid
+
+
+
+
+
+    // This function renders Scoreboard at top of game grid
     // Optimally for game efficiency and frame rate, this does not need to be here
     // Just a good exercise in using Canvas, that is an intent of this project
     function renderScoreboard() {
-        ScoreBoardRender(lifeCycle);
-        DisplayTitleShadow1();
-        DisplayTitleShadow2();
-        DisplayTitle();
-        DisplayScoreCheck();
-    };
-
-    //This function renders info about the game if the info button was clicked on
-    //TODO as if statement for specific level windows
-    function renderInfo() {
-
-        if (infoRender) {
-            InfoWindow();
-            doneButton.render();
-        }
+        ScoreBoardRender();
+        LifeCycleRender(lifeCycle);
+        CheckScore();
     };
 
     /* This function is called by the render function and is called on each game
@@ -190,29 +217,68 @@ var Engine = (function(global) {
             Enemy.render();
         });
 
+        // Renders player if in Gaming Mode
         if (gamePlay) {
             player.render();
         }
     };
 
+    //This function renders info about the game if the info button was clicked on
+    //TODO as if statement for specific level windows
+    function renderInfo() {
+        if (infoRender) {
+            InfoWindowRender();
+            doneButton.render();
+        }
+    };
+
+    //This function renders info about the game if the info button was clicked on
+    //TODO as if statement for specific level windows
+    function renderGameOver() {
+        if (collision) {
+            GameOverWindowRender();
+            nextButton.render();
+        }
+    };
+
+
+
+
+
+
     // Check to see if Score needs to be rendeered on Socreboard
-    var DisplayScoreCheck = function() {
+    var CheckScore = function() {
         if (gamePlay) {
-            DisplayScore(playerScore);
+            ScoreRender(playerScore);
             resetButton.render();
         } else if (!infoRender) {
-            DisplayInfoCheck();
+            CheckInfo();
         }
     };
 
-// Check to see if Info needs to be rendeered on Socreboard
-    var DisplayInfoCheck = function() {
-    if (!infoRender) {
-            playButton.render();
-            infoButton.render();
+    // Check to see if Info needs to be rendeered on Socreboard
+    var CheckInfo = function() {
+        if (!infoRender) {
+                playButton.render();
+                infoButton.render();
 
         }
     };
+
+
+    // Check for Enemy and Player collision
+    // Check coordinate ranges for overlap
+    function checkCollisions() {
+        if (gamePlay) {
+            allEnemies.forEach(function(Enemy) {
+                Enemy.collide();
+            });
+        }
+    };
+
+
+
+
 
 
     /* This function does nothing but it could have been a good place to
@@ -228,41 +294,10 @@ var Engine = (function(global) {
         collision = false;
     };
 
-    // Updates Game Stats and States
-    function updateGameStats() {
 
-        // Update score when player reaches water
-        if (updateScore) {
-            playerScore = playerScore + 1;
-            player.reset();
-            updateScore = false;
-        }
-        // Check for Game Won and set to start a new game LIFECYCLE
-        if (playerScore === 10) {
-            reset();
-            lifeCycle = lifeCycle + 1;
-        }
-    };
 
-    // Check for Enemy and Player collision
-    // Check coordinate ranges for overlap
-    function checkCollisions() {
-        if (gamePlay) {
-            allEnemies.forEach(function(Enemy) {
-                Enemy.collide();
-            });
-        }
-    };
 
-    //This function renders info about the game if the info button was clicked on
-    //TODO as if statement for specific level windows
-    function renderGameOver() {
 
-        if (collision) {
-            GameOverMessage();
-            nextButton.render();
-        }
-    };
 
     // Mouse Click reveals if button is selected
     // Basic Function with Returnsd Variables Definition used
@@ -298,6 +333,15 @@ var Engine = (function(global) {
 
         return gamePlay, infoRender;
     };
+
+    // Mouse click enevnt invokes handleMouseClick function
+    // Used to determine if Buttons (Play etc) are clicked on
+    canvas.addEventListener('click', handleMouseClick, false);
+
+
+
+
+
 
     /* Go ahead and load all of the images we know we're going to need to
      * draw our game level. Then set init as the callback method, so that when
