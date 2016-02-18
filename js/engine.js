@@ -84,6 +84,7 @@ var Engine = (function(global) {
      */
     function init() {
         reset
+        UpdateEnemyLevel(lifeCycle);
         lastTime = Date.now();
         main();
     };

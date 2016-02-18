@@ -187,25 +187,27 @@ Player.prototype.loc = function() {
 // Row offset passed into y values for row centering
 // allEnemies is global array, and allEnemy[] elements have Enemy prototype
 
-//TODO - Refactor in object literal form!!!  Also consider LEVELS HERE.
 var offsetRow = 83;
 var allEnemies = [];
 
-// LIFECYCLE 1 Enemies
-// Default Set Up
+// Instantiate Enemies as a function of LIFECYCLE (game level)
 // Enemy(velocity, jitter)
-// Three Enemies, Each on Seperate Row, Different Speeds, & Middle Enemy Jitters
-allEnemies[0] = new Enemy(0.6, 0);
-allEnemies[1] = new Enemy(0.8, 1);
-allEnemies[1].y = 1 * offsetRow + enemyYstart;
-allEnemies[2] = new Enemy(1.4, 0);
-allEnemies[2].y = 2 * offsetRow + enemyYstart;
 
 var UpdateEnemyLevel = function(lifeCycle) {
 
+    // Default Set Up
+    // Three Enemies, Each on Seperate Row, Different Speeds, & Middle Enemy Jitters
+    if(lifeCycle === 1) {
+        allEnemies[0] = new Enemy(0.6, 0);
+        allEnemies[1] = new Enemy(0.8, 1);
+        allEnemies[1].y = 1 * offsetRow + enemyYstart;
+        allEnemies[2] = new Enemy(1.0, 0);
+        allEnemies[2].y = 2 * offsetRow + enemyYstart;
+    }
+
     // Same as above lifecycle, except 3rd Enemy now infected with Jitter Virus
     if (lifeCycle === 2) {
-        allEnemies[2] = new Enemy(1.4, 1);
+        allEnemies[2] = new Enemy(1.0, 1);
         allEnemies[2].y = 2 * offsetRow + enemyYstart;
     }
         // allEnemies[3] = new Enemy(2.0 * Math.random(), 1);
