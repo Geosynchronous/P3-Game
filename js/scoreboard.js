@@ -61,7 +61,7 @@
     };
 
     // Play Button allows user to start playing game when selected
-    var PlayButton1 = function() {
+    var DisplayButtonPlay = function() {
         var my_gradient = ctx.createLinearGradient(0, 0, 0, 70);
         my_gradient.addColorStop(0, "#cc0000");
         my_gradient.addColorStop(1, "#000");
@@ -76,7 +76,7 @@
     };
 
     // Info Button when selected opens window of instructions and other info
-    var InfoButton1 = function() {
+    var DisplayButtonInfo = function() {
         var my_gradient = ctx.createLinearGradient(0, 0, 0, 70);
         my_gradient.addColorStop(0, "#cc0000");
         my_gradient.addColorStop(1, "#000");
@@ -91,7 +91,7 @@
     };
 
     // Reset Button when selected restarts game engine at Level 1
-    var ResetButton = function() {
+    var DisplayButtonReset = function() {
         var my_gradient = ctx.createLinearGradient(0, 0, 0, 70);
         my_gradient.addColorStop(0, "#cc0000");
         my_gradient.addColorStop(1, "#000");
@@ -106,7 +106,7 @@
     };
 
     // Info Button when selected opens window of instructions and other info
-    var DoneButton = function() {
+    var DisplayButtonDone = function() {
         var my_gradient = ctx.createLinearGradient(0, 0, 0, 70);
         my_gradient.addColorStop(0, "#cc0000");
         my_gradient.addColorStop(1, "#000");
@@ -121,7 +121,7 @@
     };
 
     // Info Button when selected opens window of instructions and other info
-    var NextButton = function() {
+    var DisplayButtonNext = function() {
         var my_gradient = ctx.createLinearGradient(0, 0, 0, 70);
         my_gradient.addColorStop(0, "#cc0000");
         my_gradient.addColorStop(1, "#000");

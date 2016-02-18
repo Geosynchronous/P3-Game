@@ -174,7 +174,7 @@ var Engine = (function(global) {
 
         if (infoRender) {
             InfoWindow();
-            DoneButton();
+            DisplayButtonDone();
         }
     };
 
@@ -199,7 +199,7 @@ var Engine = (function(global) {
     var DisplayScoreCheck = function() {
         if (gamePlay) {
             DisplayScore(playerScore);
-            ResetButton();
+            DisplayButtonReset();
         } else if (!infoRender) {
             DisplayInfoCheck();
         }
@@ -208,8 +208,8 @@ var Engine = (function(global) {
 // Check to see if Info needs to be rendeered on Socreboard
     var DisplayInfoCheck = function() {
     if (!infoRender) {
-            PlayButton1();
-            InfoButton1();
+            DisplayButtonPlay();
+            DisplayButtonInfo();
         }
     };
 
@@ -259,7 +259,7 @@ var Engine = (function(global) {
 
         if (collision) {
             GameOverMessage();
-            NextButton();
+            DisplayButtonNext();
         }
     };
 
