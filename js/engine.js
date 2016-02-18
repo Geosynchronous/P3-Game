@@ -218,7 +218,7 @@ var Engine = (function(global) {
         });
 
         // Renders player if in Gaming Mode
-        if (gamePlay) {
+        if (gamePlay && !collision) {
             player.render();
         }
     };

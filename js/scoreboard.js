@@ -1,5 +1,15 @@
+// Creates most of the METHODS needed to display:
+//      Scoreboard, LifeCyle, and Score
+//      Title
+//      Buttons
+//      Message Windows
 
-    // Display Scoreboard Images
+
+
+
+
+
+    // DISPLAYS SCOREBOARD, LIFECYCLE, AND SCORE
     // Constructor functions used here
 
     // Displays Scoreboard
@@ -34,7 +44,8 @@
 
 
 
-    //  Title rendered with Animated Jitter and Shadows
+    //  DISPLAY TITLE
+    //  with Animated Jitter and Shadows
     var TitleRender = function() {
 
             // Bottom Shadow Jitters with Trig fn
@@ -61,7 +72,7 @@
 
 
 
-    // Needed Button Code
+    // DISPLAYS BUTTONS
     // PseudoClassical Class Definition Function used here
 
     // Generic cunstructor function to make buttons
@@ -104,6 +115,8 @@
 
 
 
+
+    // DISPLAYS MESSAGE WINDOWS
 
     // Generic Message Window
     var MessageWindowRender = function() {
