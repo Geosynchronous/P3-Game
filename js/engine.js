@@ -135,6 +135,7 @@ var Engine = (function(global) {
         if (playerScore === 10) {
             reset();
             lifeCycle = lifeCycle + 1;
+            UpdateEnemyLevel(lifeCycle);
         }
     };
 

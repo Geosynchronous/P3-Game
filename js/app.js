@@ -2,6 +2,7 @@
 // TODO -- refactor functions to use less global variables
 
 var velocity = 1,
+    jitter = 0,
     enemyYstart = 63,
     enemyXstart = -95,
     updateScore = false,
@@ -12,8 +13,9 @@ var velocity = 1,
 // Enemy is a constructor function(Capitalize first letter)
 // velocity sets relative default speed of Enemy as global variable
 
-var Enemy = function(velocity) {
+var Enemy = function(velocity, jitter) {
     this.velocity = velocity;
+    this.jitter = jitter;
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -55,7 +57,7 @@ Enemy.prototype.update = function(dt) {
         var constantScale = 100;
         var constantIncrement = (constantScale * this.velocity * dt);
         var variableScale = 10;
-        var variableIncrement = (variableScale * Math.sin(this.x));
+        var variableIncrement = (this.jitter * variableScale * Math.sin(this.x));
 
         this.x = this.x + constantIncrement + variableIncrement;
 
@@ -173,6 +175,12 @@ Player.prototype.loc = function() {
 };
 
 
+
+
+
+
+
+
 // Now instantiate your objects.
 // Place all Enemy objects in an array called allEnemies
 // Individual velocity parameters passed to various enemies.
@@ -181,24 +189,46 @@ Player.prototype.loc = function() {
 
 //TODO - Refactor in object literal form!!!  Also consider LEVELS HERE.
 var offsetRow = 83;
-
 var allEnemies = [];
-allEnemies[0] = new Enemy(0.6);
-allEnemies[1] = new Enemy(1.0);
+
+// LIFECYCLE 1 Enemies
+// Default Set Up
+// Enemy(velocity, jitter)
+// Three Enemies, Each on Seperate Row, Different Speeds, & Middle Enemy Jitters
+allEnemies[0] = new Enemy(0.6, 0);
+allEnemies[1] = new Enemy(0.8, 1);
 allEnemies[1].y = 1 * offsetRow + enemyYstart;
-allEnemies[2] = new Enemy(1.4);
+allEnemies[2] = new Enemy(1.4, 0);
 allEnemies[2].y = 2 * offsetRow + enemyYstart;
-allEnemies[3] = new Enemy(2.0 * Math.random());
-allEnemies[3].y = 2 * offsetRow + enemyYstart;
-allEnemies[3].rogue = true;
-// TODO - Use on progressive level
-// allEnemies[4] = new Enemy(0.33);
-// allEnemies[4].y = 3 * offsetRow + enemyYstart;
-// allEnemies[5] = new Enemy(0.11);
-// allEnemies[5].y = 4 * offsetRow + enemyYstart;
+
+var UpdateEnemyLevel = function(lifeCycle) {
+
+    // Same as above lifecycle, except 3rd Enemy now infected with Jitter Virus
+    if (lifeCycle === 2) {
+        allEnemies[2] = new Enemy(1.4, 1);
+        allEnemies[2].y = 2 * offsetRow + enemyYstart;
+    }
+        // allEnemies[3] = new Enemy(2.0 * Math.random(), 1);
+        // allEnemies[3].y = 2 * offsetRow + enemyYstart;
+        // allEnemies[3].rogue = true;
+
+
+    // TODO - Use on progressive level
+    // allEnemies[4] = new Enemy(0.33);
+    // allEnemies[4].y = 3 * offsetRow + enemyYstart;
+    // allEnemies[5] = new Enemy(0.11);
+    // allEnemies[5].y = 4 * offsetRow + enemyYstart;
+
+
+};
 
 // Place the player object in a variable called player
 var player = new Player;
+
+
+
+
+
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
