@@ -1,8 +1,8 @@
 // Most of the Code editing and creation for P3:Game happens here.
+// TODO -- refactor functions to use less global variables
 
-// TODO -- Tried hard to eliminate collision variable as a global... no success
-// Missing something here
-var collision = false;
+var updateScore = false,
+    collision = false;
 
 // Enemies our player must avoid
 // PseudoClassical Class Definition Function used here
@@ -123,8 +123,6 @@ Enemy.prototype.collide = function() {
         eTopY = this.y + 77,
         eBottomY = eTopY + 67;
 
-    this.collision = collision;
-
     //Compare X and Y ranges for overlap using continuity principle
     if ((pLeftX  >= eLeftX && pLeftX <= eRightX)  &&  (pTopY  >= eTopY && pTopY <= eBottomY)) {
         collision = true;
@@ -160,18 +158,16 @@ Player.prototype.reset = function() {
 };
 
 // Update Player location
-Player.prototype.update = function(updateScore) {
+Player.prototype.update = function() {
 
     //player handle input keys here with logic to move player in proper direction.
     //Movement constrained within displayed game grid (1 - 400)
-    Player.prototype.handleInput = function(keyup, updateScore) {
+    Player.prototype.handleInput = function(keyup) {
         var playerIncrement = 15,
             topLimit = 0,
             leftLimit = 1,
             bottomLimit = 380,
             rightLimit = 400;
-
-        this.updateScore = updateScore;
 
         if (keyup === 'up' && this.y > topLimit) {
             this.y = this.y - playerIncrement;
@@ -185,7 +181,7 @@ Player.prototype.update = function(updateScore) {
 
         // Check to see if PLAYER is in the WATER
         if (this.y <= 5 ) {
-            this.updateScore = true;
+            updateScore = true;
         }
         console.log(this.x, this.y, updateScore);
     };
