@@ -35,7 +35,8 @@ var Engine = (function(global) {
         lifeCycle = 1,
         playerScore = 0,
         playerX,
-        playerY;
+        playerY,
+        updateScore = false;
 
     canvas.width = 505;
     canvas.height = 606;
@@ -120,7 +121,7 @@ var Engine = (function(global) {
         allEnemies.forEach(function(Enemy) {
             Enemy.update(dt);
         });
-        player.update();
+        player.update(updateScore);
     };
 
     // Updates Game Stats and States
