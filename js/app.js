@@ -1,11 +1,7 @@
 // Most of the Code editing and creation for P3:Game happens here.
 // TODO -- refactor functions to use less global variables
 
-var velocity = 1,
-    jitter = 0,
-    enemyYstart = 63,
-    enemyXstart = -95,
-    updateScore = false,
+var updateScore = false,
     collision = false;
 
 // Enemies our player must avoid
@@ -13,9 +9,31 @@ var velocity = 1,
 // Enemy is a constructor function(Capitalize first letter)
 // velocity sets relative default speed of Enemy as global variable
 
-var Enemy = function(velocity, jitter) {
+var Enemy = function(velocity, jitter, rogue, row, random) {
+    var rowOffset = 83,
+        enemyXend = 600;
+        enemyYstart = 63,
+        enemyXstart = -95;
+
+    this.enemyXend = enemyXend;
+    this.enemyXstart = enemyXstart;
+
+    // Sets the initial relative velocity of the Enemy Bug (0.0 - 10.0)
+    // (Could also be negative values to move the bugs backwards)
     this.velocity = velocity;
+    //Causes the Enemy Bug to have a jittery motion
     this.jitter = jitter;
+
+    // Rogue enemy, can move accross lanes when true
+    this.rogue = rogue;
+
+    // Row assignment for the Enemy is an integer 0,1,2 (three rows)
+    // (More rows could be added, for instance moving down to grass 3,4)
+    this.row = row;
+
+    // Cause a random velocity to be invoked when true
+    this.random = random;
+
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -28,10 +46,8 @@ var Enemy = function(velocity, jitter) {
     // x = 0, y = 63 perfectly centers Enemy on first ronw first square tile
     // x = -95 offsets most bug off canvas with only a little nose showing
     this.x = enemyXstart;
-    this.y = enemyYstart;
+    this.y = this.row * rowOffset + enemyYstart;
 
-    // Rogue enemy, can move accross lanes when true
-    this.rogue = false;
     // ySign can be positive or negative to set enemy lane change direction
     this.ySign = 1;
 };
@@ -49,15 +65,24 @@ Enemy.prototype.update = function(dt) {
     // Increment relative velocity set for each Enemy element as passed parameter.
     // dt sets relatively constant time increment value on all computers.
     // "Jitterbug" (variable velocity) effect added with weighted sine & cosine fn
-    var enemyxEnd = 600;
 
-    if (this.x > enemyxEnd) {
-        this.x = enemyXstart;
+
+    if (this.x > this.enemyXend) {
+        this.x = this.enemyXstart;
     } else {
         var constantScale = 100;
         var constantIncrement = (constantScale * this.velocity * dt);
         var variableScale = 10;
-        var variableIncrement = (this.jitter * variableScale * Math.sin(this.x));
+        var variableIncrement = (variableScale * Math.sin(this.x));
+
+        if (this.random) {
+            this.velocity = Math.random() * this.velocity;
+        }
+
+        if (!this.jitter){
+            variableIncrement = 0;
+        }
+
 
         this.x = this.x + constantIncrement + variableIncrement;
 
@@ -187,33 +212,43 @@ Player.prototype.loc = function() {
 // Row offset passed into y values for row centering
 // allEnemies is global array, and allEnemy[] elements have Enemy prototype
 
-var offsetRow = 83;
+
 var allEnemies = [];
 
 // Instantiate Enemies as a function of LIFECYCLE (game level)
-// Enemy(velocity, jitter)
+// Enemy(velocity, jitter, rogue, row, random)
 
 var UpdateEnemyLevel = function(lifeCycle) {
 
     // Default Set Up
-    // Three Enemies, Each on Seperate Row, Different Speeds, & Middle Enemy Jitters
+    // Three Enemies Instantiated
+    // Each on Seperate Row, Different Speeds, & Middle Enemy Jitters
     if(lifeCycle === 1) {
-        allEnemies[0] = new Enemy(0.6, 0);
-        allEnemies[1] = new Enemy(0.8, 1);
-        allEnemies[1].y = 1 * offsetRow + enemyYstart;
-        allEnemies[2] = new Enemy(1.0, 0);
-        allEnemies[2].y = 2 * offsetRow + enemyYstart;
+        allEnemies[0] = new Enemy(0.6, false, false, 0, false);
+        allEnemies[1] = new Enemy(0.8, true, false, 1, false);
+        allEnemies[2] = new Enemy(1.0, false, false, 2, false);
     }
 
-    // Same as above lifecycle, except 3rd Enemy now infected with Jitter Virus
+    // Same as above lifecycle, except 3rd Enemy also infected with Jitter Virus
+    // No instantiation, just update jitter parameter value
     if (lifeCycle === 2) {
-        allEnemies[2] = new Enemy(1.0, 1);
-        allEnemies[2].y = 2 * offsetRow + enemyYstart;
+        allEnemies[2].jitter = true;
     }
-        // allEnemies[3] = new Enemy(2.0 * Math.random(), 1);
-        // allEnemies[3].y = 2 * offsetRow + enemyYstart;
-        // allEnemies[3].rogue = true;
 
+    // Same as above lifecycle, now all three Enemy Bugs Jitter
+    // No instantiation, just update jitter parameter value
+    if (lifeCycle === 3) {
+        allEnemies[0].jitter = true;
+    }
+
+    // Rogue Enemy Bug, that can drift between all rows
+    // Also has a random range of speeds invoked for a game
+    // Instantiate another Enemy into the Game
+    if (lifeCycle === 4) {
+        allEnemies[3] = new Enemy(2.0, true, true, 2, false);
+    }
+
+// Math.random()
 
     // TODO - Use on progressive level
     // allEnemies[4] = new Enemy(0.33);
