@@ -1,6 +1,6 @@
 body {
     text-align: center;
-/*    background: #547c65;*/
+/*    KUDO: Image Source http://seamless-pixels.blogspot.com/2012/12/tileable-canvas-cloth-texture.html*/
     background-image: url("../images/clothtexture.jpg");
     background-repeat: repeat;
 }

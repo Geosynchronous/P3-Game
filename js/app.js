@@ -19,13 +19,6 @@ var Enemy = function(velocity, jitter, rogue, row, random) {
         enemyYstart = 63,
         enemyXstart = -95;
 
-    var enemyAttributes = {
-        velocity : 1.0,
-        jitter : false,
-        rogue : false,
-        row : 0,
-        random : false
-    };
 
     this.enemyXend = enemyXend;
     this.enemyXstart = enemyXstart;
@@ -232,43 +225,44 @@ var allEnemies = [];
 
 var UpdateEnemyLevel = function(lifeCycle) {
 
-    // Default Set Up
-    // Three Enemies Instantiated
-    // Each on Seperate Row, Different Speeds, & Middle Enemy Jitters
-    if(lifeCycle === 1) {
-        allEnemies[allEnemies.length] = new Enemy(0.6, false, false, 0, false);
-        allEnemies[allEnemies.length] = new Enemy(0.8, true, false, 1, false);
-        allEnemies[allEnemies.length] = new Enemy(1.0, false, false, 2, false);
-    }
+    switch(lifeCycle) {
+        // Default Set Up
+        // Three Enemies Instantiated
+        // Each on Seperate Row, Different Speeds, & Middle Enemy Jitters
+        case 1:
+            allEnemies[allEnemies.length] = new Enemy(0.6, false, false, 0, false);
+            allEnemies[allEnemies.length] = new Enemy(0.8, true, false, 1, false);
+            allEnemies[allEnemies.length] = new Enemy(1.0, false, false, 2, false);
+            break;
 
-    // Same as above lifecycle, except 3rd Enemy also infected with Jitter Virus
-    // No instantiation, just update jitter parameter value
-    if (lifeCycle === 2) {
-        allEnemies[2].jitter = true;
-    }
+        // Same as above lifecycle, except 3rd Enemy also infected with Jitter Virus
+        // No instantiation, just update jitter parameter value
+        case 2:
+            allEnemies[2].jitter = true;
+            break;
 
-    // Same as above lifecycle, now all three Enemy Bugs Jitter
-    // No instantiation, just update jitter parameter value
-    if (lifeCycle === 3) {
-        allEnemies[0].jitter = true;
-    }
+        // Same as above lifecycle, now all three Enemy Bugs Jitter
+        // No instantiation, just update jitter parameter value
+        case 3:
+            allEnemies[0].jitter = true;
+            break;
+        // Rogue Enemy Bug, that can drift between all rows
+        // Also has a random range of speeds invoked for a game
+        // Instantiate another Enemy into the Game
+        case 4:
+            allEnemies[allEnemies.length] = new Enemy(2.0, true, true, 2, false);
+            break;
 
-    // Rogue Enemy Bug, that can drift between all rows
-    // Also has a random range of speeds invoked for a game
-    // Instantiate another Enemy into the Game
-    if (lifeCycle === 4) {
-        allEnemies[allEnemies.length] = new Enemy(2.0, true, true, 2, false);
-    }
+    // Math.random()
 
-// Math.random()
-
-    // TODO - Use on progressive level
-    // allEnemies[4] = new Enemy(0.33);
-    // allEnemies[4].y = 3 * offsetRow + enemyYstart;
-    // allEnemies[5] = new Enemy(0.11);
-    // allEnemies[5].y = 4 * offsetRow + enemyYstart;
+        // TODO - Use on progressive level
+        // allEnemies[4] = new Enemy(0.33);
+        // allEnemies[4].y = 3 * offsetRow + enemyYstart;
+        // allEnemies[5] = new Enemy(0.11);
+        // allEnemies[5].y = 4 * offsetRow + enemyYstart;
 
 
+    };
 };
 
 // Place the player object in a variable called player
