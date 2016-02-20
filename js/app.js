@@ -1,5 +1,9 @@
 // Most of the Code editing and creation for P3:Game happens here.
-// TODO -- refactor functions to use less global variables
+
+// TODO -- refactor functions to use less global varibles
+// Tried hard to eliminate... missing something here
+// Scope? Hoisting?
+// Will keep them for now, so I can finish the game
 
 var updateScore = false,
     collision = false;
@@ -14,6 +18,14 @@ var Enemy = function(velocity, jitter, rogue, row, random) {
         enemyXend = 600;
         enemyYstart = 63,
         enemyXstart = -95;
+
+    var enemyAttributes = {
+        velocity : 1.0,
+        jitter : false,
+        rogue : false,
+        row : 0,
+        random : false
+    };
 
     this.enemyXend = enemyXend;
     this.enemyXstart = enemyXstart;
@@ -224,9 +236,9 @@ var UpdateEnemyLevel = function(lifeCycle) {
     // Three Enemies Instantiated
     // Each on Seperate Row, Different Speeds, & Middle Enemy Jitters
     if(lifeCycle === 1) {
-        allEnemies[0] = new Enemy(0.6, false, false, 0, false);
-        allEnemies[1] = new Enemy(0.8, true, false, 1, false);
-        allEnemies[2] = new Enemy(1.0, false, false, 2, false);
+        allEnemies[allEnemies.length] = new Enemy(0.6, false, false, 0, false);
+        allEnemies[allEnemies.length] = new Enemy(0.8, true, false, 1, false);
+        allEnemies[allEnemies.length] = new Enemy(1.0, false, false, 2, false);
     }
 
     // Same as above lifecycle, except 3rd Enemy also infected with Jitter Virus
@@ -245,7 +257,7 @@ var UpdateEnemyLevel = function(lifeCycle) {
     // Also has a random range of speeds invoked for a game
     // Instantiate another Enemy into the Game
     if (lifeCycle === 4) {
-        allEnemies[3] = new Enemy(2.0, true, true, 2, false);
+        allEnemies[allEnemies.length] = new Enemy(2.0, true, true, 2, false);
     }
 
 // Math.random()
