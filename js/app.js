@@ -14,7 +14,7 @@ var updateScore = false,
 // velocity sets relative default speed of Enemy as global variable
 
 var Enemy = function(velocity, jitter, rogue, row, random) {
-    var rowOffset = 83,
+    var enemyYoffset = 83,
         enemyXend = 600;
         enemyYstart = 63,
         enemyXstart = -95;
@@ -51,7 +51,7 @@ var Enemy = function(velocity, jitter, rogue, row, random) {
     // x = 0, y = 63 perfectly centers Enemy on first ronw first square tile
     // x = -95 offsets most bug off canvas with only a little nose showing
     this.x = enemyXstart;
-    this.y = this.row * rowOffset + enemyYstart;
+    this.y = this.row * enemyYoffset + enemyYstart;
 
     // ySign can be positive or negative to set enemy lane change direction
     this.ySign = 1;
@@ -77,20 +77,21 @@ Enemy.prototype.update = function(dt) {
     }
 
     var constantScale = 100;
-    var constantIncrement = (constantScale * this.velocity * dt);
-    var variableScale = 10;
-    var variableIncrement = (variableScale * Math.sin(this.x));
+    var constantXincrement = (constantScale * this.velocity * dt);
+    var jitterScale = 10;
+    var jitterXincrement = (jitterScale * Math.sin(this.x));
 
     if (!this.jitter){
-        variableIncrement = 0;
+        jitterXincrement = 0;
     }
 
+    // Randomly alters the enemy velocity when true
     if (this.random) {
-        constantIncrement = constantIncrement * (1 - Math.random());
+        constantXincrement = constantXincrement * (1 - Math.random());
     }
 
-
-    this.x = this.x + constantIncrement + variableIncrement;
+    // Updates x position of enemy (along the lenght of the visible row)
+    this.x = this.x + constantXincrement + jitterXincrement;
 
 
     // Checks if enemy is a rogue, if so it can move accross lanes
