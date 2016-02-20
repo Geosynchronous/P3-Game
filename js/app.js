@@ -72,36 +72,36 @@ Enemy.prototype.update = function(dt) {
     // "Jitterbug" (variable velocity) effect added with weighted sine & cosine fn
 
 
-    if (this.x > this.enemyXend) {
+    if (this.x >= this.enemyXend) {
         this.x = this.enemyXstart;
-    } else {
-        var constantScale = 100;
-        var constantIncrement = (constantScale * this.velocity * dt);
-        var variableScale = 10;
-        var variableIncrement = (variableScale * Math.sin(this.x));
+    }
 
-        if (this.random) {
-            this.velocity = Math.random() * this.velocity;
-        }
+    var constantScale = 100;
+    var constantIncrement = (constantScale * this.velocity * dt);
+    var variableScale = 10;
+    var variableIncrement = (variableScale * Math.sin(this.x));
 
-        if (!this.jitter){
-            variableIncrement = 0;
-        }
+    if (!this.jitter){
+        variableIncrement = 0;
+    }
 
-
-        this.x = this.x + constantIncrement + variableIncrement;
+    if (this.random) {
+        constantIncrement = constantIncrement * (1 - Math.random());
+    }
 
 
-        // Checks if enemy is a rogue, if so it can move accross lanes
-        if ((this.rogue === true && this.y < 250) && (this.rogue === true && this.y > 50)){
-            this.y = this.y - 0.2 * this.ySign;
-        } else if (this.rogue === true && this.y <= 50) {
-            this.ySign = this.ySign * (-1);
-            this.y = 55;
-        } else if (this.rogue === true && this.y >= 250) {
-            this.ySign = this.ySign * (-1);
-            this.y = 245;
-        }
+    this.x = this.x + constantIncrement + variableIncrement;
+
+
+    // Checks if enemy is a rogue, if so it can move accross lanes
+    if ((this.rogue === true && this.y < 250) && (this.rogue === true && this.y > 50)){
+        this.y = this.y - 0.2 * this.ySign;
+    } else if (this.rogue === true && this.y <= 50) {
+        this.ySign = this.ySign * (-1);
+        this.y = 55;
+    } else if (this.rogue === true && this.y >= 250) {
+        this.ySign = this.ySign * (-1);
+        this.y = 245;
     }
 };
 
@@ -220,14 +220,17 @@ Player.prototype.loc = function() {
 
 var allEnemies = [];
 
-// Instantiate Enemies as a function of LIFECYCLE (game level)
-// Enemy(velocity, jitter, rogue, row, random)
-
+// Create Enemies as needed in each LIFECYCLE
+// Enemies created are available in all LIFECYCELS that follow
+// Enemy behaviours can be updated to new attributes in succesive LIRECYCLES
 var UpdateEnemyLevel = function(lifeCycle) {
 
     switch(lifeCycle) {
-        // Default Set Up
-        // Three Enemies Instantiated
+    // Instantiate Enemies as needed as a function of LIFECYCLE (game level)
+    //Give Enemies their behavioural attributes based on array index (enemy element)
+    // Enemy(velocity, jitter, rogue, row, random)
+
+        // First Three Enemies Instantiated
         // Each on Seperate Row, Different Speeds, & Middle Enemy Jitters
         case 1:
             allEnemies[allEnemies.length] = new Enemy(0.6, false, false, 0, false);
@@ -246,22 +249,19 @@ var UpdateEnemyLevel = function(lifeCycle) {
         case 3:
             allEnemies[0].jitter = true;
             break;
-        // Rogue Enemy Bug, that can drift between all rows
+
+        // Add Rogue Enemy Bug, that can drift between all rows
         // Also has a random range of speeds invoked for a game
         // Instantiate another Enemy into the Game
         case 4:
             allEnemies[allEnemies.length] = new Enemy(2.0, true, true, 2, false);
             break;
 
-    // Math.random()
-
-        // TODO - Use on progressive level
-        // allEnemies[4] = new Enemy(0.33);
-        // allEnemies[4].y = 3 * offsetRow + enemyYstart;
-        // allEnemies[5] = new Enemy(0.11);
-        // allEnemies[5].y = 4 * offsetRow + enemyYstart;
-
-
+        //  Add 2 more instantiated enemies with random velocities that change rows
+        case 5:
+            allEnemies[allEnemies.length] = new Enemy(1.0, true, true, 0, true);
+            allEnemies[allEnemies.length] = new Enemy(2.0, true, true, 2, true);
+            break;
     };
 };
 
