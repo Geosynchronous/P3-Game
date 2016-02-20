@@ -175,13 +175,13 @@ Player.prototype.update = function() {
             bottomLimit = 380,
             rightLimit = 400;
 
-        if (keyup === 'up' && this.y > topLimit) {
+        if (keyup === 'up' && this.y >= topLimit) {
             this.y = this.y - playerIncrement;
-        } else if (keyup === 'down' && this.y < bottomLimit) {
+        } else if (keyup === 'down' && this.y <=bottomLimit) {
             this.y = this.y + playerIncrement;
-        } else if (keyup === 'right' && this.x < rightLimit) {
+        } else if (keyup === 'right' && this.x <=rightLimit) {
             this.x = this.x + playerIncrement;
-        } else if (keyup === 'left' && this.x > leftLimit) {
+        } else if (keyup === 'left' && this.x >=leftLimit) {
             this.x = this.x - playerIncrement;
         }
 
