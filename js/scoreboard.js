@@ -160,6 +160,8 @@
             ctx.fillText('WARNING: These bugs are experiencing an epidemic', 20, 410);
             ctx.fillText('of a once thought to be extinct JITTER VIRUS that is', 20, 430);
             ctx.fillText('rapidly evolving strange behavioural phenotypes.', 20, 450);
+
+            ctx.drawImage(Resources.get('images/enemy-bug.png'), -20 - 10 * Math.random(), 400);
     };
 
     // Message window with Info
@@ -176,6 +178,8 @@
 
         ctx.fillText('GAME', 140, 200 - 3 * Math.cos(Date.now()));
         ctx.fillText('OVER', 140, 280 + 3 * Math.cos(Date.now()));
+
+        ctx.drawImage(Resources.get('images/char-cat-girl.png'), 10, 400);
     };
 
     // Displays Heart Capture info in a Message Window
