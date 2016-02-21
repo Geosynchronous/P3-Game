@@ -187,6 +187,16 @@
         ctx.drawImage(Resources.get('images/char-cat-girl.png'), 10, 400);
     };
 
+    var NinjaRender = function() {
+        ctx.fillStyle = '#fbcc09';
+        ctx.textBaseline = 'top';
+        ctx.font = 'bold 72px sans-serif';
+
+        ctx.fillText('NINJA!!!', 110, 170 - 3 * Math.cos(Date.now()));
+
+        ctx.drawImage(Resources.get('images/star.png'), 201, 240);
+    };
+
     // Displays Heart Capture info in a Message Window
     var HeartCaptureRender = function() {
         ctx.fillStyle = '#fbcc09';
@@ -214,17 +224,22 @@
             HeartCaptureRender();
     };
 
-
     // Message window with Info
     var InfoWindowRender = function() {
             MessageWindowRender();
             InfoRender();
     };
 
-        // Message window for a won game
+    // Message window for a won game
     var WonGameWindowRender = function() {
             MessageWindowRender();
             WonGameRender();
+    };
+
+    // Message window for winning all levels - a.k.a. NINJA
+    var NinjaWindowRender = function() {
+            MessageWindowRender();
+            NinjaRender();
     };
 
     // Renders Heart in middle of stone rows

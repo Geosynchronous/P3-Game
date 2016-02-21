@@ -34,6 +34,7 @@ var Engine = (function(global) {
         lastTime,
         lifeCycle = 1,
         gameWon = false,
+        ninja = false,
         playerScore = 0,
         playerX,
         playerY;
@@ -134,8 +135,13 @@ var Engine = (function(global) {
             player.reset();
             updateScore = false;
         }
+
+        // Check if all 5 LIFECYCLES won
+        if((playerScore === 10) && (lifeCycle === 5)) {
+            ninja = true;
+
         // Check for Game Won and set to start a new game LIFECYCLE
-        if (playerScore === 10) {
+        } else if (playerScore === 10) {
             gameWon = true;
             playerScore =0;
             lifeCycle = ++lifeCycle;
@@ -196,6 +202,7 @@ var Engine = (function(global) {
         renderGameOver();
         renderHeartCapture();
         renderWonGame();
+        renderNinja();
         TitleRender();
     };
 
@@ -270,7 +277,12 @@ var Engine = (function(global) {
         }
     };
 
-
+    function renderNinja() {
+        if (ninja) {
+            NinjaWindowRender();
+            resetButton.render();
+        }
+    };
 
 
     // Check to see if Score needs to be rendeered on Socreboard
@@ -328,6 +340,7 @@ var Engine = (function(global) {
         collision = false;
         heartCapture = 0;
         gameWon = false;
+        ninja = false;
     };
 
 
@@ -344,28 +357,32 @@ var Engine = (function(global) {
         y = evt.clientY - canvas.offsetTop;
 
         // Determines if mouse clicked on a button
-        //
+
         // Play Button resets player to start position
         // gamePlay = true enables player to start playing
-        //
-        // TODO -  This works, but it could probably be refactored more efficiently
         if ((x >= 7  && x<= 88) && (y >= 7 && y <= 35) && (!infoRender)) {
             gamePlay = true;
             player.reset();
 
+        // Back Button clicked
+        // Handles exit from Ninja Window Message
+        } else if (( x >= 412  && x<= 500) && (y >= 7 && y <= 35) && (ninja)) {
+            lifeCycle = 1;
+            reset();
+
         // Back Button Clicked
-        // Enables render of Info window about how to play game level
+        // Handles exit from Game Won Message
         } else if (( x >= 412  && x<= 500) && (y >= 7 && y <= 35) && (gameWon)) {
             reset();
 
         // Back Button Clicked
-        // Enables render of Info window about how to play game level
+        // Handles exit from Heart Captured Message
         } else if (( x >= 412  && x<= 500) && (y >= 7 && y <= 35) && (heartCapture === 1)) {
             heartCapture = 2;
             console.log(heartCapture);
 
         // Info Button Clicked
-        // Enables render of Info window about how to play game level
+        // Handles allows render of InfoWindow
         } else if (( x >= 412  && x<= 500) && (y >= 7 && y <= 35) && (!gamePlay) && (!infoRender)) {
             infoRender = true;
 
@@ -374,12 +391,11 @@ var Engine = (function(global) {
         } else if (( x >= 412  && x<= 500) && (y >= 7 && y <= 35) && (gamePlay)) {
             reset();
 
-        // Info Button Clicked
-        // Enables render of Info window about how to play game level
+        // Done Button Clicked
+        // Handles exit from Info Message Window about HOW TO PLAY GAME
         } else if (( x >= 412  && x<= 500) && (y >= 7 && y <= 35) && (infoRender)) {
             infoRender = false;
         }
-
 
         return gamePlay, infoRender;
     };
@@ -403,8 +419,10 @@ var Engine = (function(global) {
         'images/grass-block.png',
         'images/enemy-bug.png',
         'images/char-cat-girl.png',
-        'images/heart.png'
+        'images/heart.png',
+        'images/star.png'
     ]);
+
     Resources.onReady(init);
 
     /* Assign the canvas' context object to the global variable (the window
