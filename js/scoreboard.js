@@ -164,12 +164,6 @@
             ctx.drawImage(Resources.get('images/enemy-bug.png'), -20 - 10 * Math.random(), 400);
     };
 
-    // Message window with Info
-    var InfoWindowRender = function() {
-            MessageWindowRender();
-            InfoRender();
-    };
-
     // Displays Jitter Animated GAME OVER in a Message Window
     var GameOverRender = function() {
         ctx.fillStyle = '#fbcc09';
@@ -178,6 +172,17 @@
 
         ctx.fillText('GAME', 140, 200 - 3 * Math.cos(Date.now()));
         ctx.fillText('OVER', 140, 280 + 3 * Math.cos(Date.now()));
+
+        ctx.drawImage(Resources.get('images/char-cat-girl.png'), 10, 400);
+    };
+
+    var WonGameRender = function() {
+        ctx.fillStyle = '#fbcc09';
+        ctx.textBaseline = 'top';
+        ctx.font = 'bold 72px sans-serif';
+
+        ctx.fillText('YOU', 170, 200 - 3 * Math.cos(Date.now()));
+        ctx.fillText('WIN!', 170, 280 + 3 * Math.cos(Date.now()));
 
         ctx.drawImage(Resources.get('images/char-cat-girl.png'), 10, 400);
     };
@@ -207,6 +212,19 @@
     var HeartCaptureWindowRender = function() {
             MessageWindowRender();
             HeartCaptureRender();
+    };
+
+
+    // Message window with Info
+    var InfoWindowRender = function() {
+            MessageWindowRender();
+            InfoRender();
+    };
+
+        // Message window for a won game
+    var WonGameWindowRender = function() {
+            MessageWindowRender();
+            WonGameRender();
     };
 
     // Renders Heart in middle of stone rows

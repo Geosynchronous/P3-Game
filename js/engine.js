@@ -33,6 +33,7 @@ var Engine = (function(global) {
         infoRender = false,
         lastTime,
         lifeCycle = 1,
+        gameWon = false,
         playerScore = 0,
         playerX,
         playerY;
@@ -135,8 +136,8 @@ var Engine = (function(global) {
         }
         // Check for Game Won and set to start a new game LIFECYCLE
         if (playerScore === 10) {
-            reset();
-            console.log(heartCapture);
+            gameWon = true;
+            playerScore =0;
             lifeCycle = ++lifeCycle;
             UpdateEnemyLevel(lifeCycle);
         }
@@ -194,6 +195,7 @@ var Engine = (function(global) {
         renderInfo();
         renderGameOver();
         renderHeartCapture();
+        renderWonGame();
         TitleRender();
     };
 
@@ -231,7 +233,7 @@ var Engine = (function(global) {
         });
 
         // Renders player only if in Gaming Mode and no messages displayed
-        if (gamePlay && !collision && heartCapture !== 1) {
+        if (gamePlay && !collision && !gameWon && heartCapture !== 1) {
             player.render();
         }
     };
@@ -259,9 +261,14 @@ var Engine = (function(global) {
             HeartCaptureWindowRender();
             backButton.render();
         }
-    }
+    };
 
-
+    function renderWonGame() {
+        if (gameWon) {
+            WonGameWindowRender();
+            backButton.render();
+        }
+    };
 
 
 
@@ -320,6 +327,7 @@ var Engine = (function(global) {
         playerScore = 0;
         collision = false;
         heartCapture = 0;
+        gameWon = false;
     };
 
 
@@ -344,6 +352,11 @@ var Engine = (function(global) {
         if ((x >= 7  && x<= 88) && (y >= 7 && y <= 35) && (!infoRender)) {
             gamePlay = true;
             player.reset();
+
+        // Back Button Clicked
+        // Enables render of Info window about how to play game level
+        } else if (( x >= 412  && x<= 500) && (y >= 7 && y <= 35) && (gameWon)) {
+            reset();
 
         // Back Button Clicked
         // Enables render of Info window about how to play game level
