@@ -106,6 +106,7 @@ var Engine = (function(global) {
     function update(dt) {
         updateEntities(dt);
         checkCollisions();
+        checkHeartCapture();
         updateGameStats();
     };
 
@@ -128,14 +129,15 @@ var Engine = (function(global) {
 
         // Update score when player reaches water
         if (updateScore) {
-            playerScore = playerScore + 1;
+            playerScore = ++playerScore;
             player.reset();
             updateScore = false;
         }
         // Check for Game Won and set to start a new game LIFECYCLE
         if (playerScore === 10) {
             reset();
-            lifeCycle = lifeCycle + 1;
+            console.log(heartCapture);
+            lifeCycle = ++lifeCycle;
             UpdateEnemyLevel(lifeCycle);
         }
     };
@@ -187,9 +189,11 @@ var Engine = (function(global) {
 
         // Renders Everything else needed for game
         renderScoreboard();
+        renderBonusItems();
         renderEntities();
         renderInfo();
         renderGameOver();
+        renderHeartCapture();
         TitleRender();
     };
 
@@ -207,6 +211,13 @@ var Engine = (function(global) {
         CheckScore();
     };
 
+    // renders Bonus Items (Can enable more powees for the player)
+    function renderBonusItems() {
+        if ((lifeCycle >= 4) && (heartCapture) <= 1) {
+            HeartRender();
+        }
+    };
+
     /* This function is called by the render function and is called on each game
      * tick. Its purpose is to then call the render functions you have defined
      * on your Enemy and player entities within app.js
@@ -219,8 +230,8 @@ var Engine = (function(global) {
             Enemy.render();
         });
 
-        // Renders player if in Gaming Mode
-        if (gamePlay && !collision) {
+        // Renders player only if in Gaming Mode and no messages displayed
+        if (gamePlay && !collision && heartCapture !== 1) {
             player.render();
         }
     };
@@ -242,6 +253,13 @@ var Engine = (function(global) {
             nextButton.render();
         }
     };
+
+    function renderHeartCapture() {
+        if (heartCapture === 1) {
+            HeartCaptureWindowRender();
+            backButton.render();
+        }
+    }
 
 
 
@@ -278,6 +296,13 @@ var Engine = (function(global) {
         }
     };
 
+    // Check to see if heart is captured
+    function checkHeartCapture() {
+        if (lifeCycle >= 4) {
+            playerHeartCapture();
+        }
+    };
+
 
 
 
@@ -294,6 +319,7 @@ var Engine = (function(global) {
         infoRender = false;
         playerScore = 0;
         collision = false;
+        heartCapture = 0;
     };
 
 
@@ -303,7 +329,7 @@ var Engine = (function(global) {
 
     // Mouse Click reveals if button is selected
     // Basic Function with Returnsd Variables Definition used
-    // TODO --- Refactor this logic to simplify
+    // TODO --- UGLY CODE - Refactor this logic to simplify
     function handleMouseClick(evt) {
 
         x = evt.clientX - canvas.offsetLeft;
@@ -313,9 +339,17 @@ var Engine = (function(global) {
         //
         // Play Button resets player to start position
         // gamePlay = true enables player to start playing
+        //
+        // TODO -  This works, but it could probably be refactored more efficiently
         if ((x >= 7  && x<= 88) && (y >= 7 && y <= 35) && (!infoRender)) {
             gamePlay = true;
             player.reset();
+
+        // Back Button Clicked
+        // Enables render of Info window about how to play game level
+        } else if (( x >= 412  && x<= 500) && (y >= 7 && y <= 35) && (heartCapture === 1)) {
+            heartCapture = 2;
+            console.log(heartCapture);
 
         // Info Button Clicked
         // Enables render of Info window about how to play game level
@@ -332,6 +366,7 @@ var Engine = (function(global) {
         } else if (( x >= 412  && x<= 500) && (y >= 7 && y <= 35) && (infoRender)) {
             infoRender = false;
         }
+
 
         return gamePlay, infoRender;
     };
@@ -354,7 +389,8 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-cat-girl.png'
+        'images/char-cat-girl.png',
+        'images/heart.png'
     ]);
     Resources.onReady(init);
 

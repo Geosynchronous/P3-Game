@@ -3,6 +3,8 @@
 //      Title
 //      Buttons
 //      Message Windows
+//
+// Also creates other Objects to be rendered
 
 
 
@@ -110,6 +112,7 @@
     var doneButton = new MakeButton(410, 'Done', 430);
     var resetButton = new MakeButton(410, 'Reset', 427);
     var nextButton = new MakeButton(410, 'Next', 430);
+    var backButton = new MakeButton(410, 'Back', 430);
 
 
 
@@ -175,9 +178,35 @@
         ctx.fillText('OVER', 140, 280 + 3 * Math.cos(Date.now()));
     };
 
+    // Displays Heart Capture info in a Message Window
+    var HeartCaptureRender = function() {
+        ctx.fillStyle = '#fbcc09';
+        ctx.textBaseline = 'top';
+        ctx.font = 'bold 24px sans-serif';
+        ctx.fillText('CONGRATULATIONS!!!', 20, 70);
+        ctx.font = 'bold 18px sans-serif';
+
+        ctx.fillText('You now have improved cardio capabilities.', 20, 110);
+        ctx.fillText('This means you can now move faster than before.', 20, 130);
+        ctx.fillText('Click the BACK button to continue the game.', 20, 150);
+
+         ctx.drawImage(Resources.get('images/heart.png'), 201, 200);
+    };
+
     // Message window with GAME OVER text
     var GameOverWindowRender = function() {
             MessageWindowRender();
             GameOverRender();
+    };
+
+    // Message window with heart capture text
+    var HeartCaptureWindowRender = function() {
+            MessageWindowRender();
+            HeartCaptureRender();
+    };
+
+    // Renders Heart in middle of stone rows
+    var HeartRender = function() {
+        ctx.drawImage(Resources.get('images/heart.png'), 201, 165);
     };
 

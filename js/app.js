@@ -6,7 +6,8 @@
 // Will keep them for now, so I can finish the game
 
 var updateScore = false,
-    collision = false;
+    collision = false,
+    heartCapture = 0;
 
 // Enemies our player must avoid
 // PseudoClassical Class Definition Function used here
@@ -136,6 +137,30 @@ Enemy.prototype.collide = function() {
     }
 };
 
+playerHeartCapture = function() {
+    player.loc();
+// Comparative PLAYER and Enemy dimensional range parameters declared
+// Approx visible rectangle of object image for crossection overlap used
+// Variables offset with numerical adjustment
+// 3D effect makes PLAYER visual base the crosssection, and it is about 35 x 35
+// ENEMY crossection is about 100 x 67
+// Total image size including transparent space is 101 x 171
+    var pLeftX = playerX + 33,
+        pRightX = pLeftX + 35,
+        heartLeftX = 201,
+        heartRightX = heartLeftX + 100,
+        pTopY = playerY + 115,
+        pBottomY = pTopY + 35,
+        heartTopY = 165;
+        heartBottomY = heartTopY + 100;
+
+    //Compare X and Y ranges for overlap using continuity principle
+    if ((heartCapture < 2) && (pLeftX  >= heartLeftX && pLeftX <= heartRightX)  &&  (pTopY  >= heartTopY && pTopY <= heartBottomY)) {
+        heartCapture = 1;
+        player.reset();
+    }
+};
+
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
@@ -169,7 +194,8 @@ Player.prototype.update = function() {
     //player handle input keys here with logic to move player in proper direction.
     //Movement constrained within displayed game grid (1 - 400)
     Player.prototype.handleInput = function(keyup) {
-        var playerIncrement = 15,
+        // Captured Heart makes Player faster (bigger steps)
+        var playerIncrement = 15 + heartCapture * 10,
             topLimit = 0,
             leftLimit = 1,
             bottomLimit = 380,
