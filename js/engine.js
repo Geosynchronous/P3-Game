@@ -73,7 +73,7 @@ var Engine = (function(global) {
          * function again as soon as the browser is able to draw another frame.
          */
         win.requestAnimationFrame(main);
-    };
+    }
 
 
 
@@ -89,7 +89,7 @@ var Engine = (function(global) {
         UpdateEnemyLevel(lifeCycle);
         lastTime = Date.now();
         main();
-    };
+    }
 
 
 
@@ -110,7 +110,7 @@ var Engine = (function(global) {
         checkCollisions();
         checkHeartCapture();
         updateGameStats();
-    };
+    }
 
     /* This is called by the update function and loops through all of the
      * objects within your allEnemies array as defined in app.js and calls
@@ -124,7 +124,7 @@ var Engine = (function(global) {
             Enemy.update(dt);
         });
         player.update();
-    };
+    }
 
     // Updates Game Stats and States
     function updateGameStats() {
@@ -147,7 +147,7 @@ var Engine = (function(global) {
             lifeCycle = ++lifeCycle;
             UpdateEnemyLevel(lifeCycle);
         }
-    };
+    }
 
 
 
@@ -204,7 +204,7 @@ var Engine = (function(global) {
         renderWonGame();
         renderNinja();
         TitleRender();
-    };
+    }
 
 
 
@@ -218,14 +218,14 @@ var Engine = (function(global) {
         ScoreBoardRender();
         LifeCycleRender(lifeCycle);
         CheckScore();
-    };
+    }
 
     // renders Bonus Items (Can enable more powees for the player)
     function renderBonusItems() {
         if ((lifeCycle >= 4) && (heartCapture) <= 1) {
             HeartRender();
         }
-    };
+    }
 
     /* This function is called by the render function and is called on each game
      * tick. Its purpose is to then call the render functions you have defined
@@ -243,7 +243,7 @@ var Engine = (function(global) {
         if (gamePlay && !collision && !gameWon && heartCapture !== 1) {
             player.render();
         }
-    };
+    }
 
     //This function renders info about the game if the info button was clicked on
     //TODO as if statement for specific level windows
@@ -252,7 +252,7 @@ var Engine = (function(global) {
             InfoWindowRender();
             doneButton.render();
         }
-    };
+    }
 
     //This function renders info about the game if the info button was clicked on
     //TODO as if statement for specific level windows
@@ -261,28 +261,28 @@ var Engine = (function(global) {
             GameOverWindowRender();
             nextButton.render();
         }
-    };
+    }
 
     function renderHeartCapture() {
         if (heartCapture === 1) {
             HeartCaptureWindowRender();
             backButton.render();
         }
-    };
+    }
 
     function renderWonGame() {
         if (gameWon) {
             WonGameWindowRender();
             backButton.render();
         }
-    };
+    }
 
     function renderNinja() {
         if (ninja) {
             NinjaWindowRender();
             resetButton.render();
         }
-    };
+    }
 
 
 
@@ -316,14 +316,14 @@ var Engine = (function(global) {
                 Enemy.collide();
             });
         }
-    };
+    }
 
     // Check to see if heart is captured
     function checkHeartCapture() {
         if (lifeCycle >= 4) {
             player.heartCapture();
         }
-    };
+    }
 
 
 
@@ -344,7 +344,7 @@ var Engine = (function(global) {
         heartCapture = 0;
         gameWon = false;
         ninja = false;
-    };
+    }
 
 
 
@@ -404,7 +404,7 @@ var Engine = (function(global) {
         }
 
         return gamePlay, infoRender;
-    };
+    }
 
     // Mouse click enevnt invokes handleMouseClick function
     // Used to determine if Buttons (Play etc) are clicked on
@@ -438,6 +438,5 @@ var Engine = (function(global) {
     global.ctx = ctx;
 
 })(this);
-
 
 
