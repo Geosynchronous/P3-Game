@@ -2,8 +2,8 @@
 
 // TODO -- refactor functions to use less global varibles
 // Tried hard to eliminate... missing something here
-// Scope? Hoisting?
-// Will keep them for now, so I can finish the game
+// How best to include these variables in function Engine?
+// Will keep them for now, so I can finish the game by deadline
 
 var updateScore = false,
     collision = false,
@@ -253,11 +253,11 @@ var allEnemies = [];
 var UpdateEnemyLevel = function(lifeCycle) {
 
     switch(lifeCycle) {
-    // Instantiate Enemies as needed as a function of LIFECYCLE (game level)
+    // New allEnemies instances as needed as a function of LIFECYCLE (game level)
     //Give Enemies their behavioural attributes based on array index (enemy element)
     // Enemy(velocity, jitter, rogue, row, random)
 
-        // First Three Enemies Instantiated
+        // First Three Enemies Instances
         // Each on Seperate Row, Different Speeds, & Middle Enemy Jitters
         case 1:
             allEnemies[allEnemies.length] = new Enemy(0.6, false, false, 0, false);
@@ -266,20 +266,20 @@ var UpdateEnemyLevel = function(lifeCycle) {
             break;
 
         // Same as above lifecycle, except 3rd Enemy also infected with Jitter Virus
-        // No instantiation, just update jitter parameter value
+        // No new allEnemies instances, just update jitter parameter value
         case 2:
             allEnemies[2].jitter = true;
             break;
 
         // Same as above lifecycle, now all three Enemy Bugs Jitter
-        // No instantiation, just update jitter parameter value
+        // No new allEnemies instances, just update jitter parameter value
         case 3:
             allEnemies[0].jitter = true;
             break;
 
         // Add Rogue Enemy Bug, that can drift between all rows
         // Also has a random range of speeds invoked for a game
-        // Instantiate another Enemy into the Game
+        // Two new allEnemies instance put into the Game
         case 4:
             allEnemies[allEnemies.length] = new Enemy(2.0, true, true, 2, false);
             break;

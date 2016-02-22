@@ -85,7 +85,7 @@ var Engine = (function(global) {
      * game loop.
      */
     function init() {
-        reset
+        reset();
         UpdateEnemyLevel(lifeCycle);
         lastTime = Date.now();
         main();
@@ -285,6 +285,10 @@ var Engine = (function(global) {
     };
 
 
+
+
+
+
     // Check to see if Score needs to be rendeered on Socreboard
     var CheckScore = function() {
         if (gamePlay) {
@@ -348,7 +352,7 @@ var Engine = (function(global) {
 
 
 
-    // Mouse Click reveals if button is selected
+    // Mouse Click reveals if a button is selected
     // Basic Function with Returnsd Variables Definition used
     // TODO --- UGLY CODE - Refactor this logic to simplify
     function handleMouseClick(evt) {
@@ -358,17 +362,20 @@ var Engine = (function(global) {
 
         // Determines if mouse clicked on a button
 
-        // Play Button resets player to start position
+        // Play Button Clicked
+        // Resets player to start position
         // gamePlay = true enables player to start playing
         if ((x >= 7  && x<= 88) && (y >= 7 && y <= 35) && (!infoRender)) {
             gamePlay = true;
             player.reset();
 
-        // Back Button clicked
+        // Back Button Clicked
         // Handles exit from Ninja Window Message
+        // Ready to start again with LIFECYCLE 1 and an an empty Enemies Array
         } else if (( x >= 412  && x<= 500) && (y >= 7 && y <= 35) && (ninja)) {
+            allEnemies = [];
             lifeCycle = 1;
-            reset();
+            init();
 
         // Back Button Clicked
         // Handles exit from Game Won Message
