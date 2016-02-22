@@ -129,7 +129,7 @@ Enemy.prototype.collide = function() {
         eRightX = eLeftX + 100,
         pTopY = playerY + 115,
         pBottomY = pTopY + 35,
-        eTopY = this.y + 77,
+        eTopY = this.y + 70,
         eBottomY = eTopY + 67;
 
     //Compare X and Y ranges for overlap using continuity principle
