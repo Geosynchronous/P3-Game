@@ -194,7 +194,7 @@ Player.prototype.update = function() {
         if (this.y <= 5 ) {
             updateScore = true;
         }
-        console.log(this.x, this.y, updateScore);
+        // console.log(this.x, this.y, updateScore);
     };
 };
 
