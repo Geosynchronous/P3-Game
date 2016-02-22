@@ -4,6 +4,7 @@
 // Tried hard to eliminate... missing something here
 // How best to include these variables in function Engine?
 // Will keep them for now, so I can finish the game by deadline
+// Definately could use some coaching here...
 
 var updateScore = false,
     collision = false,
@@ -30,6 +31,7 @@ var Enemy = function(velocity, jitter, rogue, row, random) {
     //Causes the Enemy Bug to have a jittery motion
     this.jitter = jitter;
 
+// Definately could use some coaching here...
     // Rogue enemy, can move accross lanes when true
     this.rogue = rogue;
 
@@ -137,29 +139,6 @@ Enemy.prototype.collide = function() {
     }
 };
 
-playerHeartCapture = function() {
-    player.loc();
-// Comparative PLAYER and Enemy dimensional range parameters declared
-// Approx visible rectangle of object image for crossection overlap used
-// Variables offset with numerical adjustment
-// 3D effect makes PLAYER visual base the crosssection, and it is about 35 x 35
-// ENEMY crossection is about 100 x 67
-// Total image size including transparent space is 101 x 171
-    var pLeftX = playerX + 33,
-        pRightX = pLeftX + 35,
-        heartLeftX = 201,
-        heartRightX = heartLeftX + 100,
-        pTopY = playerY + 115,
-        pBottomY = pTopY + 35,
-        heartTopY = 165;
-        heartBottomY = heartTopY + 100;
-
-    //Compare X and Y ranges for overlap using continuity principle
-    if ((heartCapture < 2) && (pLeftX  >= heartLeftX && pLeftX <= heartRightX)  &&  (pTopY  >= heartTopY && pTopY <= heartBottomY)) {
-        heartCapture = 1;
-        player.reset();
-    }
-};
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -231,6 +210,30 @@ Player.prototype.loc = function() {
     return playerX, playerY;
 };
 
+
+Player.prototype.heartCapture = function() {
+    player.loc();
+// Comparative PLAYER and Enemy dimensional range parameters declared
+// Approx visible rectangle of object image for crossection overlap used
+// Variables offset with numerical adjustment
+// 3D effect makes PLAYER visual base the crosssection, and it is about 35 x 35
+// ENEMY crossection is about 100 x 67
+// Total image size including transparent space is 101 x 171
+    var pLeftX = playerX + 33,
+        pRightX = pLeftX + 35,
+        heartLeftX = 201,
+        heartRightX = heartLeftX + 100,
+        pTopY = playerY + 115,
+        pBottomY = pTopY + 35,
+        heartTopY = 165;
+        heartBottomY = heartTopY + 100;
+
+    //Compare X and Y ranges for overlap using continuity principle
+    if ((heartCapture < 2) && (pLeftX  >= heartLeftX && pLeftX <= heartRightX)  &&  (pTopY  >= heartTopY && pTopY <= heartBottomY)) {
+        heartCapture = 1;
+        player.reset();
+    }
+};
 
 
 

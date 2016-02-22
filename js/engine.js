@@ -304,7 +304,6 @@ var Engine = (function(global) {
         if (!infoRender) {
                 playButton.render();
                 infoButton.render();
-
         }
     };
 
@@ -322,7 +321,7 @@ var Engine = (function(global) {
     // Check to see if heart is captured
     function checkHeartCapture() {
         if (lifeCycle >= 4) {
-            playerHeartCapture();
+            player.heartCapture();
         }
     };
 
