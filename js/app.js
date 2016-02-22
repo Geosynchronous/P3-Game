@@ -16,8 +16,9 @@ var updateScore = false,
 // velocity sets relative default speed of Enemy as global variable
 
 var Enemy = function(velocity, jitter, rogue, row, random) {
+
     var enemyYoffset = 83,
-        enemyXend = 600;
+        enemyXend = 600,
         enemyYstart = 63,
         enemyXstart = -95;
 
@@ -292,11 +293,11 @@ var UpdateEnemyLevel = function(lifeCycle) {
             allEnemies[allEnemies.length] = new Enemy(1.0, true, true, 0, true);
             allEnemies[allEnemies.length] = new Enemy(2.0, true, true, 2, true);
             break;
-    };
+    }
 };
 
 // Place the player object in a variable called player
-var player = new Player;
+var player = new Player();
 
 
 

@@ -116,6 +116,11 @@ CODING ADDITIONS: a.k.a BEYOND EXPECTATIONS
 
 12. Minified js files
 
+13. Most animation frames code execution between 1 - 2 ms.
+		-plenty of room left for 60 fps limit (16 ms per animation frame)
+
+14. Detailed Commenting for all JS files.
+
 
 
 
