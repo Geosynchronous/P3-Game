@@ -106,17 +106,18 @@ CODING ADDITIONS: a.k.a BEYOND EXPECTATIONS
 	- one caveat added simple background image to CSS and HTML files for BODY
 		- that could have been down in JS as well
 
-9. Attempts made to reduce global variable usage.
-	-  TODO - still three frustrating global variables in app.js
+9. Attempts made to reduce global variable usage, some work still needed.
 
 10. Comprehensive README file
 
-11. Code Checks
-	- Lint JS
+11. Check Code
+	- JSHINT
+	- all js files
 
-12. Minified js files
+12. Minified js files into combined.min.js
 
-13. Most animation frames code execution between 1 - 2 ms.
+13. Check Animation Frame Rate
+		-Most animation frames code execution between 1 - 2 ms.
 		-plenty of room left for 60 fps limit (16 ms per animation frame)
 
 14. Detailed Commenting for all JS files.
@@ -132,9 +133,9 @@ This project was a great way for me how learn how to use JS FUNCTIONS and OBJECT
 
 Also learned essentials of Canvas in JS, and that Text handling like word wrapping needs additional support, like from libraries.  Still though, pretty effective for making basic messages and labels in this game project.
 
-I am NOT SATISFIED with still having three global variables declared, instead having them declared inside functions.  I could definately use some help with this.
-
 Given enough time, I can envision doing all kinds of crazy things with this simple game platform to make it all the more interesting and challenging.  Like adding more conditional collision states, bonus features, obstacles and random events.
+
+NOTE: I am NOT SATISFIED with still having three global variables declared, instead having them declared inside functions.  I could definately use some help with this.
 
 
 
