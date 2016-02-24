@@ -21,14 +21,14 @@ var updateScore = false,
 
 var Enemy = function(velocity, jitter, rogue, row, random) {
 
-    var enemyYoffset = 83,
-        enemyXend = 600,
-        enemyYstart = 63,
-        enemyXstart = -95;
+    var ENEMY_Y_OFFSET = 83,
+        ENEMY_X_END = 600,
+        ENEMY_Y_START= 63,
+        ENEMY_X_START = -95;
 
 
-    this.enemyXend = enemyXend;
-    this.enemyXstart = enemyXstart;
+    this.ENEMY_X_END = ENEMY_X_END;
+    this.ENEMY_X_START = ENEMY_X_START;
 
     // Sets the initial relative velocity of the Enemy Bug (0.0 - 10.0)
     // (Could also be negative values to move the bugs backwards)
@@ -58,8 +58,8 @@ var Enemy = function(velocity, jitter, rogue, row, random) {
     // Enemy-bug.png is 101 x 171, Enemy visual is actually smaller due to alpha background
     // x = 0, y = 63 perfectly centers Enemy on first ronw first square tile
     // x = -95 offsets most bug off canvas with only a little nose showing
-    this.x = enemyXstart;
-    this.y = this.row * enemyYoffset + enemyYstart;
+    this.x = ENEMY_X_START;
+    this.y = this.row * ENEMY_Y_OFFSET +  ENEMY_Y_START;
 
     // ySign can be positive or negative to set enemy lane change direction
     this.ySign = 1;
@@ -80,14 +80,14 @@ Enemy.prototype.update = function(dt) {
     // "Jitterbug" (variable velocity) effect added with weighted sine & cosine fn
 
 
-    if (this.x >= this.enemyXend) {
-        this.x = this.enemyXstart;
+    if (this.x >= this.ENEMY_X_END) {
+        this.x = this.ENEMY_X_START;
     }
 
-    var constantScale = 100;
-    var constantXincrement = (constantScale * this.velocity * dt);
-    var jitterScale = 10;
-    var jitterXincrement = (jitterScale * Math.sin(this.x));
+    var CONSTANT_SCALE = 100;
+    var constantXincrement = (CONSTANT_SCALE * this.velocity * dt);
+    var JITTER_SCALE = 10;
+    var jitterXincrement = (JITTER_SCALE * Math.sin(this.x));
 
     if (!this.jitter){
         jitterXincrement = 0;
@@ -155,12 +155,12 @@ Enemy.prototype.collide = function() {
 var Player = function() {
     // Establish position starting point
     // char-cat-girl.png is 101 x 171, Player visual is actually smaller due to alpha background
-    var Ystart = 380,
-        Xstart = 203;
-    this.Ystart = Ystart;
-    this.Xstart = Xstart;
-    this.x = Xstart;
-    this.y = Ystart;
+    var PLAYER_Y_START = 380,
+        PLAYER_X_START = 203;
+    this.PLAYER_Y_START = PLAYER_Y_START;
+    this.PLAYER_X_START  = PLAYER_X_START ;
+    this.x = PLAYER_X_START ;
+    this.y = PLAYER_Y_START;
 
     // The image/sprite for our Player this uses
     // a helper we've provided to easily load images
@@ -168,30 +168,30 @@ var Player = function() {
 };
 
 Player.prototype.reset = function() {
-    this.x = this.Xstart;
-    this.y = this.Ystart;
+    this.x = this.PLAYER_X_START;
+    this.y = this.PLAYER_Y_START;
 };
 
 // Update Player location
 Player.prototype.update = function() {
 
     //player handle input keys here with logic to move player in proper direction.
-    //Movement constrained within displayed game grid (1 - 400)
+    //Movement constrained within displayed game grid (1 - 400, 0 - 380)
     Player.prototype.handleInput = function(keyup) {
         // Captured Heart makes Player faster (bigger steps)
         var playerIncrement = 15 + heartCapture * 10,
-            topLimit = 0,
-            leftLimit = 1,
-            bottomLimit = 380,
-            rightLimit = 400;
+            TOP_LIMIT = 0,
+            LEFT_LIMIT = 1,
+            BOTTOM_LIMIT = 380,
+            RIGHT_LIMIT = 400;
 
-        if (keyup === 'up' && this.y >= topLimit) {
+        if (keyup === 'up' && this.y >= TOP_LIMIT) {
             this.y = this.y - playerIncrement;
-        } else if (keyup === 'down' && this.y <=bottomLimit) {
+        } else if (keyup === 'down' && this.y <= BOTTOM_LIMIT) {
             this.y = this.y + playerIncrement;
-        } else if (keyup === 'right' && this.x <=rightLimit) {
+        } else if (keyup === 'right' && this.x <=RIGHT_LIMIT) {
             this.x = this.x + playerIncrement;
-        } else if (keyup === 'left' && this.x >=leftLimit) {
+        } else if (keyup === 'left' && this.x >=LEFT_LIMIT) {
             this.x = this.x - playerIncrement;
         }
 
