@@ -1,3 +1,7 @@
+"use strict";
+
+// Function Defintions used in engine.js
+
 // Most of the Code editing and creation for P3:Game happens here.
 
 // TODO -- refactor functions to use less global varibles
