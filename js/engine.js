@@ -35,9 +35,7 @@ var Engine = (function(global) {
         lifeCycle = 1,
         gameWon = false,
         ninja = false,
-        playerScore = 0,
-        playerX,
-        playerY;
+        playerScore = 0;
 
     canvas.width = 505;
     canvas.height = 606;

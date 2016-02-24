@@ -121,18 +121,17 @@ Enemy.prototype.render = function() {
 
 // Needed fof checkCollision fn
 Enemy.prototype.collide = function() {
-    player.loc();
 // Comparative PLAYER and Enemy dimensional range parameters declared
 // Approx visible rectangle of object image for crossection overlap used
 // Variables offset with numerical adjustment
 // 3D effect makes PLAYER visual base the crosssection, and it is about 35 x 35
 // ENEMY crossection is about 100 x 67
 // Total image size including transparent space is 101 x 171
-    var pLeftX = playerX + 33,
+    var pLeftX = player.x + 33,
         pRightX = pLeftX + 35,
         eLeftX = this.x,
         eRightX = eLeftX + 100,
-        pTopY = playerY + 115,
+        pTopY = player.y + 115,
         pBottomY = pTopY + 35,
         eTopY = this.y + 70,
         eBottomY = eTopY + 67;
@@ -157,9 +156,8 @@ var Player = function() {
     // char-cat-girl.png is 101 x 171, Player visual is actually smaller due to alpha background
     var PLAYER_Y_START = 380,
         PLAYER_X_START = 203;
-    this.PLAYER_Y_START = PLAYER_Y_START;
-    this.PLAYER_X_START  = PLAYER_X_START ;
-    this.x = PLAYER_X_START ;
+
+    this.x = PLAYER_X_START;
     this.y = PLAYER_Y_START;
 
     // The image/sprite for our Player this uses
@@ -208,27 +206,18 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-Player.prototype.loc = function() {
-    playerX = this.x;
-    playerY = this.y;
-
-    return playerX, playerY;
-};
-
-
 Player.prototype.heartCapture = function() {
-    player.loc();
 // Comparative PLAYER and Enemy dimensional range parameters declared
 // Approx visible rectangle of object image for crossection overlap used
 // Variables offset with numerical adjustment
 // 3D effect makes PLAYER visual base the crosssection, and it is about 35 x 35
 // ENEMY crossection is about 100 x 67
 // Total image size including transparent space is 101 x 171
-    var pLeftX = playerX + 33,
+    var pLeftX = player.x + 33,
         pRightX = pLeftX + 35,
         heartLeftX = 201,
         heartRightX = heartLeftX + 100,
-        pTopY = playerY + 115,
+        pTopY = player.y + 115,
         pBottomY = pTopY + 35,
         heartTopY = 165;
         heartBottomY = heartTopY + 100;
@@ -236,7 +225,7 @@ Player.prototype.heartCapture = function() {
     //Compare X and Y ranges for overlap using continuity principle
     if ((heartCapture < 2) && (pLeftX  >= heartLeftX && pLeftX <= heartRightX)  &&  (pTopY  >= heartTopY && pTopY <= heartBottomY)) {
         heartCapture = 1;
-        player.reset();
+        this.reset();
     }
 };
 
