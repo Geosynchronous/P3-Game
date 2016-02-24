@@ -14,14 +14,14 @@ The PLAYER (user) needs to drink water to survive a lifecycle. The player needs 
 					- Only one infected with jitter virus
 	Lifecycle 2 - Still three Bugs
 					- two infected
+				- Heart now appears in all subsequent games
+					- captured heart let player move faster
+					- only one heart captured per game
 	Lifecycle 3 - Still three Bugs
 					- All three infected
 	Lifecycle 4 - Four Bugs
 					- New Bug is a ROGUE (can drift accoss rows)
 					- All four bugs infected
-					- Heart appears
-						- captured heart let player move faster
-						- only one heart captured per game
 	Lifecycle 5 - Six Bugs
 					- All six bugs infected
 					- Same as lifecycle 4 except 2 new bugs
