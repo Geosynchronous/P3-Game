@@ -220,7 +220,7 @@ var Engine = (function(global) {
 
     // renders Bonus Items (Can enable more powees for the player)
     function renderBonusItems() {
-        if ((lifeCycle >= 4) && (heartCapture) <= 1) {
+        if ((lifeCycle >= 2) && (heartCapture) <= 1) {
             HeartRender();
         }
     }
@@ -318,7 +318,7 @@ var Engine = (function(global) {
 
     // Check to see if heart is captured
     function checkHeartCapture() {
-        if (lifeCycle >= 4) {
+        if (lifeCycle >= 2) {
             player.heartCapture();
         }
     }

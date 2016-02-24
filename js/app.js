@@ -157,6 +157,9 @@ var Player = function() {
     var PLAYER_Y_START = 380,
         PLAYER_X_START = 203;
 
+    this.PLAYER_Y_START = PLAYER_Y_START;
+    this.PLAYER_X_START = PLAYER_X_START;
+
     this.x = PLAYER_X_START;
     this.y = PLAYER_Y_START;
 
@@ -219,7 +222,7 @@ Player.prototype.heartCapture = function() {
         heartRightX = heartLeftX + 100,
         pTopY = player.y + 115,
         pBottomY = pTopY + 35,
-        heartTopY = 165;
+        heartTopY = 165,
         heartBottomY = heartTopY + 100;
 
     //Compare X and Y ranges for overlap using continuity principle
