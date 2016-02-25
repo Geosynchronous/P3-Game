@@ -3,6 +3,14 @@ frontend-nanodegree-arcade-game
 by George Fischer
 
 
+HOW TO RUN GAME
+---------------
+
+1. The game is located at https://github.com/Geosynchronous/P3-Game.  You may download all these files into a local directory on your computer.
+
+2. Once the files are in a local directory, all you need to do is click on index.html to open the program in a web browser.  Soon as you do that you should see the game with some bugs with animated motion on a gaming background.
+
+3. Look below at the "How the Game Works" section if you need help play the game.  Also there is an INFO button on the game that gives a brief discription about how to play the game.
 
 
 GAME THEME
@@ -138,7 +146,9 @@ Given enough time, I can envision doing all kinds of crazy things with this simp
 NOTE: I am NOT SATISFIED with still having three global variables declared, instead having them declared inside functions.  I could definately use some help with this.
 
 
-
+NOTES FROM STUDENT
+==================
+This game has been reviewed once, and some required and suggested changes were given by the UDACITY REVIEWER.  I addressed all of these changes, and then re-submited the game.
 
 
 NOTES TO STUDENT (from initital repository file):
