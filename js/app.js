@@ -1,3 +1,4 @@
+
 "use strict";
 
 // Function Defintions used in engine.js
@@ -23,7 +24,7 @@ var Enemy = function(velocity, jitter, rogue, row, random) {
 
     var ENEMY_Y_OFFSET = 83,
         ENEMY_X_END = 600,
-        ENEMY_Y_START= 63,
+        ENEMY_Y_START = 63,
         ENEMY_X_START = -95;
 
 
@@ -36,7 +37,7 @@ var Enemy = function(velocity, jitter, rogue, row, random) {
     //Causes the Enemy Bug to have a jittery motion
     this.jitter = jitter;
 
-// Definately could use some coaching here...
+    // Definately could use some coaching here...
     // Rogue enemy, can move accross lanes when true
     this.rogue = rogue;
 
@@ -59,7 +60,7 @@ var Enemy = function(velocity, jitter, rogue, row, random) {
     // x = 0, y = 63 perfectly centers Enemy on first ronw first square tile
     // x = -95 offsets most bug off canvas with only a little nose showing
     this.x = ENEMY_X_START;
-    this.y = this.row * ENEMY_Y_OFFSET +  ENEMY_Y_START;
+    this.y = this.row * ENEMY_Y_OFFSET + ENEMY_Y_START;
 
     // ySign can be positive or negative to set enemy lane change direction
     this.ySign = 1;
@@ -89,7 +90,7 @@ Enemy.prototype.update = function(dt) {
     var JITTER_SCALE = 10;
     var jitterXincrement = (JITTER_SCALE * Math.sin(this.x));
 
-    if (!this.jitter){
+    if (!this.jitter) {
         jitterXincrement = 0;
     }
 
@@ -103,7 +104,7 @@ Enemy.prototype.update = function(dt) {
 
 
     // Checks if enemy is a rogue, if so it can move accross lanes
-    if ((this.rogue === true && this.y < 250) && (this.rogue === true && this.y > 50)){
+    if ((this.rogue === true && this.y < 250) && (this.rogue === true && this.y > 50)) {
         this.y = this.y - 0.2 * this.ySign;
     } else if (this.rogue === true && this.y <= 50) {
         this.ySign = this.ySign * (-1);
@@ -121,12 +122,12 @@ Enemy.prototype.render = function() {
 
 // Needed fof checkCollision fn
 Enemy.prototype.collide = function() {
-// Comparative PLAYER and Enemy dimensional range parameters declared
-// Approx visible rectangle of object image for crossection overlap used
-// Variables offset with numerical adjustment
-// 3D effect makes PLAYER visual base the crosssection, and it is about 35 x 35
-// ENEMY crossection is about 100 x 67
-// Total image size including transparent space is 101 x 171
+    // Comparative PLAYER and Enemy dimensional range parameters declared
+    // Approx visible rectangle of object image for crossection overlap used
+    // Variables offset with numerical adjustment
+    // 3D effect makes PLAYER visual base the crosssection, and it is about 35 x 35
+    // ENEMY crossection is about 100 x 67
+    // Total image size including transparent space is 101 x 171
     var pLeftX = player.x + 33,
         pRightX = pLeftX + 35,
         eLeftX = this.x,
@@ -137,7 +138,7 @@ Enemy.prototype.collide = function() {
         eBottomY = eTopY + 67;
 
     //Compare X and Y ranges for overlap using continuity principle
-    if ((pLeftX  >= eLeftX && pLeftX <= eRightX)  &&  (pTopY  >= eTopY && pTopY <= eBottomY)) {
+    if ((pLeftX >= eLeftX && pLeftX <= eRightX) && (pTopY >= eTopY && pTopY <= eBottomY)) {
         collision = true;
         player.reset();
     }
@@ -190,14 +191,14 @@ Player.prototype.update = function() {
             this.y = this.y - playerIncrement;
         } else if (keyup === 'down' && this.y <= BOTTOM_LIMIT) {
             this.y = this.y + playerIncrement;
-        } else if (keyup === 'right' && this.x <=RIGHT_LIMIT) {
+        } else if (keyup === 'right' && this.x <= RIGHT_LIMIT) {
             this.x = this.x + playerIncrement;
-        } else if (keyup === 'left' && this.x >=LEFT_LIMIT) {
+        } else if (keyup === 'left' && this.x >= LEFT_LIMIT) {
             this.x = this.x - playerIncrement;
         }
 
         // Check to see if PLAYER is in the WATER
-        if (this.y <= 5 ) {
+        if (this.y <= 5) {
             updateScore = true;
         }
         // console.log(this.x, this.y, updateScore);
@@ -210,12 +211,12 @@ Player.prototype.render = function() {
 };
 
 Player.prototype.heartCapture = function() {
-// Comparative PLAYER and Enemy dimensional range parameters declared
-// Approx visible rectangle of object image for crossection overlap used
-// Variables offset with numerical adjustment
-// 3D effect makes PLAYER visual base the crosssection, and it is about 35 x 35
-// ENEMY crossection is about 100 x 67
-// Total image size including transparent space is 101 x 171
+    // Comparative PLAYER and Enemy dimensional range parameters declared
+    // Approx visible rectangle of object image for crossection overlap used
+    // Variables offset with numerical adjustment
+    // 3D effect makes PLAYER visual base the crosssection, and it is about 35 x 35
+    // ENEMY crossection is about 100 x 67
+    // Total image size including transparent space is 101 x 171
     var pLeftX = player.x + 33,
         pRightX = pLeftX + 35,
         heartLeftX = 201,
@@ -226,14 +227,11 @@ Player.prototype.heartCapture = function() {
         heartBottomY = heartTopY + 100;
 
     //Compare X and Y ranges for overlap using continuity principle
-    if ((heartCapture < 2) && (pLeftX  >= heartLeftX && pLeftX <= heartRightX)  &&  (pTopY  >= heartTopY && pTopY <= heartBottomY)) {
+    if ((heartCapture < 2) && (pLeftX >= heartLeftX && pLeftX <= heartRightX) && (pTopY >= heartTopY && pTopY <= heartBottomY)) {
         heartCapture = 1;
         this.reset();
     }
 };
-
-
-
 
 
 
@@ -252,10 +250,10 @@ var allEnemies = [];
 // Enemy behaviours can be updated to new attributes in succesive LIRECYCLES
 var UpdateEnemyLevel = function(lifeCycle) {
 
-    switch(lifeCycle) {
-    // New allEnemies instances as needed as a function of LIFECYCLE (game level)
-    //Give Enemies their behavioural attributes based on array index (enemy element)
-    // Enemy(velocity, jitter, rogue, row, random)
+    switch (lifeCycle) {
+        // New allEnemies instances as needed as a function of LIFECYCLE (game level)
+        //Give Enemies their behavioural attributes based on array index (enemy element)
+        // Enemy(velocity, jitter, rogue, row, random)
 
         // First Three Enemies Instances
         // Each on Seperate Row, Different Speeds, & Middle Enemy Jitters
@@ -265,26 +263,26 @@ var UpdateEnemyLevel = function(lifeCycle) {
             allEnemies[allEnemies.length] = new Enemy(1.0, false, false, 2, false);
             break;
 
-        // Same as above lifecycle, except 3rd Enemy also infected with Jitter Virus
-        // No new allEnemies instances, just update jitter parameter value
+            // Same as above lifecycle, except 3rd Enemy also infected with Jitter Virus
+            // No new allEnemies instances, just update jitter parameter value
         case 2:
             allEnemies[2].jitter = true;
             break;
 
-        // Same as above lifecycle, now all three Enemy Bugs Jitter
-        // No new allEnemies instances, just update jitter parameter value
+            // Same as above lifecycle, now all three Enemy Bugs Jitter
+            // No new allEnemies instances, just update jitter parameter value
         case 3:
             allEnemies[0].jitter = true;
             break;
 
-        // Add Rogue Enemy Bug, that can drift between all rows
-        // Also has a random range of speeds invoked for a game
-        // Two new allEnemies instance put into the Game
+            // Add Rogue Enemy Bug, that can drift between all rows
+            // Also has a random range of speeds invoked for a game
+            // Two new allEnemies instance put into the Game
         case 4:
             allEnemies[allEnemies.length] = new Enemy(2.0, true, true, 2, false);
             break;
 
-        //  Add 2 more instantiated enemies with random velocities that change rows
+            //  Add 2 more instantiated enemies with random velocities that change rows
         case 5:
             allEnemies[allEnemies.length] = new Enemy(1.0, true, true, 0, true);
             allEnemies[allEnemies.length] = new Enemy(2.0, true, true, 2, true);
@@ -294,8 +292,6 @@ var UpdateEnemyLevel = function(lifeCycle) {
 
 // Place the player object in a variable called player
 var player = new Player();
-
-
 
 
 

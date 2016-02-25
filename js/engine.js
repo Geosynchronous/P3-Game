@@ -1,3 +1,4 @@
+
 /* Engine.js
  * This file provides the game loop functionality (update entities and render),
  * draws the initial game board on the screen, and then calls the update and
@@ -13,13 +14,11 @@
  * the canvas' context (ctx) object globally available to make writing app.js
  * a little simpler to work with.
  */
-
- // This is way cool, an Immediately Invoked Function Expression (IIFE)
- // With it I am able to provide all gamefunctionality on the Canvas
- // All the methods in the other JS files feed into this
- // It is like an attactor site to coordinate all coding with
- // Once I got the hang of this, I started to luv the fluidity of designing in JS!!!
-
+// This is way cool, an Immediately Invoked Function Expression (IIFE)
+// With it I am able to provide all gamefunctionality on the Canvas
+// All the methods in the other JS files feed into this
+// It is like an attactor site to coordinate all coding with
+// Once I got the hang of this, I started to luv the fluidity of designing in JS!!!
 var Engine = (function(global) {
     /* Predefine the variables we'll be using within this scope,
      * create the canvas element, grab the 2D context for that canvas
@@ -76,8 +75,6 @@ var Engine = (function(global) {
 
 
 
-
-
     /* This function does some initial setup that should only occur once,
      * particularly setting the lastTime variable that is required for the
      * game loop.
@@ -88,8 +85,6 @@ var Engine = (function(global) {
         lastTime = Date.now();
         main();
     }
-
-
 
 
 
@@ -135,19 +130,17 @@ var Engine = (function(global) {
         }
 
         // Check if all 5 LIFECYCLES won
-        if((playerScore === 10) && (lifeCycle === 5)) {
+        if ((playerScore === 10) && (lifeCycle === 5)) {
             ninja = true;
 
-        // Check for Game Won and set to start a new game LIFECYCLE
+            // Check for Game Won and set to start a new game LIFECYCLE
         } else if (playerScore === 10) {
             gameWon = true;
-            playerScore =0;
+            playerScore = 0;
             lifeCycle = ++lifeCycle;
             UpdateEnemyLevel(lifeCycle);
         }
     }
-
-
 
 
 
@@ -164,12 +157,12 @@ var Engine = (function(global) {
          * for that particular row of the game level.
          */
         var rowImages = [
-                'images/water-block.png',   // Top row is water
-                'images/stone-block.png',   // Row 1 of 3 of stone
-                'images/stone-block.png',   // Row 2 of 3 of stone
-                'images/stone-block.png',   // Row 3 of 3 of stone
-                'images/grass-block.png',   // Row 1 of 2 of grass
-                'images/grass-block.png'    // Row 2 of 2 of grass
+                'images/water-block.png', // Top row is water
+                'images/stone-block.png', // Row 1 of 3 of stone
+                'images/stone-block.png', // Row 2 of 3 of stone
+                'images/stone-block.png', // Row 3 of 3 of stone
+                'images/grass-block.png', // Row 1 of 2 of grass
+                'images/grass-block.png' // Row 2 of 2 of grass
             ],
             NUM_ROWS = 6,
             NUM_COLS = 5,
@@ -203,8 +196,6 @@ var Engine = (function(global) {
         renderNinja();
         TitleRender();
     }
-
-
 
 
 
@@ -285,8 +276,6 @@ var Engine = (function(global) {
 
 
 
-
-
     // Check to see if Score needs to be rendeered on Socreboard
     var CheckScore = function() {
         if (gamePlay) {
@@ -300,8 +289,8 @@ var Engine = (function(global) {
     // Check to see if Info needs to be rendeered on Socreboard
     var CheckInfo = function() {
         if (!infoRender) {
-                playButton.render();
-                infoButton.render();
+            playButton.render();
+            infoButton.render();
         }
     };
 
@@ -326,14 +315,12 @@ var Engine = (function(global) {
 
 
 
-
-
     /* This function does nothing but it could have been a good place to
      * handle game reset states - maybe a new game menu or a game over screen
      * those sorts of things. It's only called once by the init() method.
      */
 
-     // Reset fn now will set game engine to start in initial state
+    // Reset fn now will set game engine to start in initial state
     function reset() {
         gamePlay = false;
         infoRender = false;
@@ -343,8 +330,6 @@ var Engine = (function(global) {
         gameWon = false;
         ninja = false;
     }
-
-
 
 
 
@@ -362,42 +347,42 @@ var Engine = (function(global) {
         // Play Button Clicked
         // Resets player to start position
         // gamePlay = true enables player to start playing
-        if ((x >= 7  && x<= 88) && (y >= 7 && y <= 35) && (!infoRender)) {
+        if ((x >= 7 && x <= 88) && (y >= 7 && y <= 35) && (!infoRender)) {
             gamePlay = true;
             player.reset();
 
-        // Back Button Clicked
-        // Handles exit from Ninja Window Message
-        // Ready to start again with LIFECYCLE 1 and an an empty Enemies Array
-        } else if (( x >= 412  && x<= 500) && (y >= 7 && y <= 35) && (ninja)) {
+            // Back Button Clicked
+            // Handles exit from Ninja Window Message
+            // Ready to start again with LIFECYCLE 1 and an an empty Enemies Array
+        } else if ((x >= 412 && x <= 500) && (y >= 7 && y <= 35) && (ninja)) {
             allEnemies = [];
             lifeCycle = 1;
             init();
 
-        // Back Button Clicked
-        // Handles exit from Game Won Message
-        } else if (( x >= 412  && x<= 500) && (y >= 7 && y <= 35) && (gameWon)) {
+            // Back Button Clicked
+            // Handles exit from Game Won Message
+        } else if ((x >= 412 && x <= 500) && (y >= 7 && y <= 35) && (gameWon)) {
             reset();
 
-        // Back Button Clicked
-        // Handles exit from Heart Captured Message
-        } else if (( x >= 412  && x<= 500) && (y >= 7 && y <= 35) && (heartCapture === 1)) {
+            // Back Button Clicked
+            // Handles exit from Heart Captured Message
+        } else if ((x >= 412 && x <= 500) && (y >= 7 && y <= 35) && (heartCapture === 1)) {
             heartCapture = 2;
             console.log(heartCapture);
 
-        // Info Button Clicked
-        // Handles allows render of InfoWindow
-        } else if (( x >= 412  && x<= 500) && (y >= 7 && y <= 35) && (!gamePlay) && (!infoRender)) {
+            // Info Button Clicked
+            // Handles allows render of InfoWindow
+        } else if ((x >= 412 && x <= 500) && (y >= 7 && y <= 35) && (!gamePlay) && (!infoRender)) {
             infoRender = true;
 
-        // Reset Button Clicked
-        // Starts game engine from the initial start state
-        } else if (( x >= 412  && x<= 500) && (y >= 7 && y <= 35) && (gamePlay)) {
+            // Reset Button Clicked
+            // Starts game engine from the initial start state
+        } else if ((x >= 412 && x <= 500) && (y >= 7 && y <= 35) && (gamePlay)) {
             reset();
 
-        // Done Button Clicked
-        // Handles exit from Info Message Window about HOW TO PLAY GAME
-        } else if (( x >= 412  && x<= 500) && (y >= 7 && y <= 35) && (infoRender)) {
+            // Done Button Clicked
+            // Handles exit from Info Message Window about HOW TO PLAY GAME
+        } else if ((x >= 412 && x <= 500) && (y >= 7 && y <= 35) && (infoRender)) {
             infoRender = false;
         }
 
@@ -407,8 +392,6 @@ var Engine = (function(global) {
     // Mouse click enevnt invokes handleMouseClick function
     // Used to determine if Buttons (Play etc) are clicked on
     canvas.addEventListener('click', handleMouseClick, false);
-
-
 
 
 
@@ -436,5 +419,3 @@ var Engine = (function(global) {
     global.ctx = ctx;
 
 })(this);
-
-
