@@ -2,7 +2,7 @@
 "use strict";
 
 // by George Fischer
-// JITTER BUG GAME- app.js file
+// JITTER BUG GAME - app.js file
 // Deciphers Keyboard Input (Arrow Keys) for player movement
 // Function Defintions used in engine.js
 // These functions handle the behaviour of Game Elements:

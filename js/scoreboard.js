@@ -1,4 +1,5 @@
-
+// by George Fischer
+// JITTER BUG GAME - app.js file (new file, not github cloned)
 // Creates most of the METHODS needed to display:
 //      Scoreboard, LifeCyle, and Score
 //      Title
@@ -7,7 +8,7 @@
 //
 // Also creates other Objects to be rendered
 // DISPLAYS SCOREBOARD, LIFECYCLE, AND SCORE
-// Constructor functions used here
+
 // Displays Scoreboard
 var ScoreBoardRender = function() {
     var my_gradientBoard = ctx.createLinearGradient(0, 0, 0, 50);
@@ -66,8 +67,7 @@ var TitleRender = function() {
 
 // DISPLAYS BUTTONS
 // PseudoClassical Class Definition Function used here
-
-// Generic cunstructor function to make buttons
+//
 // Begin and End coordinates define needed rectangles
 // "text" is button lable
 // xt & yt define where text lable starts
@@ -119,9 +119,6 @@ var MessageWindowRender = function() {
 };
 
 // Displays Info to be put in MessageWindow
-// Canvas is not well equipe for paragraphs and line breaks!!!
-// Brute Force multiline fillText used here
-// TODO--- HTML & CSS or a JS Library are the way to go?
 var InfoRender = function() {
     ctx.fillStyle = '#fc1';
     ctx.textBaseline = 'top';
@@ -164,6 +161,7 @@ var GameOverRender = function() {
     ctx.drawImage(Resources.get('images/char-cat-girl.png'), 10, 400);
 };
 
+// Displays Jitter Animated YOU WIN! in a Message Window
 var WonGameRender = function() {
     ctx.fillStyle = '#fc1';
     ctx.textBaseline = 'top';
@@ -175,6 +173,7 @@ var WonGameRender = function() {
     ctx.drawImage(Resources.get('images/char-cat-girl.png'), 10, 400);
 };
 
+// Displays Jitter Animated NINJA!!! in a Message Window
 var NinjaRender = function() {
     ctx.fillStyle = '#fc1';
     ctx.textBaseline = 'top';
