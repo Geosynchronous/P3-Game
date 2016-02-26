@@ -219,11 +219,11 @@ Player.prototype.heartCapture = function() {
     // 3D effect makes PLAYER visual base the crosssection, and it is about 35 x 35
     // ENEMY crossection is about 100 x 67
     // Total image size including transparent space is 101 x 171
-    var pLeftX = player.x + 33,
+    var pLeftX = this.x + 33,
         pRightX = pLeftX + 35,
         heartLeftX = 201,
         heartRightX = heartLeftX + 100,
-        pTopY = player.y + 115,
+        pTopY = this.y + 115,
         pBottomY = pTopY + 35,
         heartTopY = 165,
         heartBottomY = heartTopY + 100;
