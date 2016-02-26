@@ -15,6 +15,8 @@ var updateScore = false,
     collision = false,
     heartCapture = 0;
 
+
+
 // Enemies our player must avoid
 // PseudoClassical Class Definition Function used here
 // Enemy is a constructor function(Capitalize first letter)
@@ -233,7 +235,10 @@ Player.prototype.heartCapture = function() {
     }
 };
 
-
+// Renders Heart in middle of stone rows
+var HeartRender = function() {
+    ctx.drawImage(Resources.get('images/heart.png'), 201, 165);
+};
 
 
 // Now instantiate your objects.

@@ -229,8 +229,3 @@ var NinjaWindowRender = function() {
     MessageWindowRender();
     NinjaRender();
 };
-
-// Renders Heart in middle of stone rows
-var HeartRender = function() {
-    ctx.drawImage(Resources.get('images/heart.png'), 201, 165);
-};
