@@ -1,27 +1,20 @@
 
 "use strict";
 
+// by George Fischer
+// JITTER BUG GAME- app.js file
+// Deciphers Keyboard Input (Arrow Keys) for player movement
 // Function Defintions used in engine.js
-
-// Most of the Code editing and creation for P3:Game happens here.
-
-// TODO -- refactor functions to use less global varibles
-// Tried hard to eliminate... missing something here
-// How best to include these variables in function Engine?
-// Will keep them for now, so I can finish the game by deadline
-// Definately could use some coaching here...
+// These functions handle the behaviour of Game Elements:
+//      Enemy (bugs), a Player, and a Heart (Bonus Capture Item)
 
 var updateScore = false,
     collision = false,
     heartCapture = 0;
 
-
-
 // Enemies our player must avoid
-// PseudoClassical Class Definition Function used here
-// Enemy is a constructor function(Capitalize first letter)
-// velocity sets relative default speed of Enemy as global variable
-
+// PseudoClassical Class Definition Function used
+// Function Input parameters modify Enemy bug behaviour
 var Enemy = function(velocity, jitter, rogue, row, random) {
 
     var ENEMY_Y_OFFSET = 83,
@@ -36,53 +29,47 @@ var Enemy = function(velocity, jitter, rogue, row, random) {
     // Sets the initial relative velocity of the Enemy Bug (0.0 - 10.0)
     // (Could also be negative values to move the bugs backwards)
     this.velocity = velocity;
-    //Causes the Enemy Bug to have a jittery motion
+    //Causes the Enemy Bug to have a jittery motion (true, false)
     this.jitter = jitter;
 
-    // Definately could use some coaching here...
-    // Rogue enemy, can move accross lanes when true
+    // Rogue enemy, can move accross lanes (true,false)
     this.rogue = rogue;
 
-    // Row assignment for the Enemy is an integer 0,1,2 (three rows)
+    // Row assignment for three rows the Enemy is an integer (0,1,2)
+    // These are the stone imaged rows
     // (More rows could be added, for instance moving down to grass 3,4)
     this.row = row;
 
-    // Cause a random velocity to be invoked when true
+    // Cause a random velocity to be invoked (true,false)
     this.random = random;
-
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
 
     // Establish position starting point
-    // Enemy-bug.png is 101 x 171, Enemy visual is actually smaller due to alpha background
-    // x = 0, y = 63 perfectly centers Enemy on first ronw first square tile
-    // x = -95 offsets most bug off canvas with only a little nose showing
+    // Enemy-bug.png is 101 x 171
+    // Enemy visual is actually smaller due to alpha background
     this.x = ENEMY_X_START;
     this.y = this.row * ENEMY_Y_OFFSET + ENEMY_Y_START;
 
-    // ySign can be positive or negative to set enemy lane change direction
+    // ySign set enemy lane change direction (+1,-1)
     this.ySign = 1;
 };
 
-// Update the Enemy's position, required method for game
+// Update the Enemy's position method
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
-
+    // Multiply by dt parameter to normalize speed to clock time
+    // Avoids issues with different CPU speeds
+    //
     // Sets Boundaries for start and end of Enemy travel.
-    // Top left corner is origin for Enemy sprite.
+    // Top left corner is origin for all sprites (i.e. Enemy image)
     // Incremenmts movement of Enemy within boundaries.
-    // Increment relative velocity set for each Enemy element as passed parameter.
-    // dt sets relatively constant time increment value on all computers.
+    // Increment relative velocity set for each Enemy element as passed parameters.
     // "Jitterbug" (variable velocity) effect added with weighted sine & cosine fn
 
-
+    // Restart Enemy beginning location if beyond end of stone paths (left edge)
     if (this.x >= this.ENEMY_X_END) {
         this.x = this.ENEMY_X_START;
     }
@@ -92,6 +79,7 @@ Enemy.prototype.update = function(dt) {
     var JITTER_SCALE = 10;
     var jitterXincrement = (JITTER_SCALE * Math.sin(this.x));
 
+    // Allows no JITTER BUG effect on specified Enemy element (jitter = false)
     if (!this.jitter) {
         jitterXincrement = 0;
     }
@@ -101,11 +89,13 @@ Enemy.prototype.update = function(dt) {
         constantXincrement = constantXincrement * (1 - Math.random());
     }
 
-    // Updates x position of enemy (along the lenght of the visible row)
+    // Updates x position of enemy (along the length of the visible stone row)
     this.x = this.x + constantXincrement + jitterXincrement;
 
 
-    // Checks if enemy is a rogue, if so it can move accross lanes
+    // Checks if enemy is a rogue, if so it can move accross lane
+    // Stays within Upper and Lower Boundaries
+    // Changes directions when Upper/Lower Boundary encountered
     if ((this.rogue === true && this.y < 250) && (this.rogue === true && this.y > 50)) {
         this.y = this.y - 0.2 * this.ySign;
     } else if (this.rogue === true && this.y <= 50) {
@@ -117,12 +107,13 @@ Enemy.prototype.update = function(dt) {
     }
 };
 
-// Draw the Enemy on the screen, required method for game
+// Draw the Enemy on the screen method
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// Needed fof checkCollision fn
+// Checks to see if an Enemy element collides with the single player
+// Needed for checkCollision fn in Engine.js
 Enemy.prototype.collide = function() {
     // Comparative PLAYER and Enemy dimensional range parameters declared
     // Approx visible rectangle of object image for crossection overlap used
@@ -139,7 +130,9 @@ Enemy.prototype.collide = function() {
         eTopY = this.y + 70,
         eBottomY = eTopY + 67;
 
-    //Compare X and Y ranges for overlap using continuity principle
+    // Compare X and Y ranges for overlap using continuity principle
+    //      (Collision true will bring up a Message about event)
+    //      (Player position is reset, for start game over after collision)
     if ((pLeftX >= eLeftX && pLeftX <= eRightX) && (pTopY >= eTopY && pTopY <= eBottomY)) {
         collision = true;
         player.reset();
@@ -147,16 +140,15 @@ Enemy.prototype.collide = function() {
 };
 
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
-//
+
+
+
 // Our Player must avoid enemy
-// PseudoClassical Class Definition Function used here
-// Player is a constructor function(Capitalize first letter)
+// PseudoClassical Class Definition Function used
 var Player = function() {
     // Establish position starting point
-    // char-cat-girl.png is 101 x 171, Player visual is actually smaller due to alpha background
+    // char-cat-girl.png is 101 x 171
+    // Player visual is actually smaller due to alpha background
     var PLAYER_Y_START = 380,
         PLAYER_X_START = 203;
 
@@ -166,11 +158,13 @@ var Player = function() {
     this.x = PLAYER_X_START;
     this.y = PLAYER_Y_START;
 
-    // The image/sprite for our Player this uses
+    // The image/sprite for our Player, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/char-cat-girl.png';
 };
 
+
+// Resets the player to the starting position on the grass
 Player.prototype.reset = function() {
     this.x = this.PLAYER_X_START;
     this.y = this.PLAYER_Y_START;
@@ -203,15 +197,17 @@ Player.prototype.update = function() {
         if (this.y <= 5) {
             updateScore = true;
         }
-        // console.log(this.x, this.y, updateScore);
     };
 };
 
-// Draw the Player on the screen, required method for game
+// Draw the Player on the screen method
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+
+// Checks to see if the player captures the heart
+// This will allow the play to move with bigger steps (move faster)
 Player.prototype.heartCapture = function() {
     // Comparative PLAYER and Enemy dimensional range parameters declared
     // Approx visible rectangle of object image for crossection overlap used
@@ -228,7 +224,12 @@ Player.prototype.heartCapture = function() {
         heartTopY = 165,
         heartBottomY = heartTopY + 100;
 
-    //Compare X and Y ranges for overlap using continuity principle
+    // Compare X and Y ranges for overlap using continuity principle
+    // Heart can only be captured once per enabled game
+    // heartCapture states:
+    //      0 - Default, allows heart to be displayed
+    //      1 - Heart Captured, allows player to move faster
+    //      2 - Heart Already Capured, heart not displayed for capture
     if ((heartCapture < 2) && (pLeftX >= heartLeftX && pLeftX <= heartRightX) && (pTopY >= heartTopY && pTopY <= heartBottomY)) {
         heartCapture = 1;
         this.reset();
@@ -241,24 +242,23 @@ var HeartRender = function() {
 };
 
 
-// Now instantiate your objects.
+
 // Place all Enemy objects in an array called allEnemies
-// Individual velocity parameters passed to various enemies.
-// Row offset passed into y values for row centering
+// Individual behaviour parameters passed to various enemies.
 // allEnemies is global array, and allEnemy[] elements have Enemy prototype
 
 
 var allEnemies = [];
 
 // Create Enemies as needed in each LIFECYCLE
-// Enemies created are available in all LIFECYCELS that follow
-// Enemy behaviours can be updated to new attributes in succesive LIRECYCLES
+// Enemies created are available in all LIFECYCLES that follow
+// Enemy behaviours can be updated to new attributes in succesive LIFECYCLES
 var UpdateEnemyLevel = function(lifeCycle) {
 
+    // New allEnemies instances as needed as a function of LIFECYCLE (game level)
+    // Give Enemies their behavioural attributes based on array index (enemy element)
+    // Enemy(velocity, jitter, rogue, row, random)
     switch (lifeCycle) {
-        // New allEnemies instances as needed as a function of LIFECYCLE (game level)
-        //Give Enemies their behavioural attributes based on array index (enemy element)
-        // Enemy(velocity, jitter, rogue, row, random)
 
         // First Three Enemies Instances
         // Each on Seperate Row, Different Speeds, & Middle Enemy Jitters
@@ -268,26 +268,26 @@ var UpdateEnemyLevel = function(lifeCycle) {
             allEnemies[allEnemies.length] = new Enemy(1.0, false, false, 2, false);
             break;
 
-            // Same as above lifecycle, except 3rd Enemy also infected with Jitter Virus
-            // No new allEnemies instances, just update jitter parameter value
+        // Same as above lifecycle, except 3rd Enemy also infected with Jitter Virus
+        // No new allEnemies instances, just update jitter parameter value
         case 2:
             allEnemies[2].jitter = true;
             break;
 
-            // Same as above lifecycle, now all three Enemy Bugs Jitter
-            // No new allEnemies instances, just update jitter parameter value
+        // Same as above lifecycle, now all three Enemy Bugs Jitter
+        // No new allEnemies instances, just update jitter parameter value
         case 3:
             allEnemies[0].jitter = true;
             break;
 
-            // Add Rogue Enemy Bug, that can drift between all rows
-            // Also has a random range of speeds invoked for a game
-            // Two new allEnemies instance put into the Game
+        // Add Rogue Enemy Bug, that can drift between all rows
+        // Also has a random range of speeds invoked for a game
+        // Two new allEnemies instance put into the Game
         case 4:
             allEnemies[allEnemies.length] = new Enemy(2.0, true, true, 2, false);
             break;
 
-            //  Add 2 more instantiated enemies with random velocities that change rows
+        //  Add 2 more instantiated enemies with random velocities that change rows
         case 5:
             allEnemies[allEnemies.length] = new Enemy(1.0, true, true, 0, true);
             allEnemies[allEnemies.length] = new Enemy(2.0, true, true, 2, true);
@@ -295,7 +295,7 @@ var UpdateEnemyLevel = function(lifeCycle) {
     }
 };
 
-// Place the player object in a variable called player
+// Place the Player object in a variable called player
 var player = new Player();
 
 
