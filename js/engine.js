@@ -14,11 +14,10 @@
  * the canvas' context (ctx) object globally available to make writing app.js
  * a little simpler to work with.
  */
+
 // This is way cool, an Immediately Invoked Function Expression (IIFE)
 // With it I am able to provide all gamefunctionality on the Canvas
-// All the methods in the other JS files feed into this
-// It is like an attactor site to coordinate all coding with
-// Once I got the hang of this, I started to luv the fluidity of designing in JS!!!
+// All the methods in the other JS files feed into this Engine Function
 var Engine = (function(global) {
     /* Predefine the variables we'll be using within this scope,
      * create the canvas element, grab the 2D context for that canvas
@@ -133,7 +132,7 @@ var Engine = (function(global) {
         if ((playerScore === 10) && (lifeCycle === 5)) {
             ninja = true;
 
-            // Check for Game Won and set to start a new game LIFECYCLE
+        // Check for Game Won and set to start a new game LIFECYCLE
         } else if (playerScore === 10) {
             gameWon = true;
             playerScore = 0;
@@ -186,6 +185,7 @@ var Engine = (function(global) {
         }
 
         // Renders Everything else needed for game
+        // Many are conditional functions to enable render
         renderScoreboard();
         renderBonusItems();
         renderEntities();
@@ -201,15 +201,14 @@ var Engine = (function(global) {
 
 
     // This function renders Scoreboard at top of game grid
-    // Optimally for game efficiency and frame rate, this does not need to be here
-    // Just a good exercise in using Canvas, that is an intent of this project
     function renderScoreboard() {
         ScoreBoardRender();
         LifeCycleRender(lifeCycle);
         CheckScore();
     }
 
-    // renders Bonus Items (Can enable more powees for the player)
+    // renders Bonus Items
+    // renders Heart on middle of stone rows for player capture
     function renderBonusItems() {
         if ((lifeCycle >= 2) && (heartCapture) <= 1) {
             HeartRender();
@@ -234,8 +233,8 @@ var Engine = (function(global) {
         }
     }
 
-    //This function renders info about the game if the info button was clicked on
-    //TODO as if statement for specific level windows
+    // Renders info message about the game
+    //      (when INFO BUTTON clicked)
     function renderInfo() {
         if (infoRender) {
             InfoWindowRender();
@@ -243,8 +242,8 @@ var Engine = (function(global) {
         }
     }
 
-    //This function renders info about the game if the info button was clicked on
-    //TODO as if statement for specific level windows
+    // Renders GAME OVER message
+    //      (if player and enemy collide)
     function renderGameOver() {
         if (collision) {
             GameOverWindowRender();
@@ -252,6 +251,8 @@ var Engine = (function(global) {
         }
     }
 
+    // Renders Heart Captured message
+    //      (if player captures heart)
     function renderHeartCapture() {
         if (heartCapture === 1) {
             HeartCaptureWindowRender();
@@ -259,6 +260,8 @@ var Engine = (function(global) {
         }
     }
 
+    // Renders Heart Captured message
+    //      (if player captures heart)
     function renderWonGame() {
         if (gameWon) {
             WonGameWindowRender();
@@ -266,6 +269,8 @@ var Engine = (function(global) {
         }
     }
 
+    // Renders NINJA!!! message
+    //      (if player wins all 5 LIFECYCLES)
     function renderNinja() {
         if (ninja) {
             NinjaWindowRender();
@@ -296,7 +301,6 @@ var Engine = (function(global) {
 
 
     // Check for Enemy and Player collision
-    // Check coordinate ranges for overlap
     function checkCollisions() {
         if (gamePlay) {
             allEnemies.forEach(function(Enemy) {
@@ -315,10 +319,6 @@ var Engine = (function(global) {
 
 
 
-    /* This function does nothing but it could have been a good place to
-     * handle game reset states - maybe a new game menu or a game over screen
-     * those sorts of things. It's only called once by the init() method.
-     */
 
     // Reset fn now will set game engine to start in initial state
     function reset() {
@@ -334,15 +334,13 @@ var Engine = (function(global) {
 
 
 
-    // Mouse Click reveals if a button is selected
-    // Basic Function with Returnsd Variables Definition used
-    // TODO --- UGLY CODE - Refactor this logic to simplify
+    // Mouse Click reveals if a rendered button is selected
+    // Check button crosssection for encountering mouse click position
+    // Considers what states buttons are displayed, ie if currently rendered
     function handleMouseClick(evt) {
 
         x = evt.clientX - canvas.offsetLeft;
         y = evt.clientY - canvas.offsetTop;
-
-        // Determines if mouse clicked on a button
 
         // Play Button Clicked
         // Resets player to start position
@@ -351,42 +349,40 @@ var Engine = (function(global) {
             gamePlay = true;
             player.reset();
 
-            // Back Button Clicked
-            // Handles exit from Ninja Window Message
-            // Ready to start again with LIFECYCLE 1 and an an empty Enemies Array
+        // Back Button Clicked
+        // Handles exit from Ninja Window Message
+        // Ready to start again with LIFECYCLE 1 and an an empty Enemies Array
         } else if ((x >= 412 && x <= 500) && (y >= 7 && y <= 35) && (ninja)) {
             allEnemies = [];
             lifeCycle = 1;
             init();
 
-            // Back Button Clicked
-            // Handles exit from Game Won Message
+        // Back Button Clicked
+        // Handles exit from Game Won Message
         } else if ((x >= 412 && x <= 500) && (y >= 7 && y <= 35) && (gameWon)) {
             reset();
 
-            // Back Button Clicked
-            // Handles exit from Heart Captured Message
+        // Back Button Clicked
+        // Handles exit from Heart Captured Message
         } else if ((x >= 412 && x <= 500) && (y >= 7 && y <= 35) && (heartCapture === 1)) {
             heartCapture = 2;
             console.log(heartCapture);
 
-            // Info Button Clicked
-            // Handles allows render of InfoWindow
+        // Info Button Clicked
+        // Handles allows render of InfoWindow
         } else if ((x >= 412 && x <= 500) && (y >= 7 && y <= 35) && (!gamePlay) && (!infoRender)) {
             infoRender = true;
 
-            // Reset Button Clicked
-            // Starts game engine from the initial start state
+        // Reset Button Clicked
+        // Starts game engine from the initial start state
         } else if ((x >= 412 && x <= 500) && (y >= 7 && y <= 35) && (gamePlay)) {
             reset();
 
-            // Done Button Clicked
-            // Handles exit from Info Message Window about HOW TO PLAY GAME
+        // Done Button Clicked
+        // Handles exit from Info Message Window about HOW TO PLAY GAME
         } else if ((x >= 412 && x <= 500) && (y >= 7 && y <= 35) && (infoRender)) {
             infoRender = false;
         }
-
-        return gamePlay, infoRender;
     }
 
     // Mouse click enevnt invokes handleMouseClick function
@@ -412,7 +408,7 @@ var Engine = (function(global) {
 
     Resources.onReady(init);
 
-    /* Assign the canvas' context object to the global variable (the window
+    /* Assign the canvas context object to the global variable (the window
      * object when run in a browser) so that developers can use it more easily
      * from within their app.js files.
      */
