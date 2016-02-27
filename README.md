@@ -2,6 +2,12 @@ frontend-nanodegree-arcade-game
 ===============================
 by George Fischer
 
+UDACITY Project Reviews
+-----------------------
+Exceeds Expectations
+	https://review.udacity.com/#!/reviews/110193
+	https://review.udacity.com/#!/reviews/108833
+
 
 HOW TO RUN GAME
 ---------------

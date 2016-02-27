@@ -12,8 +12,13 @@ var updateScore = false,
     collision = false,
     heartCapture = 0;
 
+// TODO - Add Pseudoclassical Inheritiance
+//          Prototype inheritance already used
+//          Constructore inheritance needs to be applied
+    //          Create supertype class GamingObjects
+    //          Make Enemy, Player, Heart class subthpes
+
 // Enemies our player must avoid
-// PseudoClassical Class Definition Function used
 // Function Input parameters modify Enemy bug behaviour
 var Enemy = function(velocity, jitter, rogue, row, random) {
 
@@ -144,7 +149,6 @@ Enemy.prototype.collide = function() {
 
 
 // Our Player must avoid enemy
-// PseudoClassical Class Definition Function used
 var Player = function() {
     // Establish position starting point
     // char-cat-girl.png is 101 x 171

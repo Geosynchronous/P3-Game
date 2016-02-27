@@ -108,6 +108,8 @@ var backButton = new MakeButton(410, 'Back', 430);
 
 
 // DISPLAYS MESSAGE WINDOWS
+//
+// TODO - Apply inheritance here
 
 // Generic Message Window
 var MessageWindowRender = function() {
