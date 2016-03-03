@@ -4,12 +4,7 @@
 		Front-End Web Developer  
 	
 ##About this Project
-One main purpose of this project was to create an arcade game by cloning some non-working starter files.  Implementing Javascript Object Oriented functions was a main learning pupose in this project.  Almost all of the coding was done in javascript files.
-
-Another main purpose of this project was to implement CANVAS and 60 frame per second animation cycles.  The entire game runs inside of a Canvas window of defined size.
-
-The initial starter files were cloned from this site:
-	https://github.com/udacity/frontend-nanodegree-arcade-game
+One main purpose of this project was to create an arcade game by cloning some non-working starter files.  Implementing Javascript Object Oriented functions was a main learning pupose in this project.  Almost all of the coding was done in javascript files.  Another main purpose of this project was to implement CANVAS and 60 frame per second animation cycles.  The entire game runs inside of a Canvas window of defined size.  The initial starter files were cloned from this site: [Arcade-Game on Udacity's Github](https://github.com/udacity/frontend-nanodegree-arcade-game).  
 
 
 
@@ -23,10 +18,8 @@ Exceeds Expectations
 HOW TO RUN GAME
 ---------------
 
-1. The game is located at https://github.com/Geosynchronous/P3-Game.  You may download all these files into a local directory on your computer.
-
+1. The game is located at [Game on Github](https://github.com/Geosynchronous/P3-Game).  You may download all these files into a local directory on your computer.
 2. Once the files are in a local directory, all you need to do is click on index.html to open the program in a web browser.  Soon as you do that you should see the game with some bugs with animated motion on a gaming background.
-
 3. Look below at the "How the Game Works" section if you need help play the game.  Also there is an INFO button on the game that gives a brief discription about how to play the game.
 
 
