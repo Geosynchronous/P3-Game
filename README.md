@@ -15,9 +15,9 @@ The initial starter files were cloned from this site:
 
 UDACITY Project Reviews
 -----------------------
-Exceeds Expectations
-	https://review.udacity.com/#!/reviews/110193
-	https://review.udacity.com/#!/reviews/108833
+Exceeds Expectations  
+	https://review.udacity.com/#!/reviews/110193  
+	https://review.udacity.com/#!/reviews/108833  
 
 
 HOW TO RUN GAME
@@ -161,11 +161,6 @@ Also learned essentials of Canvas in JS, and that Text handling like word wrappi
 Given enough time, I can envision doing all kinds of crazy things with this simple game platform to make it all the more interesting and challenging.  Like adding more conditional collision states, bonus features, obstacles and random events.
 
 NOTE: I am NOT SATISFIED with still having three global variables declared, instead having them declared inside functions.  I could definately use some help with this.
-
-
-NOTES FROM STUDENT
-==================
-This game has been reviewed once, and some required and suggested changes were given by the UDACITY REVIEWER.  I addressed all of these changes, and then re-submited the game.
 
 
 NOTES TO STUDENT (from initital repository file):
