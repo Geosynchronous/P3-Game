@@ -1,8 +1,9 @@
-Project 3 - Game
-by George Fischer
-
-Udacity's Front-End Web Developer Nanodegree Course
-
+#Project 3 - Game
+	by George Fischer  
+	An Apprentice in Udacity's Nanodegree Course: 
+		Front-End Web Developer  
+	
+##About this Project
 One main purpose of this project was to create an arcade game by cloning some non-working starter files.  Implementing Javascript Object Oriented functions was a main learning pupose in this project.  Almost all of the coding was done in javascript files.
 
 Another main purpose of this project was to implement CANVAS and 60 frame per second animation cycles.  The entire game runs inside of a Canvas window of defined size.
